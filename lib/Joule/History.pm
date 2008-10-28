@@ -58,18 +58,6 @@ sub content {
     $experienced->execute($self->{userid});
     $opts->{virgin} = 1 if !$experienced->fetchrow() && !$self->current();
 
-    ## partlock: temporary
-    #
-    #my ($ljname) = lc($self->{userid}) =~ m!^lj/([a-z0-9_]*)$!;
-    #if ($opts->{virgin} && $ljname && -e "/home/tthurman/proj/jouledata/pickle/$ljname") {
-    #	warn "partlock: $ljname";
-    #	delete $opts->{virgin};
-    #	$opts->{partlock} = 1;
-    #	return ();
-    #}
-
-    # end of partlock
- 
     my $done_today = $self->{dbh}->prepare("SELECT COUNT(datestamp) FROM checking WHERE userid=? AND datestamp=CURRENT_DATE LIMIT 1");
     $done_today->execute($self->{userid});
 
