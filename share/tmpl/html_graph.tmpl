@@ -1,0 +1,26 @@
+[% IF grapherror %]
+Sorry, this graph is so complicated that the server has a headache. Please try chart mode.
+[% END %]
+<table class="gr">
+<tr>
+[% FOR cell IN graphdays %]
+<th>[% cell %]</th>
+[% END %]
+</tr>
+[% FOR line IN graphdata %]
+<tr>
+[% FOR cell IN line %]
+<td
+colspan="[% cell.width %]"
+[% IF cell.colour %]
+style="background-color:#[% cell.colour %]"
+[% END %]
+[% IF cell.name %]
+title="[% cell.name %]"
+[% END %]
+>[% IF cell.name %]<a href="http://users.livejournal.com/[% cell.name %]/profile">[% cell.name %]</a>[% ELSE %]&nbsp;[% END %]</td>
+[% END %]
+</tr>
+[% END %]
+</table>
+[% IF graphdump %][% graphdump %][% END %]

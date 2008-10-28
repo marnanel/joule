@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="[% lang %]" lang="[% lang %]">
+<head>
+<title>[% IF user %]fans of [% user %] on [% sitename %], past and present[% ELSE %]joule - your friendly friend-of monitor[% END %]</title>
+<link rel="stylesheet" type="text/css" href="/rhes" />
+<link rel="alternate" type="application/rss+xml" title="RSS" href="[% rssurl|html %]" />
+<script type="text/javascript"><!--
+function go(){document.j.user.focus();}//--></script>
+<link rel="shortcut icon" href="/favicon.ico" />
+</head>
+<body[% IF NOT user %] onload="go()"[% END %]><div id="content">
+<h1><img src="/marnanel-rhes-joulea-01" alt="*joule*" width="465" height="100" /> </h1>
+<div id="poppy"></div>
+<div id="navigation">
+[% IF user %]
+<a href="[% fullurl|html%]">[% IF limit %]full&nbsp;view[% ELSE %]recent[% END %]</a> &middot;
+[% IF NOT graph %]<a href="[% blankurl|html%]">[% IF noblanks %]blanks[% ELSE %]no&nbsp;blanks[% END %]</a> &middot;[% END %]
+<a href="[% graphurl|html%]">[% IF graph %]chart[% ELSE %]graph[% END %]</a> &middot;
+[% ELSE %]
+<a href="/days/">blog</a> &middot; <a href="/tag/story/">stories</a> &middot; <a href="/tag/poem/">poetry</a> &middot;
+[% END %]
+<a href="/writing/joule-docs">about</a> &middot;
+<a href="http://groups.google.com/group/joule-users/">forum</a> &middot;
+<a href="http://community.livejournal.com/marnanel_joule/">community</a>
+</div>
+
+<div id="text">
+<form class="name" name="j" action="/joule" method="get"><span>Show me the fans of
+<input type="text" name="user" size="15" maxlength="15" value="[% user %]" />
+on
+<select name="site">
+[% FOREACH s IN sites.keys %]<option value="[%s%]"[% IF s==site %]selected[% END %]>[% sites.$s %]</option>[% END %]
+</select>
+as a
+<input type="submit" name="mode" value="chart" />, or 
+<input type="submit" name="mode" value="graph" />.
+</span></form>
+[% IF errormessage %]<b>[% errormessage %]</b>[% END %]
+<p class="credits">
+This is not the real Joule.  Yet.
+</p>
+
+[% IF literalbody %]
+[% literalbody %]
+[% ELSIF NOT user %]
+[% INCLUDE html_front_page.tmpl %]
+[% ELSIF partlock %]
+[% INCLUDE partlock.tmpl %]
+[% ELSIF lonely %]
+[% INCLUDE lonely.tmpl %]
+[% ELSIF virgin %]
+[% INCLUDE html_virgin_page.tmpl %]
+[% ELSIF graph %]
+[% INCLUDE html_graph.tmpl %]
+[% ELSE %]
+[% INCLUDE html_chart.tmpl %]
+[% END %]
+
+<i>[%FOREACH note in notes%][% note %]<br />[% END %]</i><br />
+[% motd %]
+
+<p class="credits">
+joule is by <a href="/">Thomas Thurman</a> &middot; page designed by <a href="http://firinel.org">Firinel Thurman</a><br />
+proudly union made &middot; hosted by <a href="http://redstair.org">red stair</a> &middot;
+valid <a href="http://validator.w3.org/check/referer">html</a>,
+<a href="http://jigsaw.w3.org/css-validator/check/referer">css</a>, and
+<a href="http://feedvalidator.org/check.cgi?url=[% rssurl|html%]">rss</a><br />
+[% INCLUDE daystats.tmpl %]
+</p>
+
+</div></div>
+
+[% INCLUDE googletrack.tmpl %]
+</body></html>

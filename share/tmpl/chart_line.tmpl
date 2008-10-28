@@ -1,0 +1,28 @@
+def draw_line(ranges, days, whose):
+    def plot(whether, place, current, friend):
+        if whether:
+            background = md5.md5(friend).hexdigest()[:6]
+            return '<td colspan="%d" width="%d" bgcolor="#%s"><a href="http://www.livejournal.com/userinfo.bml?user=%s">&nbsp;%s&nbsp;</a></td>' % (
+                (place-current),
+                (place-current)*one_column,
+                background,
+                friend,
+                friend)
+        else:
+            return '<td colspan="%d">&nbsp;</td>' % (
+                (place-current))
+    current = days[-1]
+    
+    result ='<tr>'
+
+    for friend in whose:
+        cycle = ranges[friend].keys()
+        cycle.sort()
+        for place in cycle:
+            result += plot(ranges[friend][place], place, current, friend) + '\n'
+            current = place
+
+    final = whose[-1]
+    result += plot(not ranges[final][current], days[0]+1, current, final) + '\n</tr>\n'
+    return result
+

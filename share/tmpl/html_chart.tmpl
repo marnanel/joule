@@ -1,0 +1,12 @@
+<table class="ch" summary="Changes in the fan list over time">
+<tr><th>Datestamp</th><th>Friended by</th><th>Unfriended by</th></tr>
+[% SET odd=1 %]
+[% FOR day IN days %]
+<tr[% IF odd %] class="odd"[% SET odd=0 %][% ELSE %][% SET odd=1 %][% END %]>
+<th class="date">[% day.date %]</th>
+<td>[%= INCLUDE user_list.tmpl list=day.friended =%]</td>
+<td>[%= INCLUDE user_list.tmpl list=day.unfriended =%]</td>
+</tr>
+[% END %]
+</table>
+

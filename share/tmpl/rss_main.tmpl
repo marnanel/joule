@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<rss version='2.0'>
+<channel>
+<title>Changes in [% user %]'s fans on [% sitename %] over time.</title>
+<description>
+People who have friended and unfriended [% user %] on [% sitename %] recently.
+Want your own feed to see when you've been
+friended and unfriended? Have a look at
+http://marnanel.org/writing/joule-docs .
+
+[% IF errormessage %][% errormessage %][% END %]
+[% IF lonely %]
+[% INCLUDE lonely.tmpl %]
+[% ELSIF partlock %]
+[% INCLUDE partlock.tmpl %]
+[% ELSIF virgin %]
+[% INCLUDE html_virgin_page.tmpl %]
+[% END %]
+
+</description>
+<image><url>http://marnanel.org/static/joule/marnanel-rhes-jouleb-01</url>
+<title>Joule</title><link>http://marnanel.org/joule?user=[% username |uri%]</link></image>
+<!--
+[% FOREACH note IN notes %]
+[% note %]
+[% END %]
+-->
+<link>http://marnanel.org/joule?user=[% username|uri%]</link>
+<ttl>1440</ttl>
+[% FOREACH day IN days %]
+ <item>
+  <pubDate>[% day.rfc822date %]</pubDate>
+  <title>[% day.date %] (+[% IF day.friended %][% day.friended.size %][% ELSE %]0[% END %], -[% IF day.unfriended %][% day.unfriended.size %][% ELSE %]0[% END %]): changes to [% user %]'s readers on [% sitename %]</title>
+  <description>
+   Friended by:
+   [% INCLUDE user_list.tmpl list=day.friended |html%]
+   &lt;br/&gt;
+   Unfriended by
+   [% INCLUDE user_list.tmpl list=day.unfriended |html%]
+   &lt;br/&gt;
+   [% day.motd %]
+  </description>
+  <guid>http://marnanel.org/joule?user=[% user |uri%]&amp;dummy=[% day.date %]</guid>
+ </item>
+[% END %]
+</channel></rss>

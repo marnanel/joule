@@ -1,0 +1,9 @@
+Everything in this directory
+(including this file!)
+will be served by Joule automatically
+if its filename matches
+with priority over anything else it might serve.
+For example, if this directory contains "wombat.png"
+then this will become http://example.com/wombat.png
+even if this would otherwise have been something else.
+

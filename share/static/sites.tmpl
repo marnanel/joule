@@ -1,0 +1,106 @@
+<a href="/">Joule</a> can, in theory, track who has friended and unfriended you from any website that exists. However, in practice there are three things which have to be true in order to let us do so.
+<ol>
+<li>The site must have user accounts, and the user accounts must be able to
+add and remove one another from lists. (This is necessary for Joule to be
+Joule. A site without users or without user lists would not be something Joule
+could track.)</li>
+<li>There must be a way for Joule to get the information out of the site
+without having to know each user's password. A public API is a good way to do
+this, but we'll accept <a href="http://en.wikipedia.org/wiki/Screen_scraping">screen scraping</a> (heck, that's the entire way Joule worked for a long while).</li>
+<li>We need permission from the site owners. If there's a public API then
+you might think we have implicit permission, but I like to get permission
+explicitly. Even if everything else is good, this is a dealbreaker.</li>
+</ol>
+Joule allocates a two-letter code to every site. Here's the information on
+what sites it supports currently, and the codes where they exist.<br />
+
+<h3>Sites that work</h3>
+<i><a href="http://www.livejournal.com">LiveJournal</a> ("lj")</i><br />
+Has been supported since the beginning.<br />
+<br />
+<i><a href="http://del.icio.us">del.icio.us</a> ("de")</i><br />
+Appears to be working perfectly.<br />
+<h3>Sites we are talking to</h3>
+<i><a href="http://www.journalfen.net">journalfen</a></i><br />
+...are willing, but I need to send them some code. I will do this as soon as I
+can.<br />
+<br />
+<i><a href="http://www.insanejournal.com">insanejournal</a></i><br />
+We're talking to them; nothing firm decided yet.<br />
+<br />
+<i><a href="http://www.youtube.com">YouTube</a></i><br />
+Definitely a possibility; <strike>the YouTube developers have given out APIs for a
+number of useful things, including the converse of what we need, but there
+isn't one for listing the people who have a given user friended.</strike> Ha!
+<a href="http://groups.google.com/group/youtube-api/wei/api-feature-requests">Apparently there is</a>.
+So this will be coming soon, I expect.<br />
+
+<h3>Sites which are probabilities</h3>
+<i>Any other LJ-based site</i><br />
+If you administer any other site based on the LJ code, you can probably
+drop in Joule support. I am working on the BML for this and will post it when
+it's been properly tested. If you use such a site and it's not supported and
+you'd like it to be, ask me and let me know the names of your admins. Or,
+even better, ask the admins to contact me.<br />
+<br />
+<i><a href="http://www.facebook.com">Facebook</a></i><br />
+Facebook <a href="http://community.livejournal.com/marnanel_joule/6493.html">have
+told me</a> that Joule for Facebook won't break any rules, <em>providing</em>
+that everyone you track is also signed up to Joule. So suppose there are two
+users, Alice and Bob, and they both have the Joule application: Alice adds
+Bob to her friends, and it will track that. However, Chloe is a Facebook
+user who doesn't have the Joule application installed, and when Alice adds
+Chloe, it would be against the rules for Joule to record the fact. I think
+that if it works like this, it will be pretty useless; what do you folks think?
+
+<h3>Sites which probably aren't going anywhere</h3>
+<i><a href="http://www.myspace.com">MySpace</a></i><br />
+A lot of people have asked about MySpace. They provide no public API and so
+there's apparently no way of getting the data out. If you fancy trying to find
+out how this can be done, and letting me know, please go ahead; I suspect it
+will be a bureaucratic nightmare, but I'm always willing to be proved
+wrong.<br />
+<br />
+<i><a href="http://www.deviantart.com">DeviantArt</a></i><br />
+We've had a couple of requests for this one. It's entirely possible
+technically, but they're not willing:
+<blockquote>
+<tt>From: Maureen W...<br />
+Date: 27 Aug 2007<br />
+<br />
+Hi,<br />
+<br />
+I have spoken to one of the heads of our website and he has informed me this would be a no go.</tt></blockquote>
+
+If you're one of their users and you'd like Joule to track the site enough
+that you're willing to try to persuade them otherwise, feel free; otherwise
+there's not much I can do.<br />
+<br />
+<i><a href="http://twitter.com">Twitter</a></i><br/>
+I would love it if Joule could track Twitter, because I use it quite heavily.
+But their API requires you to be logged in as a user before it will tell you
+who has friended that user, so we can't really use it. I suppose it's possible
+we could ask the admins for a special favour, but I haven't yet, and I
+suspect that if they'd wanted this information to be public knowledge they
+would have made it so in the first place. (But if you want to go and ask them,
+feel free, and let me know what they say.)<br />
+<br />
+<i>Arbitrary offsite RSS feeds</i><br />
+A few people have asked whether Joule can track who is reading an RSS feed on
+another site (say, who is reading the feed of your Flickr photos, as opposed
+to who has you friended on Flickr). This isn't actually possible without
+access to the server logs of the site that's hosting the RSS feed, and
+even <em>then</em> it rather fails part (1) above, because the most you could
+get to identify each user would be an IP address.
+
+<h3>If you have a site and want to integrate it</h3>
+
+Contact me (thomas -at- thurman -dot- org -dot- uk) and tell me about your
+API. A <a href="http://www.json.org">JSON</a> list (as <a href="http://del.icio.us/feeds/json/network/marnanel">used on del.icio.us</a>)
+is ideal, but we can work with most things. If your site uses some version of the LiveJournal codebase we may have some code you can just drop in.
+You might be happy to know that Joule <em>always</em> uses a User-Agent
+containing "Joule", and <em>never</em> polls more often than once per day per
+account.
+<br /><br />
+(You might want to go <a href="/faq">back to the main Joule documentation</a> now.)
+

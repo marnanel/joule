@@ -1,0 +1,13 @@
+body{font-family:sans-serif;}
+h1{font-family:"metro",sans-serif;}
+p.note{float:right;font-size:small;}
+h1{text-align:left;}
+img#tl{position:absolute;top:0;left:0;}
+img#switch{position:absolute;top:0;right:0;border:0;margin-top:7px;margin-right:10px;}
+a:link{color:#8379a0;}a:visited{color:#000000;}
+.ch td,.ch th{border:1px inset #8379a0;}
+.ch th{background-color:#fbffe8;}
+.gr th { color: #888888; font-size: 9px; vertical-align: top; font-weight: normal; }
+.gr th.r { color: #000000; }
+.gr td { font-size: 9px; font-family: sans-serif; font-weight: x-bold; }
+.gr td a { text-decoration: none; color: #000000; background-color: #FFFFFF; }""")

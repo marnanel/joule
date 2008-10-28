@@ -1,0 +1,16 @@
+<table class="gr" summary="Changes in the fan list over time">
+
+<tr>
+<th>H</th>
+</tr>
+[%# FIXME: Can we get ranges out of existing vars? %]
+[% DO..., FIXME %]
+[% SET CANDIDATES=pick_a_line(ranges) %]
+<tr>
+[% FOR candidate IN candidates %]
+drawline...
+[% SET ranges.$candidate = undef or delete it, FIXME %]
+[% END %]
+[% WHILE CANDIDATES, FIXME %]
+</table>
+
