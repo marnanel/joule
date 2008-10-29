@@ -1,0 +1,98 @@
+# Any problems, please let me know.
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"PO-Revision-Date: 2008-10-28 23:10+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+# Translate this to the name of your language
+msgid "English"
+msgstr ""
+
+# Text inside {curly brackets} should usually be translated, but will be treated
+# specially (usually as a hyperlink).  You should keep these in the same order
+# if possible.  If it's not possible, please ask me for advice.
+# Text inside [square brackets] should be left alone because it will be replaced
+# with a value.  You can reorder these as much as you like.
+msgid ""
+"<p>Joule is a way of keeping track of who's reading your stuff.</p>"
+"<p>Lots of sites allow you to make a list of people you want to follow<br />"
+"(sometimes called a friends list, or a watch list).<br />"
+"Sometimes they also let you see who has you on their friends list.<br />"
+"But wouldn't it be nifty if you could see when people start<br />"
+"and stop reading you, like {this}?<br />"
+"That's what Joule is for.</p>"
+"<p>Joule has been around for five years and has tens of thousands of happy users.<br />"
+"Join in by typing your username into the box above.</p>"
+msgstr ""
+
+msgid "Show me the fans of [NAME] on [DATE] as a {chart} or {graph}."
+msgstr ""
+
+msgid "joule is by {Thomas Thurman}i"
+msgstr ""
+
+msgid "page designed by {Firinel Thurman}"
+msgstr ""
+
+msgid "{code released} under {the GNU Affero Licence}"
+msgstr ""
+
+msgid "proudly union made"
+msgstr ""
+
+msgid "hosted by {red stair}"
+msgstr ""
+
+msgid "valid {html}, {css}, and {rss}"
+msgstr ""
+
+# statistics
+msgid "Yesterday: [RH] RSS hits ([LJ]% LJ, [GR] Google Reader), [HH] HTML hits ([FF]% Firefox, [IE]% IE, [SAF]% Safari); [GH] Google hits"
+msgstr ""
+
+msgid "graph"
+msgstr ""
+
+msgid "chart"
+msgstr ""
+
+msgid "with blanks"
+msgstr ""
+
+msgid "without blanks"
+msgstr ""
+
+# Use the same term as for an LJ community
+msgid "community"
+msgstr ""
+
+# frequently asked questions
+msgid "faq"
+msgstr ""
+
+msgid "code"
+msgstr ""
+
+msgid "full view"
+msgstr ""
+
+msgid "most recent"
+msgstr ""
+
+# Column heading
+msgid "Datestamp"
+msgstr ""
+
+# Column heading
+msgid "Friended by"
+msgstr ""
+
+# Column heading
+msgid "Unfriended by"
+msgstr ""
+
