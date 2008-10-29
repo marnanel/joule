@@ -4,6 +4,7 @@ use strict;
 use warnings;
 use Joule::Error;
 use Perl6::Slurp;
+use File::ShareDir;
 
 sub handler {
     my ($self, $r, $vars, $template) = @_;

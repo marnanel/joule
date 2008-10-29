@@ -31,22 +31,20 @@ use Joule::Section::Static;
 use Joule::Section::Report;
 use Joule::Section::Front;
 
+use Joule::Status::All;
+
 sub handler {
 
 	my $r = shift;
 
 	my %vars= (
 			lang => 'en', # fix this properly soon
-			user => undef,
-			site => 'lj',
 			nohiccup => 0,
 			format => 'html', # Get rid of this
 			mimetype => 'text/html',
-			absolute => 'http://marnanel.org', # And this
 			noblanks => 0,
+			sites => Joule::Status::All->sites(),
 		  );
-
-	$vars{name} = "$vars{site}/$vars{user}" if $vars{user};
 
 	my $template = Template->new({
 			INCLUDE_PATH => File::ShareDir::dist_dir('Joule') . '/tmpl',
