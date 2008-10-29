@@ -26,22 +26,10 @@ use Apache2::Const -compile => qw(OK);
 
 use File::ShareDir;
 use Template;
-use Perl6::Slurp;
 
-use Joule::GraphFitter;
-use Joule::History;
-
-sub http_error {
-
-        my ($r, $status, $vars, $template) = @_;
-
-	$r->content_type('text/html');
-	$r->status($status);
-	# factor this out
-	$vars->{'literalbody'} = '';
-	$template->process("$status.tmpl", $vars, \($vars->{'literalbody'})) || die $template->error();
-	$template->process("html_main.tmpl", $vars) || die $template->error();
-}
+use Joule::Section::Static;
+use Joule::Section::Report;
+use Joule::Section::Front;
 
 sub handler {
 
@@ -67,115 +55,11 @@ sub handler {
 			ABSOLUTE => 1,
 			}) || die $Template::ERROR;
 
-	my $share = File::ShareDir::dist_dir('Joule');
-	my $uri = $r->uri();
+	die "No template" unless $template;
 
-# Static handler.  Should be a separate module.
-
-	if ($uri =~ /^\/[^\/]+$/ && $uri !~ /\.\./) {
-
-# note: do not use glob in scalar context in mod_perl:
-# it has state
-		my @static = glob("$share/static$uri.*");
-
-		if (@static) {
-
-			my $static = @static[0];
-
-			my ($extension) = $static =~ /\.([A-Za-z0-9]+)$/;
-
-			if ($extension eq 'tmpl') {
-				# FIXME: This should find a title too
-				$r->content_type('text/html');
-				$vars{'literalbody'} = '';
-				$template->process($static, \%vars, \($vars{'literalbody'})) || die $template->error();
-				$template->process("html_main.tmpl", \%vars) || die $template->error();
-			} else {
-
-				my %mimemapping = (
-						css => 'text/css',
-						tmpl => 'text/html',
-						png => 'image/png',
-						jpg => 'image/jpg',
-						gif => 'image/gif',
-						);
-
-				if ($mimemapping{$extension}) {
-					$r->content_type($mimemapping{$extension});
-				} else {
-					$r->content_type('text/plain');
-				}
-
-				print slurp("<$static");
-			}
-		} else {
-                        warn "unknown static";
-                        http_error($r, 404, \%vars, $template);
-		}
-
-        } elsif ($uri =~ /^\/([a-z]+)\/([a-z][a-z])\/([A-Za-z0-9_-]+)/) {
-               $r->content_type('text/html');
-
-               my %modes = (
-                  chart => {mimetype => 'text/html', graph => 0, limit=>50},
-                  chartnoblanks => {mimetype => 'text/html', graph => 0, limit=>50, noblanks=>1},
-                  chartfull => {mimetype => 'text/html', graph => 0},
-                  chartfullnoblanks => {mimetype => 'text/html', graph => 0, noblanks=>1},
-                  graph => {mimetype => 'text/html', graph => 1, limit=>50},
-                  graphfull => {mimetype => 'text/html', graph => 1},
-                  rss => {mimetype => 'text/rss', limit=>50},
-               );
-
-               if ($modes{$1}) {
-                      %vars = (%vars, %{$modes{$1}});
-                      $vars{'site'} = $2;
-                      $vars{'user'} = $3;
-
-                      my $status_handler = "From_".uc($vars{site});
-                      my $path = "Joule/Status/$status_handler.pm";
-	              my $modname = "Joule::Status::$status_handler";
-	              eval { require $path; };
-
-                      if ($@) {
-		          warn "$path handler not found";
-                          http_error($r, 404, \%vars, $template);
-	              } elsif (!$modname->can('site')) {
-		          warn "$modname refused to cooperate.";
-                          http_error($r, 404, \%vars, $template); # FIXME: 500, really
-                      } else {
-
-                          my $status = ("Joule::Status::From_".uc($vars{site}))->new(\%vars);
-	                  $vars{sitename} = $status->site();
-
-		          my $history = Joule::History->new($vars{'site'}.'/'.$vars{'user'}, $status);
-		          $vars{'days'} = [ $history->content(\%vars) ];
-
-                          Joule::GraphFitter::fit(\%vars) if ($vars{graph});
-
-	                  $template->process("html_main.tmpl", \%vars) || die $template->error();
-                      }
-               } else {
-                      warn "unknown mode";
-                      http_error($r, 404, \%vars, $template);
-               }
-
-	} else {
-
-                # Front page.
-
-		$r->content_type($vars{mimetype});
-
-		my $template = Template->new({
-				INCLUDE_PATH => File::ShareDir::dist_dir('Joule') . '/tmpl',
-				COMPILE_EXT => 'c',
-				COMPILE_DIR => '/tmp/joule3',
-				}) || die $Template::ERROR;
-
-		die "No template: " unless $template;
-
-		$template->process("$vars{format}_main.tmpl", \%vars) || die $template->error();
-
-	}
+        for my $i qw(Static Report Front) {
+           last if "Joule::Section::$i"->handler($r, \%vars, $template);
+        }
 
 	return Apache2::Const::OK;
 }
