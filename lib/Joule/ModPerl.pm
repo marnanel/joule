@@ -39,6 +39,7 @@ sub handler {
 
 	my %vars= (
 			lang => 'en', # fix this properly soon
+			site => 'lj', # so chosen by default on first load
 			nohiccup => 0,
 			format => 'html', # Get rid of this
 			mimetype => 'text/html',
