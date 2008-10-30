@@ -27,6 +27,7 @@ use Apache2::Const -compile => qw(OK);
 use File::ShareDir;
 use Template;
 
+use Joule::Section::Redirect;
 use Joule::Section::Static;
 use Joule::Section::Report;
 use Joule::Section::Front;
@@ -56,7 +57,7 @@ sub handler {
 
 	die "No template" unless $template;
 
-        for my $i qw(Static Report Front) {
+        for my $i qw(Redirect Static Report Front) {
            last if "Joule::Section::$i"->handler($r, \%vars, $template);
         }
 
