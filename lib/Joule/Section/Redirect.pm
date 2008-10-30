@@ -29,8 +29,6 @@ sub handler {
 
 	return 0 unless param();
 
-	$r->content_type('text/plain');
-
 	my $location = '/';
 
 	if (param('user')) {
