@@ -28,8 +28,6 @@ sub handler {
 
     return 0 unless $r->uri =~ /^\/([a-z]+)\/([a-z][a-z])\/([A-Za-z0-9_-]+)/;
 
-    $r->content_type('text/html');
-
     my %modes = (
 		    chart => {mimetype => 'text/html', graph => 0, limit=>50},
 		    chartnoblanks => {mimetype => 'text/html', graph => 0, limit=>50, noblanks=>1},
@@ -37,7 +35,7 @@ sub handler {
 		    chartfullnoblanks => {mimetype => 'text/html', graph => 0, noblanks=>1},
 		    graph => {mimetype => 'text/html', graph => 1, limit=>50},
 		    graphfull => {mimetype => 'text/html', graph => 1},
-		    rss => {mimetype => 'text/rss', limit=>50},
+		    rss => {mimetype => 'application/rss+xml', limit=>50},
 		);
 
     unless ($modes{$1}) {
@@ -69,7 +67,9 @@ sub handler {
 
 	    Joule::GraphFitter::fit($vars) if ($vars->{'graph'});
 
-	    $template->process("html_main.tmpl", $vars) || die $template->error();
+            $r->content_type($vars->{'mimetype'});
+            my @mime = split(/\//, $vars->{'mimetype'});
+	    $template->process($mime[1]."_main.tmpl", $vars) || die $template->error();
     }
 
     return 1;
