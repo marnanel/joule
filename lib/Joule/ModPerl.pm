@@ -34,6 +34,17 @@ use Joule::Section::Front;
 
 use Joule::Status::All;
 
+# THIS WILL NOT STAY HERE
+use POSIX;
+sub rfc822date {
+	my ($y, $m, $d) = split(/-/, shift);
+
+	return POSIX::strftime(
+                '%a, %d %b %Y 00:00:00 GMT',
+                0, 0, 0, $d*1, $m*1-1, $y*1-1900,
+                );
+}
+
 sub handler {
 
 	my $r = shift;
@@ -53,6 +64,7 @@ sub handler {
 			COMPILE_EXT => 'c',
 			COMPILE_DIR => '/tmp/joule3',
 			ABSOLUTE => 1,
+			FILTERS => { rfc822date => \&rfc822date, },
 			}) || die $Template::ERROR;
 
 	die "No template" unless $template;

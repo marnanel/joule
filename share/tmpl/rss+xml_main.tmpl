@@ -19,7 +19,8 @@ http://marnanel.org/writing/joule-docs .
 
 </description>
 <image><url>http://marnanel.org/static/joule/marnanel-rhes-jouleb-01</url>
-<title>Joule</title><link>http://marnanel.org/joule?user=[% username |uri%]</link></image>
+<title>Changes in [% user %]'s fans on [% sitename %] over time.</title>
+<link>http://marnanel.org/joule?user=[% username |uri%]</link></image>
 <!--
 [% FOREACH note IN notes %]
 [% note %]
@@ -29,7 +30,7 @@ http://marnanel.org/writing/joule-docs .
 <ttl>1440</ttl>
 [% FOREACH day IN days %]
  <item>
-  <pubDate>[% day.rfc822date %]</pubDate>
+  <pubDate>[% FILTER rfc822date %][% day.date %][% END %]</pubDate>
   <title>[% day.date %] (+[% IF day.friended %][% day.friended.size %][% ELSE %]0[% END %], -[% IF day.unfriended %][% day.unfriended.size %][% ELSE %]0[% END %]): changes to [% user %]'s readers on [% sitename %]</title>
   <description>
    Friended by:
