@@ -35,7 +35,7 @@ sub handler {
 		my $mode = 'chart';
 
 		$site = 'lj' unless $site;
-		$mode = 'graph' unless param('graph');
+		$mode = 'graph' if param('graph');
 
 		$location = "/$mode/$site/" . param('user');
 	}
