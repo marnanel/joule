@@ -1,3 +1,1 @@
-[%# This produces the equivalent of <lj user="...">. It takes one parameter, "name".
-TODO: Need to find a generalised way of doing this for generalised sites.
-%]<span class="user"><a href="http://[% name %].livejournal.com/profile"><img src="[% absolute %]/static/joule/userinfo" WIDTH="17" HEIGHT="17" ALIGN="MIDDLE" border="0" alt="~"></a><a href="http://[% name %].livejournal.com">[% name %]</a></span>
+[% IF site=="lj" %]<span class="user"><a href="http://[% name %].livejournal.com/profile"><img class="userinfo" src="/userinfo" width="17" height="17" alt="~" /></a>[% END %]<a href="http://[% name %].livejournal.com">[% name %]</a></span>
