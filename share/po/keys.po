@@ -52,7 +52,7 @@ msgid "hosted by {red stair}"
 msgstr "hosted http://redstair.org"
 
 msgid "valid {html}, {rss}, and {css}"
-msgstr "valid http://validator.w3.org/check/referer *validrss http://jigsaw.w3.org/css-validator/check/referer"
+msgstr "validrss http://validator.w3.org/check/referer *validrss http://jigsaw.w3.org/css-validator/check/referer"
 
 msgid "valid {html} and {css}"
 msgstr "valid http://validator.w3.org/check/referer http://jigsaw.w3.org/css-validator/check/referer"
