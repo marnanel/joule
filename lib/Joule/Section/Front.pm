@@ -27,7 +27,7 @@ sub handler {
 
 	$r->content_type($vars->{mimetype});
 
-	$template->process("$vars->{format}_main.tmpl", $vars) || die $template->error();
+	$template->process("html_main.tmpl", $vars) || die $template->error();
 
 	return 1;
 }
