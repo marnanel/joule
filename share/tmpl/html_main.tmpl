@@ -7,7 +7,7 @@
 <link rel="stylesheet" type="text/css" href="/rhes" />
 [%IF user %]<link rel="alternate" type="application/rss+xml" title="RSS" href="/rss/[% site %]/[% user %]" />[% END %]
 <script type="text/javascript"><!--
-function go(){document.j.user.focus();}//--></script>
+function go(){alert(document.getElementById('u').focus);document.getElementById('u').focus();}//--></script>
 <link rel="shortcut icon" href="/favicon.ico" />
 </head>
 <body[% IF NOT user %] onload="go()"[% END %]><div id="content">
@@ -19,7 +19,7 @@ function go(){document.j.user.focus();}//--></script>
 [% IF NOT graph %]<a href="[% blankurl|html%]">[% IF noblanks %]blanks[% ELSE %]no&nbsp;blanks[% END %]</a> &middot;[% END %]
 <a href="[% graphurl|html%]">[% IF graph %]chart[% ELSE %]graph[% END %]</a> &middot;
 [% ELSE %]
-<a href="/days/">blog</a> &middot; <a href="/tag/story/">stories</a> &middot; <a href="/tag/poem/"><t><en>poetry</en><cy>cerddoriaeth</cy></t></a> &middot;
+<a href="/days/">blog</a> &middot; <a href="/tag/story/">stories</a> &middot; <a href="/tag/poem/">poetry</a> &middot;
 [% END %]
 <a href="/writing/joule-docs">about</a> &middot;
 <a href="http://groups.google.com/group/joule-users/">forum</a> &middot;
@@ -27,8 +27,8 @@ function go(){document.j.user.focus();}//--></script>
 </div>
 
 <div id="text">
-<form class="name" name="j" action="/joule" method="get"><span>Show me the fans of
-<input type="text" name="user" size="15" maxlength="15" value="[% user %]" />
+<form class="name" action="/" method="get"><span>Show me the fans of
+<input type="text" name="user" size="15" maxlength="15" id="u" value="[% user %]" />
 on
 <select name="site">
 [% FOREACH s IN sites.keys %]<option value="[%s%]"[% IF s==site %] selected="selected"[% END %]>[% sites.$s %]</option>[% END %]
