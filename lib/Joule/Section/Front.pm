@@ -25,7 +25,7 @@ sub handler {
 
 	my ($self, $r, $vars, $template) = @_;
 
-	$r->content_type($vars->{mimetype});
+	$r->content_type('text/html');
 
 	$template->process("html_main.tmpl", $vars) || die $template->error();
 
