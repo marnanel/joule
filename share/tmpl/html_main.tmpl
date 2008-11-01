@@ -16,7 +16,11 @@ function go(){document.getElementById('u').focus();}//--></script>
 <div id="navigation">
 <a href="/faq">faq</a> &middot;
 [% IF user %]
-<a href="/">[% IF limit %]full view[% ELSE %]recent[% END %]</a> &middot;
+[% IF limit %]
+<a href="/[% IF graph %]graph[% ELSE %]chart[% END %]full/[%site%]/[%user%]">full view</a> &middot;
+[% ELSE %]
+<a href="/[% IF graph %]graph[% ELSE %]chart[% END %]/[%site%]/[%user%]">recent</a> &middot;
+[% END %]
 [% IF NOT graph %]<a href="/">[% IF noblanks %]with blanks[% ELSE %]without blanks[% END %]</a> &middot;[% END %]
 <a href="/[% IF graph %]chart[% ELSE %]graph[% END %]/[%site%]/[%user%]">[% IF graph %]chart[% ELSE %]graph[% END %]</a>
 &middot; <a href="/rss/[%site%]/[% user %]">feed</a>
