@@ -5,7 +5,7 @@
 <head>
 <title>[% IF user %]fans of [% user %] on [% sitename %], past and present[% ELSE %]joule - your friendly friend-of monitor[% END %]</title>
 <link rel="stylesheet" type="text/css" href="/rhes" />
-<link rel="alternate" type="application/rss+xml" title="RSS" href="[% rssurl|html %]" />
+[%IF user %]<link rel="alternate" type="application/rss+xml" title="RSS" href="/rss/[% site %]/[% user %]" />[% END %]
 <script type="text/javascript"><!--
 function go(){document.j.user.focus();}//--></script>
 <link rel="shortcut icon" href="/favicon.ico" />
