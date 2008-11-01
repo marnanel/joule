@@ -1,0 +1,3 @@
+<select name="site">
+[% FOREACH s IN sites.keys %]<option value="[%s%]"[% IF s==site %] selected="selected"[% END %]>[% sites.$s %]</option>[% END %]
+</select>

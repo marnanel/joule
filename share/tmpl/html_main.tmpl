@@ -43,15 +43,7 @@ function go(){document.getElementById('u').focus();}//--></script>
 
 <form class="name" action="/" method="get">
 <div id="text">
-Show me the fans of
-<input type="text" name="user" size="15" maxlength="15" id="u" value="[% user %]" />
-on
-<select name="site">
-[% FOREACH s IN sites.keys %]<option value="[%s%]"[% IF s==site %] selected="selected"[% END %]>[% sites.$s %]</option>[% END %]
-</select>
-as a
-<input type="submit" name="mode" value="chart" />, or 
-<input type="submit" name="mode" value="graph" />.
+[% strings.showme %]
 [% IF errormessage %]<b>[% errormessage %]</b>[% END %]
 <p class="credits">
 This is not the real Joule.  Yet.

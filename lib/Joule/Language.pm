@@ -10,11 +10,17 @@ my %translations;
 
 # I have no idea why Locale::PO leaves in the quotes
 sub _unquote {
-	my ($str) = @_;
-	$str =~ s/\\"/"/g;
-	$str =~ s/^"//;
-	$str =~ s/"$//;
-	return $str;
+    my ($str) = @_;
+    $str =~ s/\\"/"/g;
+    $str =~ s/^"//;
+    $str =~ s/"$//;
+    return $str;
+}
+
+sub _replacement {
+    my ($str) = @_;
+
+    return "... $str ...";
 }
 
 sub _setup {
@@ -22,11 +28,13 @@ sub _setup {
     my $keys = Locale::PO->load_file_ashash("$podir/keys.po");
 
     %translations = (en=>{});
+    my %params;
 
     for my $i (keys %$keys) {
 	next unless $i;
 	my ($keyword, @params) = split(/\s+/,_unquote($keys->{$i}->msgstr));
 	$translations{en}->{$keyword} = $i;
+	$params{$keyword} = \@params;
     }
 
     for my $i (glob("$podir/??.po")) {
@@ -36,7 +44,13 @@ sub _setup {
 	    next unless $j;
 	    use Data::Dumper;
 	    die "There is no translation for $j $translations{en}->{$j} in $iso639." unless $po->{$translations{en}->{$j}};
-	    $translations{$iso639}->{_unquote($j)} = _unquote($po->{$translations{en}->{$j}}->msgstr);
+	    my $msgstr = _unquote($po->{$translations{en}->{$j}}->msgstr);
+
+	    for my $param (@{ $params{$j} }) {
+		$msgstr =~ s/\{([^\}]+)\}/<a href="$param">$1<\/a>/g;
+	    }
+
+	    $translations{$iso639}->{_unquote($j)} = $msgstr;
 	}
     }
 
