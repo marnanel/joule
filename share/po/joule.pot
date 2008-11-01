@@ -1,5 +1,4 @@
-# Any problems, please let me know.
-msgid ""
+# Any problems, let me know.
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "PO-Revision-Date: 2008-10-28 23:10+0000\n"
@@ -11,6 +10,11 @@ msgstr ""
 
 # Translate this to the name of your language
 msgid "English"
+msgstr ""
+
+# Translate this to include your language and name.
+# (The English isn't really shown.)
+msgid "English translation by Thomas Thurman"
 msgstr ""
 
 # Text inside {curly brackets} should usually be translated, but will be treated
@@ -30,7 +34,7 @@ msgid ""
 "Join in by typing your username into the box above.</p>"
 msgstr ""
 
-msgid "Show me the fans of [NAME] on [DATE] as a {chart} or {graph}."
+msgid "Show me the fans of [NAME] on [SITE] as a {chart} or {graph}."
 msgstr ""
 
 msgid "joule is by {Thomas Thurman}"
@@ -51,8 +55,12 @@ msgstr ""
 msgid "valid {html}, {css}, and {rss}"
 msgstr ""
 
-# statistics
-msgid "Yesterday: [RH] RSS hits ([LJ]% LJ, [GR] Google Reader), [HH] HTML hits ([FF]% Firefox, [IE]% IE, [SAF]% Safari); [GH] Google hits"
+# some pages don't have an RSS feed
+msgid "valid {html} and {css}"
+msgstr ""
+
+# statistics.  {} gets replaced by numbers throughout
+msgid "Yesterday: {} RSS hits ({}% LJ, {} Google Reader), {} HTML hits ({}% Firefox, {}% IE, {}% Safari); {} Google hits"
 msgstr ""
 
 msgid "graph"
@@ -94,5 +102,21 @@ msgstr ""
 
 # Column heading
 msgid "Unfriended by"
+msgstr ""
+
+# Nobody friended or unfriended them this time
+msgid "None."
+msgstr ""
+
+# this is the title of most pages
+msgid "joule - your friendly friend-of monitor"
+msgstr ""
+
+# this is the title of the report pages
+msgid "fans of [USERNAME] on [SITENAME], past and present"
+msgstr ""
+
+# title of the report table
+msgid "Changes in the fan list over time"
 msgstr ""
 
