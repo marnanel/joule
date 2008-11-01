@@ -22,11 +22,14 @@ use warnings;
 use Joule::GraphFitter;
 use Joule::Error;
 use Joule::History;
+use Joule::Template;
 
 sub handler {
-    my ($self, $r, $vars, $template) = @_;
+    my ($self, $r, $vars) = @_;
 
     return 0 unless $r->uri =~ /^\/([a-z]+)\/([a-z][a-z])\/([A-Za-z0-9_-]+)/;
+
+    my $template = Joule::Template::template;
 
     my %modes = (
 		    chart => {mimetype => 'text/html', graph => 0, limit=>50},

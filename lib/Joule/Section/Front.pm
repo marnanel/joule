@@ -19,7 +19,7 @@ package Joule::Section::Front;
 use strict;
 use warnings;
 use File::ShareDir;
-use Template;
+use Joule::Template;
 
 sub handler {
 
@@ -27,6 +27,7 @@ sub handler {
 
 	$r->content_type('text/html');
 
+	my $template = Joule::Template::template;
 	$template->process("html_main.tmpl", $vars) || die $template->error();
 
 	return 1;

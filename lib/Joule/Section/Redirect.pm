@@ -20,12 +20,11 @@ use strict;
 use warnings;
 use CGI qw/:standard -compile/;
 use File::ShareDir;
-use Template;
 use APR::Table ();
 
 sub handler {
 
-	my ($self, $r, $vars, $template) = @_;
+	my ($self, $r, $vars) = @_;
 
 	return 0 unless param();
 

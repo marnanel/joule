@@ -18,14 +18,19 @@ package Joule::Section::Static;
 
 use strict;
 use warnings;
+
 use Joule::Error;
+use Joule::Template;
+
 use Perl6::Slurp;
 use File::ShareDir;
 
 sub handler {
-    my ($self, $r, $vars, $template) = @_;
+    my ($self, $r, $vars) = @_;
 
     return 0 unless $r->uri =~ /^\/[^\/]+$/ && $r->uri !~ /\.\./;
+
+    my $template = Joule::Template::template;
 
     # note: do not use glob in scalar context in mod_perl:
     # it has state

@@ -19,13 +19,7 @@ package Joule::ModPerl;
 use strict;
 use warnings;
 
-use Apache2::RequestRec ();
-use Apache2::RequestIO ();
-
 use Apache2::Const -compile => qw(OK);
-
-use File::ShareDir;
-use Template;
 
 use Joule::Section::Redirect;
 use Joule::Section::Static;
@@ -35,7 +29,6 @@ use Joule::Section::Front;
 use Joule::Status::All;
 
 use Joule::Language;
-use Joule::Template;
 
 sub handler {
 
