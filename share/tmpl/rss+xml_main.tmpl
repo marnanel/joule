@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8' ?>
-<rss version='2.0'>
+<rss version='2.0' xmlns:atom="http://www.w3.org/2005/Atom">
 <channel>
 <title>Changes in [% user %]'s fans on [% sitename %] over time.</title>
 <description>
@@ -18,14 +18,10 @@ http://marnanel.org/writing/joule-docs .
 [% END %]
 
 </description>
+<atom:link href="http://[% hostname %]/rss/[% site %]/[% user %]" rel="self" type="application/rss+xml" />
 <image><url>http://marnanel.org/static/joule/marnanel-rhes-jouleb-01</url>
 <title>Changes in [% user %]'s fans on [% sitename %] over time.</title>
 <link>http://marnanel.org/joule?user=[% username |uri%]</link></image>
-<!--
-[% FOREACH note IN notes %]
-[% note %]
-[% END %]
--->
 <link>http://marnanel.org/joule?user=[% username|uri%]</link>
 <ttl>1440</ttl>
 [% FOREACH day IN days %]
