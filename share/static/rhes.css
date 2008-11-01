@@ -20,6 +20,7 @@ a:link, a:visited { color: #A18FD5; }
 #footer { text-align:center; padding-top: 1em; font-size: 10pt; }
 #navigation a { text-decoration: none; color: #000000; }
 #sitename { border: 0; }
+.userinfo { border: 0; }
 .admin { text-align:right; font-size: 10pt; }
 .ch { width: 100%; }
 .user { font-weight: bold; font-style: normal; }
