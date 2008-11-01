@@ -1,4 +1,7 @@
-# Any problems, please let me know.
+# This is a particularly magic .po file; it's used to set up
+# the hash table for naming each string.  It also gives the
+# URLs which are interpolated.
+
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
@@ -11,7 +14,7 @@ msgstr ""
 
 # Translate this to the name of your language
 msgid "English"
-msgstr ""
+msgstr "lang"
 
 # Text inside {curly brackets} should usually be translated, but will be treated
 # specially (usually as a hyperlink).  You should keep these in the same order
@@ -28,71 +31,76 @@ msgid ""
 "That's what Joule is for.</p>"
 "<p>Joule has been around for six years and has tens of thousands of happy users.<br />"
 "Join in by typing your username into the box above.</p>"
-msgstr ""
+msgstr "blurb"
 
 msgid "Show me the fans of [NAME] on [DATE] as a {chart} or {graph}."
-msgstr ""
+msgstr "showme"
 
 msgid "joule is by {Thomas Thurman}"
-msgstr ""
+msgstr "bymarn"
 
 msgid "page designed by {Firinel Thurman}"
-msgstr ""
+msgstr "byfin"
 
 msgid "{code released} under {the GNU Affero Licence}"
-msgstr ""
+msgstr "affero"
 
 msgid "proudly union made"
-msgstr ""
+msgstr "union"
 
 msgid "hosted by {red stair}"
-msgstr ""
+msgstr "hosted"
 
 msgid "valid {html}, {css}, and {rss}"
-msgstr ""
+msgstr "valid"
 
 # statistics
 msgid "Yesterday: [RH] RSS hits ([LJ]% LJ, [GR] Google Reader), [HH] HTML hits ([FF]% Firefox, [IE]% IE, [SAF]% Safari); [GH] Google hits"
-msgstr ""
+msgstr "stats"
 
 msgid "graph"
-msgstr ""
+msgstr "graph"
 
 msgid "chart"
-msgstr ""
+msgstr "chart"
 
 msgid "with blanks"
-msgstr ""
+msgstr "withblanks"
 
 msgid "without blanks"
-msgstr ""
+msgstr "noblanks"
 
 # Use the same term as for an LJ community
 msgid "community"
-msgstr ""
+msgstr "comm"
 
 # frequently asked questions
 msgid "faq"
-msgstr ""
+msgstr "faq"
 
 msgid "code"
-msgstr ""
+msgstr "code"
 
 msgid "full view"
-msgstr ""
+msgstr "full"
 
 msgid "most recent"
-msgstr ""
+msgstr "lastn"
 
 # Column heading
 msgid "Datestamp"
-msgstr ""
+msgstr "date"
 
 # Column heading
 msgid "Friended by"
-msgstr ""
+msgstr "friended"
 
 # Column heading
 msgid "Unfriended by"
-msgstr ""
+msgstr "unfriended"
+
+# Nobody friended or unfriended them this time
+msgid "None."
+msgstr "none"
+
 
