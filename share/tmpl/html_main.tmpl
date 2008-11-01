@@ -26,8 +26,9 @@ function go(){alert(document.getElementById('u').focus);document.getElementById(
 <a href="http://community.livejournal.com/marnanel_joule/">community</a>
 </div>
 
+<form class="name" action="/" method="get">
 <div id="text">
-<form class="name" action="/" method="get"><span>Show me the fans of
+Show me the fans of
 <input type="text" name="user" size="15" maxlength="15" id="u" value="[% user %]" />
 on
 <select name="site">
@@ -36,7 +37,6 @@ on
 as a
 <input type="submit" name="mode" value="chart" />, or 
 <input type="submit" name="mode" value="graph" />.
-</span></form>
 [% IF errormessage %]<b>[% errormessage %]</b>[% END %]
 <p class="credits">
 This is not the real Joule.  Yet.
@@ -70,7 +70,7 @@ valid <a href="http://validator.w3.org/check/referer">html</a>,
 [% INCLUDE daystats.tmpl %]
 </p>
 
-</div></div>
+</div></form></div>
 
 [% INCLUDE googletrack.tmpl %]
 </body></html>
