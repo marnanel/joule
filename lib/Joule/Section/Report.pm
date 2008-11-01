@@ -43,7 +43,7 @@ sub handler {
 
     unless ($modes{$1}) {
 	    warn "unknown mode";
-	    http_error($r, 404, $vars, $template);
+	    Joule::Error::http_error($r, 404, $vars, $template);
 	    return 1;
     }
 
