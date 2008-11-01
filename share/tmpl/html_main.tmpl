@@ -18,7 +18,7 @@ function go(){document.getElementById('u').focus();}//--></script>
 [% IF user %]
 <a href="/">[% IF limit %]full view[% ELSE %]recent[% END %]</a> &middot;
 [% IF NOT graph %]<a href="/">[% IF noblanks %]with blanks[% ELSE %]without blanks[% END %]</a> &middot;[% END %]
-&middot; <a href="/[% IF graph %]chart[% ELSE %]graph[% END %]/[%site%]/[%user%]">[% IF graph %]chart[% ELSE %]graph[% END %]</a>
+<a href="/[% IF graph %]chart[% ELSE %]graph[% END %]/[%site%]/[%user%]">[% IF graph %]chart[% ELSE %]graph[% END %]</a>
 &middot; <a href="/rss/[%site%]/[% user %]">feed</a>
 &middot;
 [% ELSE %]
