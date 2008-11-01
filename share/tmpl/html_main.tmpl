@@ -7,7 +7,7 @@
 <link rel="stylesheet" type="text/css" href="/rhes" />
 [%IF user %]<link rel="alternate" type="application/rss+xml" title="RSS" href="/rss/[% site %]/[% user %]" />[% END %]
 <script type="text/javascript"><!--
-function go(){alert(document.getElementById('u').focus);document.getElementById('u').focus();}//--></script>
+function go(){document.getElementById('u').focus();}//--></script>
 <link rel="shortcut icon" href="/favicon.ico" />
 </head>
 <body[% IF NOT user %] onload="go()"[% END %]><div id="content">
