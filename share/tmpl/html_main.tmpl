@@ -14,30 +14,30 @@ function go(){document.getElementById('u').focus();}//--></script>
 <h1><a href="/"><img id="sitename" src="/marnanel-rhes-joulea-01" alt="*joule*" width="465" height="100" /> </a></h1>
 <div id="poppy"></div>
 <div id="navigation">
-<a href="/faq">faq</a> &middot;
-<a href="https://launchpad.net/joule">code</a> &middot;
+<a href="/faq">[% strings.faq %]</a> &middot;
+<a href="https://launchpad.net/joule">[% strings.code %]</a> &middot;
 [% IF user %]
 [% IF graph %][% SET ischart="graph" %][% ELSE %][% SET ischart="chart" %][% END %]
 [% IF limit %][% SET isfull="" %][% ELSE %][% SET isfull="full" %][% END %]
 [% IF NOT graph AND noblanks %][% SET isnoblanks="noblanks" %][% ELSE %][% SET isnoblanks="" %][% END %]
 <a href="/[% IF graph %]chart[% ELSE %]graph[% END %][% isfull %][% isnoblanks %]/[%site%]/[%user%]">[% IF graph %]chart[% ELSE %]graph[% END %]</a> &middot;
 [% IF limit %]
-<a href="/[% ischart %]full[% isnoblanks %]/[%site%]/[%user%]">full view</a> &middot;
+<a href="/[% ischart %]full[% isnoblanks %]/[%site%]/[%user%]">[% strings.full %]</a> &middot;
 [% ELSE %]
-<a href="/[% ischart %][% isnoblanks %]/[%site%]/[%user%]">recent</a> &middot;
+<a href="/[% ischart %][% isnoblanks %]/[%site%]/[%user%]">[% strings.lastn %]</a> &middot;
 [% END %]
 [% IF NOT graph %]
 [% IF noblanks %]
-<a href="/[% ischart %][% isfull %]/[%site%]/[%user%]">with blanks</a> &middot;
+<a href="/[% ischart %][% isfull %]/[%site%]/[%user%]">[% strings.withblanks %]</a> &middot;
 [% ELSE %]
-<a href="/[% ischart %][% isfull %]noblanks/[%site%]/[%user%]">without blanks</a> &middot;
+<a href="/[% ischart %][% isfull %]noblanks/[%site%]/[%user%]">[% strings.noblanks %]</a> &middot;
 [% END %]
 [% END %]
 <a href="/rss/[%site%]/[% user %]">feed</a> &middot;
 [% ELSE %]
 <a href="http://marnanel.org">marnanel</a> &middot;
 [% END %]
-<a href="http://community.livejournal.com/marnanel_joule/">community</a>
+<a href="http://community.livejournal.com/marnanel_joule/">[% strings.comm %]</a>
 </div>
 [% IF NOT noads %]<div id="ads">[% INCLUDE adsense1.tmpl %]</div>[% END %]
 
@@ -77,8 +77,8 @@ This is not the real Joule.  Yet.
 [% motd %]
 
 <p class="credits">
-joule is by <a href="/">Thomas Thurman</a> &middot; page designed by <a href="http://firinel.org">Firinel Thurman</a><br />
-<a href="http://iww.org">proudly union made</a> &middot; hosted by <a href="http://redstair.org">red stair</a> &middot;
+[%strings.bymarn%] &middot; [%strings.byfin%]<br />
+[%strings.union%] &middot; [%strings.hosted%] &middot;
 valid <a href="http://validator.w3.org/check/referer">html</a>[% IF user %],
 <a href="http://feedvalidator.org/check.cgi?url=http://[% hostname %]/rss/[% site %]/[% user %]">rss</a>[% END %]
 and <a href="http://jigsaw.w3.org/css-validator/check/referer">css</a>.<br />
