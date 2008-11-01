@@ -5,7 +5,7 @@
 <head>
 <title>[% IF user %]fans of [% user %] on [% sitename %], past and present[% ELSE %]joule - your friendly friend-of monitor[% END %]</title>
 <link rel="stylesheet" type="text/css" href="/rhes" />
-[%IF user %]<link rel="alternate" type="application/rss+xml" title="RSS" href="/rss/[% site %]/[% user %]" />[% END %]
+[% IF user %]<link rel="alternate" type="application/rss+xml" title="RSS" href="/rss/[% site %]/[% user %]" />[% END %]
 <script type="text/javascript"><!--
 function go(){document.getElementById('u').focus();}//--></script>
 <link rel="shortcut icon" href="/favicon.ico" />
@@ -14,15 +14,16 @@ function go(){document.getElementById('u').focus();}//--></script>
 <h1><a href="/"><img id="sitename" src="/marnanel-rhes-joulea-01" alt="*joule*" width="465" height="100" /> </a></h1>
 <div id="poppy"></div>
 <div id="navigation">
+<a href="/faq">faq</a> &middot;
 [% IF user %]
-<a href="[% fullurl|html%]">[% IF limit %]full&nbsp;view[% ELSE %]recent[% END %]</a> &middot;
-[% IF NOT graph %]<a href="[% blankurl|html%]">[% IF noblanks %]blanks[% ELSE %]no&nbsp;blanks[% END %]</a> &middot;[% END %]
-<a href="[% graphurl|html%]">[% IF graph %]chart[% ELSE %]graph[% END %]</a> &middot;
+<a href="/">[% IF limit %]full view[% ELSE %]recent[% END %]</a> &middot;
+[% IF NOT graph %]<a href="/">[% IF noblanks %]with blanks[% ELSE %]without blanks[% END %]</a> &middot;[% END %]
+&middot; <a href="/[% IF graph %]chart[% ELSE %]graph[% END %]/[%site%]/[%user%]">[% IF graph %]chart[% ELSE %]graph[% END %]</a>
+&middot; <a href="/rss/[%site%]/[% user %]">feed</a>
+&middot;
 [% ELSE %]
-<a href="/days/">blog</a> &middot; <a href="/tag/story/">stories</a> &middot; <a href="/tag/poem/">poetry</a> &middot;
+<a href="http://marnanel.org">marnanel</a> &middot;
 [% END %]
-<a href="/writing/joule-docs">about</a> &middot;
-<a href="http://groups.google.com/group/joule-users/">forum</a> &middot;
 <a href="http://community.livejournal.com/marnanel_joule/">community</a>
 </div>
 
