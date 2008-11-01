@@ -20,7 +20,7 @@ function go(){document.getElementById('u').focus();}//--></script>
 [% IF graph %][% SET ischart="graph" %][% ELSE %][% SET ischart="chart" %][% END %]
 [% IF limit %][% SET isfull="" %][% ELSE %][% SET isfull="full" %][% END %]
 [% IF NOT graph AND noblanks %][% SET isnoblanks="noblanks" %][% ELSE %][% SET isnoblanks="" %][% END %]
-<a href="/[% IF graph %]chart[% ELSE %]graph[% END %][% isfull %][% isnoblanks %]/[%site%]/[%user%]">[% IF graph %]chart[% ELSE %]graph[% END %]</a> &middot;
+<a href="/[% IF graph %]chart[% ELSE %]graph[% END %][% isfull %][% IF graph %][% isnoblanks %][% END %]/[%site%]/[%user%]">[% IF graph %][% strings.chart %][% ELSE %][% strings.graph %][% END %]</a> &middot;
 [% IF limit %]
 <a href="/[% ischart %]full[% isnoblanks %]/[%site%]/[%user%]">[% strings.full %]</a> &middot;
 [% ELSE %]
