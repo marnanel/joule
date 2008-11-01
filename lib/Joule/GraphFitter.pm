@@ -146,7 +146,7 @@ sub fit {
 	for (my $i=_date_to_int($vars->{days}->[-1]->{date}); $i<=_date_to_int($vars->{days}->[0]->{date}); $i++) {
 		my @day = localtime($i*86400);
 		my $date = strftime("%02d", @day);
-		my $month = strftime("<br>%b<br>%y", @day);
+		my $month = strftime("<br/>%b<br/>%y", @day);
 		if ($month ne $prevmonth) {
 			$date .= $month;
 			$prevmonth = $month;
