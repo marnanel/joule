@@ -14,44 +14,37 @@
 #    You should have received a copy of the GNU Affero General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-package Joule::ModPerl;
+package Joule::Template;
 
 use strict;
 use warnings;
 
-use Apache2::RequestRec ();
-use Apache2::RequestIO ();
-
-use Apache2::Const -compile => qw(OK);
-
-use File::ShareDir;
 use Template;
+use POSIX;
+use File::ShareDir;
 
-use Joule::Section::Redirect;
-use Joule::Section::Static;
-use Joule::Section::Report;
-use Joule::Section::Front;
+sub rfc822date {
+	my ($y, $m, $d) = split(/-/, shift);
 
-use Joule::Status::All;
-
-use Joule::Template;
-
-sub handler {
-
-	my $r = shift;
-
-	my %vars= (
-			lang => 'en', # fix this properly soon
-			site => 'lj', # so chosen by default on first load
-			nohiccup => 0,
-			noblanks => 0,
-			sites => Joule::Status::All->sites(),
-		  );
-
-        for my $i qw(Redirect Static Report Front) {
-           last if "Joule::Section::$i"->handler($r, \%vars, Joule::Template::template());
-        }
-
-	return Apache2::Const::OK;
+	return POSIX::strftime(
+                '%a, %d %b %Y 00:00:00 GMT',
+                0, 0, 0, $d*1, $m*1-1, $y*1-1900,
+                );
 }
+
+sub template {
+
+	my $template = Template->new({
+			INCLUDE_PATH => File::ShareDir::dist_dir('Joule') . '/tmpl',
+			COMPILE_EXT => 'c',
+			COMPILE_DIR => '/tmp/joule3',
+			ABSOLUTE => 1,
+			FILTERS => { rfc822date => \&rfc822date, },
+			}) || die $Template::ERROR;
+
+	die "No template" unless $template;
+
+	return $template;
+}
+
 1;
