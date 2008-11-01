@@ -48,8 +48,9 @@ sub handler {
 			sites => Joule::Status::All->sites(),
 		  );
 
+	my $template = Joule::Template::template();
         for my $i qw(Redirect Static Report Front) {
-           last if "Joule::Section::$i"->handler($r, \%vars, Joule::Template::template());
+	    last if "Joule::Section::$i"->handler($r, \%vars, $template);
         }
 
 	return Apache2::Const::OK;
