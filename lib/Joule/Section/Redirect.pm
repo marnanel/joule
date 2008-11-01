@@ -33,11 +33,10 @@ sub handler {
 
 	if (param('user')) {
 		my $site = param('site');
-		# $mode is more complicated than this, really
-		my $mode = param('mode');
+		my $mode = 'chart';
 
 		$site = 'lj' unless $site;
-		$mode = 'chart' unless $mode;
+		$mode = 'graph' unless param('graph');
 
 		$location = "/$mode/$site/" . param('user');
 	}

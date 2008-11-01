@@ -37,12 +37,6 @@ sub _unquote {
     return $str;
 }
 
-sub _replacement {
-    my ($str) = @_;
-
-    return "... $str ...";
-}
-
 sub _setup {
     my $podir = File::ShareDir::dist_dir('Joule') . '/po';
     my $keys = Locale::PO->load_file_ashash("$podir/keys.po");
@@ -69,7 +63,6 @@ sub _setup {
 	    my $msgstr = _unquote($po->{$translations{en}->{$j}}->msgstr);
 
 	    for my $param (@{ $params{$j} }) {
-		my $replacement;
 		if ($param =~ /^\*(.*)$/) {
 		    my $filename = "lang_$1.tmpl";
 		    $msgstr =~ s/\{([^\}]+)\}/my $a; $template->process($filename, {text => $1}, \$a); $a;/e;
