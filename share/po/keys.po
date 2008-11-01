@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"PO-Revision-Date: 2008-10-28 23:10+0000\n"
+"PO-Revision-Date: 2008-11-01 17:47+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -31,28 +31,31 @@ msgid ""
 "That's what Joule is for.</p>"
 "<p>Joule has been around for six years and has tens of thousands of happy users.<br />"
 "Join in by typing your username into the box above.</p>"
-msgstr "blurb"
+msgstr "blurb /chart/lj/marnanel"
 
 msgid "Show me the fans of [NAME] on [DATE] as a {chart} or {graph}."
-msgstr "showme"
+msgstr "showme *chart *graph"
 
 msgid "joule is by {Thomas Thurman}"
-msgstr "bymarn"
+msgstr "bymarn http://marnanel.org"
 
 msgid "page designed by {Firinel Thurman}"
-msgstr "byfin"
+msgstr "byfin http://firinel.org"
 
 msgid "{code released} under {the GNU Affero Licence}"
-msgstr "affero"
+msgstr "affero https://launchpad.net/joule http://www.fsf.org/licensing/licenses/agpl-3.0.html"
 
 msgid "proudly union made"
 msgstr "union"
 
 msgid "hosted by {red stair}"
-msgstr "hosted"
+msgstr "hosted http://redstair.org"
 
-msgid "valid {html}, {css}, and {rss}"
-msgstr "valid"
+msgid "valid {html}, {rss}, and {css}"
+msgstr "valid http://validator.w3.org/check/referer *validrss http://jigsaw.w3.org/css-validator/check/referer"
+
+msgid "valid {html} and {css}"
+msgstr "valid http://validator.w3.org/check/referer http://jigsaw.w3.org/css-validator/check/referer"
 
 # statistics
 msgid "Yesterday: [RH] RSS hits ([LJ]% LJ, [GR] Google Reader), [HH] HTML hits ([FF]% Firefox, [IE]% IE, [SAF]% Safari); [GH] Google hits"

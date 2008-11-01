@@ -34,6 +34,7 @@ use Joule::Section::Front;
 
 use Joule::Status::All;
 
+use Joule::Language;
 use Joule::Template;
 
 sub handler {
@@ -46,10 +47,11 @@ sub handler {
 			nohiccup => 0,
 			noblanks => 0,
 		        hostname => $r->hostname,
+		        strings => Joule::Language->strings($r),
 			sites => Joule::Status::All->sites,
 		  );
-
 	my $template = Joule::Template::template();
+
         for my $i qw(Redirect Static Report Front) {
 	    last if "Joule::Section::$i"->handler($r, \%vars, $template);
         }
