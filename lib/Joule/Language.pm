@@ -6,6 +6,8 @@ use warnings;
 use File::ShareDir;
 use Locale::PO;
 
+use Joule::Template;
+
 my %translations;
 
 # I have no idea why Locale::PO leaves in the quotes
@@ -37,6 +39,8 @@ sub _setup {
 	$params{$keyword} = \@params;
     }
 
+    my $template = Joule::Template::template;
+
     for my $i (glob("$podir/??.po")) {
 	my $po = eval { Locale::PO->load_file_ashash($i) };
 	my ($iso639) = $i =~ /\/(..)\.po$/;
@@ -47,7 +51,13 @@ sub _setup {
 	    my $msgstr = _unquote($po->{$translations{en}->{$j}}->msgstr);
 
 	    for my $param (@{ $params{$j} }) {
-		$msgstr =~ s/\{([^\}]+)\}/<a href="$param">$1<\/a>/g;
+		my $replacement;
+		if ($param =~ /^\*(.*)$/) {
+		    my $filename = "lang_$1.tmpl";
+		    $msgstr =~ s/\{([^\}]+)\}/my $a; $template->process($filename, {text => $1}, \$a); $a;/e;
+		} else {
+		    $msgstr =~ s/\{([^\}]+)\}/<a href="$param">$1<\/a>/;
+		}
 	    }
 
 	    $translations{$iso639}->{_unquote($j)} = $msgstr;

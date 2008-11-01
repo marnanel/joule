@@ -23,6 +23,8 @@ use Template;
 use POSIX;
 use File::ShareDir;
 
+my $_template;
+
 sub rfc822date {
 	my ($y, $m, $d) = split(/-/, shift);
 
@@ -33,8 +35,11 @@ sub rfc822date {
 }
 
 sub template {
+    return $_template;
+}
 
-	my $template = Template->new({
+sub _startup {
+	$_template = Template->new({
 			INCLUDE_PATH => File::ShareDir::dist_dir('Joule') . '/tmpl',
 			COMPILE_EXT => 'c',
 			COMPILE_DIR => '/tmp/joule3',
@@ -42,9 +47,11 @@ sub template {
 			FILTERS => { rfc822date => \&rfc822date, },
 			}) || die $Template::ERROR;
 
-	die "No template" unless $template;
+	die "No template" unless $_template;
 
-	return $template;
+	return $_template;
 }
+
+_startup;
 
 1;
