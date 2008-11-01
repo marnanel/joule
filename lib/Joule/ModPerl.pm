@@ -45,7 +45,8 @@ sub handler {
 			site => 'lj', # so chosen by default on first load
 			nohiccup => 0,
 			noblanks => 0,
-			sites => Joule::Status::All->sites(),
+		        hostname => $r->hostname,
+			sites => Joule::Status::All->sites,
 		  );
 
 	my $template = Joule::Template::template();
