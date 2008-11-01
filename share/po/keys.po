@@ -33,7 +33,7 @@ msgid ""
 "Join in by typing your username into the box above.</p>"
 msgstr "blurb /chart/lj/marnanel"
 
-msgid "Show me the fans of [NAME] on [DATE] as a {chart} or {graph}."
+msgid "Show me the fans of [NAME] on [SITE] as a {chart} or {graph}."
 msgstr "showme *chart *graph"
 
 msgid "joule is by {Thomas Thurman}"

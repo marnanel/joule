@@ -81,10 +81,27 @@ sub is_language {
     return -e File::ShareDir::dist_dir('Joule') . "/po/$code.po";
 }
 
-sub strings {
-    my ($r) = @_;
+sub _dynamic_template {
+    my ($field, $template, $vars) = @_;
+    my $result;
+    $template->process("lang_$field.tmpl", $vars, \$result);
+    return $result;
+}
 
-    return $translations{de};
+sub strings {
+    my ($r, $vars) = @_;
+
+    my $template = Joule::Template::template;
+    my $language = 'de';
+    my %result;
+
+    for (keys %{$translations{$language}}) {
+	my $str = $translations{$language}->{$_};
+	$str =~ s/\[([A-Z]+)\]/_dynamic_template($1, $template, $vars)/ge;
+	$result{$_} = $str;
+    }
+
+    return \%result;
 }
 
 _setup;

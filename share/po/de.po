@@ -42,8 +42,8 @@ msgstr ""
 "Mach' auch mit! Tippe einfach deinen Benutzernamen in das Feld oben.</p>"
 
 # I suppose "DATE" should really be "SITE", judging by the website?
-msgid "Show me the fans of [NAME] on [DATE] as a {chart} or {graph}."
-msgstr "Fans von [NAME] auf [DATE] als {Tabelle} oder als {Graphik} zeigen."
+msgid "Show me the fans of [NAME] on [SITE] as a {chart} or {graph}."
+msgstr "Fans von [NAME] auf [SITE] als {Tabelle} oder als {Graphik} zeigen."
 
 msgid "joule is by {Thomas Thurman}"
 msgstr "Joule ist von {Thomas Thurman}"

@@ -41,15 +41,16 @@ sub handler {
 
 	my $r = shift;
 
-	my %vars= (
+	my %vars = (
 			lang => 'en', # fix this properly soon
 			site => 'lj', # so chosen by default on first load
 			nohiccup => 0,
 			noblanks => 0,
 		        hostname => $r->hostname,
-		        strings => Joule::Language->strings($r),
 			sites => Joule::Status::All->sites,
 		  );
+	$vars{strings} = Joule::Language::strings($r, \%vars);
+
 	my $template = Joule::Template::template();
 
         for my $i qw(Redirect Static Report Front) {
