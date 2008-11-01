@@ -31,7 +31,7 @@ function go(){document.j.user.focus();}//--></script>
 <input type="text" name="user" size="15" maxlength="15" value="[% user %]" />
 on
 <select name="site">
-[% FOREACH s IN sites.keys %]<option value="[%s%]"[% IF s==site %]selected[% END %]>[% sites.$s %]</option>[% END %]
+[% FOREACH s IN sites.keys %]<option value="[%s%]"[% IF s==site %] selected="selected"[% END %]>[% sites.$s %]</option>[% END %]
 </select>
 as a
 <input type="submit" name="mode" value="chart" />, or 
