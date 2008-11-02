@@ -15,7 +15,7 @@ function go(){document.getElementById('u').focus();}//--></script>
 <div id="poppy"></div>
 <div id="languages">
 [% FOREACH lang = strings.LANGS %]<a href="?set=[% lang.code %]"[% IF lang.current %] class="current"[% END %]>[% lang.name %]</a> &middot;
-[% END %]
+[% END %] <a href="http://community.livejournal.com/marnanel_joule/8360.html">more?</a>
 </div>
 <div id="navigation">
 <a href="/faq">[% strings.faq %]</a> &middot;
