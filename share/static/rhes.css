@@ -16,9 +16,12 @@ body { margin: 0; background-color: #000000; color:#FF0000; position: absolute; 
 a:link, a:visited { color: #A18FD5; }
 #text { padding: 0 10px; }
 #poppy { float:right; width: 74px; height: 100px; background-image: url('/marnanel-rhes-jouleb-01'); }
-#navigation { border-color: #000000; height: 30px; background-color: #FFFFFF; clear: both; text-align: center; font-size: 14pt; }
+#navigation { border-color: #000000; height: 18pt; background-color: #FFFFFF; clear: both; text-align: center; font-size: 14pt; }
+#languages { float:right; background-color: #FFFFFF; font-size: 10pt; }
 #footer { text-align:center; padding-top: 1em; font-size: 10pt; }
 #navigation a { text-decoration: none; color: #000000; }
+#languages a { text-decoration: none; color: #000000; }
+.current { font-weight: 900; }
 #ads { text-align:center; }
 #sitename { border: 0; }
 .userinfo { border: 0; }

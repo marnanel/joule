@@ -13,6 +13,10 @@ function go(){document.getElementById('u').focus();}//--></script>
 <body[% IF NOT user %] onload="go()"[% END %]><div id="content">
 <h1><a href="/"><img id="sitename" src="/marnanel-rhes-joulea-01" alt="*joule*" width="465" height="100" /> </a></h1>
 <div id="poppy"></div>
+<div id="languages">
+[% FOREACH lang = strings.LANGS %]<a href="?set=[% lang.code %]"[% IF lang.current %] class="current"[% END %]>[% lang.name %]</a> &middot;
+[% END %]
+</div>
 <div id="navigation">
 <a href="/faq">[% strings.faq %]</a> &middot;
 <a href="https://launchpad.net/joule">[% strings.code %]</a> &middot;
@@ -65,7 +69,6 @@ This is not the real Joule.  Yet.
 [% INCLUDE html_chart.tmpl %]
 [% END %]
 
-<i>[%FOREACH note in notes%][% note %]<br />[% END %]</i><br />
 [% motd %]
 
 <p class="credits">

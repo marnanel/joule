@@ -1,10 +1,10 @@
-# Any problems, please let me know.
+# Any problems, let me know.
 msgid ""
 msgstr ""
-"Project-Id-Version: joule\n"
+"Project-Id-Version: Joule\n"
 "PO-Revision-Date: 2008-10-28 23:10+0000\n"
 "Last-Translator: Philip Newton <Philip.Newton@pobox.com>\n"
-"Language-Team: German <de>\n"
+"Language-Team: German <de@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -12,6 +12,11 @@ msgstr ""
 # Translate this to the name of your language
 msgid "English"
 msgstr "Deutsch"
+
+# Translate this to include your language and name.
+# (The English isn't really shown.)
+msgid "English translation by Thomas Thurman"
+msgstr "Deutsche Übersetzung von Philip Newton"
 
 # Text inside {curly brackets} should usually be translated, but will be treated
 # specially (usually as a hyperlink).  You should keep these in the same order
@@ -41,9 +46,8 @@ msgstr ""
 "zufriedener Benutzer.<br />"
 "Mach' auch mit! Tippe einfach deinen Benutzernamen in das Feld oben.</p>"
 
-# I suppose "DATE" should really be "SITE", judging by the website?
 msgid "Show me the fans of [NAME] on [SITE] as a {chart} or {graph}."
-msgstr "Fans von [NAME] auf [SITE] als {Tabelle} oder als {Graphik} zeigen."
+msgstr "Fans von [NAME] auf [SITE] als {Tabelle} oder als {Grafik} zeigen."
 
 msgid "joule is by {Thomas Thurman}"
 msgstr "Joule ist von {Thomas Thurman}"
@@ -54,27 +58,25 @@ msgstr "Seitendesign von {Firinel Thurman}"
 msgid "{code released} under {the GNU Affero Licence}"
 msgstr "{Code veröffentlicht} unter {der GNU-Affero-Lizenz}"
 
-# I suppose "union" here means "trade union"?
-# As in, "this page was produced by a trade union (or members of one),
-# and we're proud of that fact"?
 msgid "proudly union made"
-msgstr "stolz produziert von einer Gewerkschaft"
+msgstr "Produkt eines stolzen Gewerkschaftsmitglieds"
 
 msgid "hosted by {red stair}"
 msgstr "Webhosting von {red stair}"
 
-msgid "valid {html}, {rss}, and {css}"
-msgstr "gültiger {HTML}-, {RSS-} und {CSS}-Code"
+msgid "valid {html}, {css}, and {rss}"
+msgstr "gültiger {HTML-}, {CSS-} und {RSS}-Code"
 
+# some pages don't have an RSS feed
 msgid "valid {html} and {css}"
-msgstr "gültiger {HTML-} und {CSS}-Code"
+msgstr "gültiger {HTML-} und {CSS-}Code"
 
-# statistics
-msgid "Yesterday: [RH] RSS hits ([LJ]% LJ, [GR] Google Reader), [HH] HTML hits ([FF]% Firefox, [IE]% IE, [SAF]% Safari); [GH] Google hits"
-msgstr "Gestern: [RH] RSS-Zugriffe ([LJ]% LJ, [GR] Google Reader), [HH] HTML-Zugriffe ([FF]% Firefox, [IE]% IE, [SAF]% Safari); [GH] Google-Zugriffe"
+# statistics.  {} gets replaced by numbers throughout
+msgid "Yesterday: {} RSS hits ({}% LJ, {} Google Reader), {} HTML hits ({}% Firefox, {}% IE, {}% Safari); {} Google hits"
+msgstr "Gestern: {} RSS-Zugriffe ({}% LJ, {} Google Reader), {} HTML-Zugriffe ({}% Firefox, {}% IE, {}% Safari); {} Google-Zugriffe"
 
 msgid "graph"
-msgstr "Graphik"
+msgstr "Grafik"
 
 msgid "chart"
 msgstr "Tabelle"
@@ -117,3 +119,20 @@ msgstr "als Freund entfernt von"
 # Nobody friended or unfriended them this time
 msgid "None."
 msgstr "Niemandem."
+
+# this is the title of most pages
+msgid "joule - your friendly friend-of monitor"
+msgstr "Joule - dein freundlicher wessen-Freund-bin-ich-Monitor"
+
+# this is the title of the report pages
+msgid "fans of [USERNAME] on [SITENAME], past and present"
+msgstr "Fans von [USERNAME] auf [SITENAME], früher und jetzt"
+
+# title of the report table
+msgid "Changes in the fan list over time"
+msgstr "Änderungen in der Fanliste im Laufe der Zeit"
+
+# in the top links-- links to the RSS feed
+msgid "feed"
+msgstr "RSS-Feed"
+

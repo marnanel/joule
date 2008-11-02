@@ -51,14 +51,14 @@ msgstr "union"
 msgid "hosted by {red stair}"
 msgstr "hosted http://redstair.org"
 
-msgid "valid {html}, {rss}, and {css}"
-msgstr "validrss http://validator.w3.org/check/referer *validrss http://jigsaw.w3.org/css-validator/check/referer"
+msgid "valid {html}, {css}, and {rss}"
+msgstr "validrss http://validator.w3.org/check/referer http://jigsaw.w3.org/css-validator/check/referer *validrss"
 
 msgid "valid {html} and {css}"
 msgstr "valid http://validator.w3.org/check/referer http://jigsaw.w3.org/css-validator/check/referer"
 
 # statistics
-msgid "Yesterday: [RH] RSS hits ([LJ]% LJ, [GR] Google Reader), [HH] HTML hits ([FF]% Firefox, [IE]% IE, [SAF]% Safari); [GH] Google hits"
+msgid "Yesterday: {} RSS hits ({}% LJ, {} Google Reader), {} HTML hits ({}% Firefox, {}% IE, {}% Safari); {} Google hits"
 msgstr "stats"
 
 msgid "graph"

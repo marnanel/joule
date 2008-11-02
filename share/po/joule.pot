@@ -120,3 +120,7 @@ msgstr ""
 msgid "Changes in the fan list over time"
 msgstr ""
 
+# in the top links-- links to the RSS feed
+msgid "feed"
+msgstr ""
+

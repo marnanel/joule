@@ -103,13 +103,22 @@ sub strings {
     my ($r, $vars) = @_;
 
     my $template = Joule::Template::template;
-    my $language = 'de';
+    my $language = 'ru';
     my %result;
 
     for (keys %{$translations{$language}}) {
 	my $str = $translations{$language}->{$_};
 	$str =~ s/\[([A-Z]+)\]/_dynamic_template($1, $template, $vars)/ge;
 	$result{$_} = $str;
+    }
+
+    $result{'LANGS'} = [];
+    for (sort keys %translations) {
+	push @{$result{'LANGS'}}, {
+	    name => $translations{$_}->{lang},
+	    code => $_,
+	    current => ($language eq $_),
+	};
     }
 
     return \%result;
