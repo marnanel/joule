@@ -1,0 +1,111 @@
+# Any problems, please let me know.
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"PO-Revision-Date: 2008-10-28 23:10+0000\n"
+"Last-Translator: Dmitry Cheryasov <dmitry.cheryasov@gmail.com>\n"
+"Language-Team: Russian <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+# Translate this to the name of your language
+msgid "English"
+msgstr "Русский"
+
+# Text inside {curly brackets} should usually be translated, but will be treated
+# specially (usually as a hyperlink). You should keep these in the same order
+# if possible. If it's not possible, please ask me for advice.
+# Text inside [square brackets] should be left alone because it will be replaced
+# with a value. You can reorder these as much as you like.
+msgid ""
+"<p>Joule is a way of keeping track of who's reading your stuff.</p>"
+"<p>Lots of sites allow you to make a list of people you want to follow<br />"
+"(sometimes called a friends list, or a watch list).<br />"
+"Sometimes they also let you see who has you on their friends list.<br />"
+"But wouldn't it be nifty if you could see when people start<br />"
+"and stop reading you, like {this}?<br />"
+"That's what Joule is for.</p>"
+"<p>Joule has been around for five years and has tens of thousands of happy users.<br />"
+"Join in by typing your username into the box above.</p>"
+msgstr ""
+"<p>Joule позволяет проследить, кто читает то, что вы пишете.</p>"
+"<p>Куча сайтов позволяет создать список тех, кого вы хотите читать<br />"
+"(часто он называется списком друзей или френд-лентой).<br />"
+"Иногда они позволяют видеть и тех, кто внёс вас в свой список друзей.<br />"
+"Но ведь здорово было бы видеть, когда все эти люди начинают или перестают<br />"
+"читать вас, к примеру, {как тут}?<br />"
+"Для этого и придуман Joule.</p>"
+"<p>Joule уже пять лет в сети, и у него десятки тысяч довольных пользователей.<br />"
+"Присоединяйтесь — впишите ваше имя пользователя в поле ввода сверху.</p>"
+
+msgid "Show me the fans of [NAME] on [DATE] as a {chart} or {graph}."
+msgstr "Покажите мне фэнов [NAME] на [DATE] в виде {списка} или {диаграммы}"
+
+msgid "joule is by {Thomas Thurman}"
+msgstr "автор joule — {Томас Турман}"
+
+msgid "page designed by {Firinel Thurman}"
+msgstr "дизайн страницы — {Фиринэл Турман}"
+
+msgid "{code released} under {the GNU Affero Licence}"
+msgstr "{исходный код доступен} под {лицензией GNU Affero}"
+
+# XXX not sure about this line!
+msgid "proudly union made"
+msgstr "с гордостью сообщаем: сделано членами профсоюза"
+
+msgid "hosted by {red stair}"
+msgstr "хостинг предоставлен {red stair}"
+
+msgid "valid {html}, {css}, and {rss}"
+msgstr "валидный {html}, {css} и {rss}"
+
+# statistics
+msgid "Yesterday: [RH] RSS hits ([LJ]% LJ, [GR] Google Reader), [HH] HTML hits ([FF]% Firefox, [IE]% IE, [SAF]% Safari); [GH] Google hits"
+msgstr "Вчерашние запросы: [RH] по RSS ([LJ]% ЖЖ, [GR] Google Reader), [HH] в виде HTML ([FF]% Firefox, [IE]% IE, [SAF]% Safari); [GH] через Google"
+
+msgid "graph"
+msgstr "список"
+
+msgid "chart"
+msgstr "диаграмма"
+
+msgid "with blanks"
+msgstr "с пробелами"
+
+msgid "without blanks"
+msgstr "без пробелов"
+
+# Use the same term as for an LJ community
+msgid "community"
+msgstr "сообщество"
+
+# frequently asked questions
+msgid "faq"
+msgstr "чаво"
+
+msgid "code"
+msgstr "код"
+
+msgid "full view"
+msgstr "целиком"
+
+msgid "most recent"
+msgstr "недавнее"
+
+# Column heading
+msgid "Datestamp"
+msgstr "Дата"
+
+# Column heading
+msgid "Friended by"
+msgstr "Подружились"
+
+# Column heading
+msgid "Unfriended by"
+msgstr "Перестали дружить"
+
+# Nobody friended or unfriended them this time
+msgid "None."
+msgstr "Никто."
