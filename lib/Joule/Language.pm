@@ -23,6 +23,8 @@ use warnings;
 
 use File::ShareDir;
 use Locale::PO;
+use IP::Country::DNSBL;
+use Apache2::Connection;
 
 use Joule::Template;
 
@@ -99,11 +101,37 @@ sub _dynamic_template {
     return $result;
 }
 
+my %languages_in_countries = (
+			      DE => 'de', # German in Germany
+			      AT => 'de', # German in Austria
+			      RU => 'ru', # Russian in Russia
+			      SU => 'ru', # Russian in very old computers in Russia
+			      );
+
+my $geolocation = IP::Country::DNSBL->new();
+
+sub _user_language {
+
+    my ($r) = @_;
+
+    # If they have a cookie, that always wins.
+
+    # Else, check Accept-Language.
+
+    # Else, guess via languages_in_countries
+
+    my $country = $geolocation->inet_atocc($r->connection->remote_ip);
+    return $languages_in_countries{$country} if $languages_in_countries{$country};
+
+    # Else give up and use English.
+    return 'en';
+}
+
 sub strings {
     my ($r, $vars) = @_;
 
     my $template = Joule::Template::template;
-    my $language = 'ru';
+    my $language = _user_language($r);
     my %result;
 
     for (keys %{$translations{$language}}) {
