@@ -27,6 +27,7 @@ use IP::Country::DNSBL;
 use Apache2::Connection;
 
 use Joule::Template;
+use Joule::Cookie;
 
 my %translations;
 
@@ -115,6 +116,8 @@ sub _user_language {
     my ($r) = @_;
 
     # If they have a cookie, that always wins.
+    my $cookie = Joule::Cookie::lang($r);
+    return $cookie if $cookie and is_language($cookie);
 
     # Else, check Accept-Language.
 

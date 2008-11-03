@@ -14,43 +14,31 @@
 #    You should have received a copy of the GNU Affero General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-package Joule::Section::Redirect;
+package Joule::Cookie;
 
 use strict;
 use warnings;
-use CGI qw/:standard -compile/;
-use File::ShareDir;
-use APR::Table ();
 
-use Joule::Cookie;
+use CGI::Cookie;
 
-sub handler {
+sub lang {
+    my ($r, $newvalue) = @_;
 
-	my ($self, $r, $vars) = @_;
+    if ($newvalue) {
+	my $c_out = new CGI::Cookie(
+				    -name  => "lang",
+				    -value => $newvalue
+				    );
 
-	return 0 unless param();
+	$c_out->bake($r);
+	return $newvalue;
 
-	my $location = '/';
+    } else {
+	my %cookies = fetch CGI::Cookie;
 
-	if (param('lang')) {
-	    Joule::Cookie::lang($r, param('lang'));
-	    $location = $r->uri;
-	} elsif (param('user')) {
-		my $site = param('site');
-		my $mode = 'chart';
-
-		$site = 'lj' unless $site;
-		$mode = 'graph' if param('graph');
-
-		$location = "/$mode/$site/" . param('user');
-	}
-
-	$location = 'http://'.$r->get_server_name.':'.$r->get_server_port.$location;
-
-	$r->headers_out->{'Location'} = $location;
-	$r->status(301);
-
-	return 1;
+	return $cookies{'lang'}->value();
+    }
 }
 
 1;
+
