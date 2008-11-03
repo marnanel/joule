@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="[% lang %]" lang="[% lang %]">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="[% strings.CURRENT %]" lang="[% strings.CURRENT %]">
 <head>
 <title>[% IF user %]fans of [% user %] on [% sitename %], past and present[% ELSE %]joule - your friendly friend-of monitor[% END %]</title>
 <link rel="stylesheet" type="text/css" href="/rhes" />
@@ -14,7 +14,7 @@ function go(){document.getElementById('u').focus();}//--></script>
 <h1><a href="/"><img id="sitename" src="/marnanel-rhes-joulea-01" alt="*joule*" width="465" height="100" /> </a></h1>
 <div id="poppy"></div>
 <div id="languages">
-[% FOREACH lang = strings.LANGS %]<a href="?lang=[% lang.code %]"[% IF lang.current %] class="current"[% END %]>[% lang.name %]</a> &middot;
+[% FOREACH lang = strings.LANGS %]<a href="?lang=[% lang.code %]"[% IF lang.code == strings.CURRENT %] class="current"[% END %]>[% lang.name %]</a> &middot;
 [% END %] <a href="http://community.livejournal.com/marnanel_joule/8360.html">more?</a>
 </div>
 <div id="navigation">
@@ -76,8 +76,9 @@ This is not the real Joule.  Yet.
 <a href="http://iww.org">[%strings.union%]</a> &middot; [%strings.hosted%] &middot;
 valid <a href="http://validator.w3.org/check/referer">html</a>[% IF user %],
 <a href="http://feedvalidator.org/check.cgi?url=http://[% hostname %]/rss/[% site %]/[% user %]">rss</a>[% END %]
-and <a href="http://jigsaw.w3.org/css-validator/check/referer">css</a>.<br />
-[% INCLUDE daystats.tmpl %]
+and <a href="http://jigsaw.w3.org/css-validator/check/referer">css</a>
+[% IF strings.CURRENT != "en" %] <br /> [% strings.translator %] [% END %]
+[%# INCLUDE daystats.tmpl %]
 </p>
 
 </div></form></div>

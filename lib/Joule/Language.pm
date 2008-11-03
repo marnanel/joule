@@ -160,9 +160,9 @@ sub strings {
 	push @{$result{'LANGS'}}, {
 	    name => $translations{$_}->{lang},
 	    code => $_,
-	    current => ($language eq $_),
 	};
     }
+    $result{'CURRENT'} = $language;
 
     return \%result;
 }

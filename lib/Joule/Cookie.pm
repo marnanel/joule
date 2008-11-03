@@ -36,7 +36,8 @@ sub lang {
     } else {
 	my %cookies = fetch CGI::Cookie;
 
-	return $cookies{'lang'}->value();
+	return $cookies{'lang'}->value() if $cookies{'lang'};
+	return undef;
     }
 }
 

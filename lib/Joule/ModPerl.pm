@@ -35,7 +35,6 @@ sub handler {
 	my $r = shift;
 
 	my %vars = (
-			lang => 'en', # fix this properly soon
 			site => 'lj', # so chosen by default on first load
 			nohiccup => 0,
 			noblanks => 0,

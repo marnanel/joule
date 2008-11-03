@@ -16,6 +16,11 @@ msgstr ""
 msgid "English"
 msgstr "lang"
 
+# Translate this to include your language and name.
+# (The English isn't really shown.)
+msgid "English translation by Thomas Thurman"
+msgstr "translator"
+
 # Text inside {curly brackets} should usually be translated, but will be treated
 # specially (usually as a hyperlink).  You should keep these in the same order
 # if possible.  If it's not possible, please ask me for advice.
