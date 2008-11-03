@@ -38,6 +38,22 @@ sub template {
     return $_template;
 }
 
+# FIXME: There needs to be a version of "go" which returns its
+# result rather than printing it
+
+sub go {
+    my ($filename, $vars) = @_;
+
+#    for (keys %{$translations{$language}}) {
+#	my $str = $translations{$language}->{$_};
+#	$str =~ s/\[([A-Z]+)\]/_dynamic_template($1, $template, $vars)/ge;
+#	$result{$_} = $str;
+#    }
+
+    $_template->process($filename, $vars) || die $_template->error();
+
+}
+
 sub _startup {
 	$_template = Template->new({
 			INCLUDE_PATH => File::ShareDir::dist_dir('Joule') . '/tmpl',

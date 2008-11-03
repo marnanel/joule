@@ -29,8 +29,6 @@ sub handler {
 
     return 0 unless $r->uri =~ /^\/([a-z]+)\/([a-z][a-z])\/([A-Za-z0-9_-]+)/;
 
-    my $template = Joule::Template::template;
-
     my %modes = (
 		    chart => {mimetype => 'text/html', graph => 0, limit=>50},
 		    chartnoblanks => {mimetype => 'text/html', graph => 0, limit=>50, noblanks=>1},
@@ -43,7 +41,7 @@ sub handler {
 
     unless ($modes{$1}) {
 	    warn "unknown mode";
-	    Joule::Error::http_error($r, 404, $vars, $template);
+	    Joule::Error::http_error($r, 404, $vars);
 	    return 1;
     }
 
@@ -56,10 +54,10 @@ sub handler {
 
     if ($@) {
 	    warn "$path handler not found";
-	    Joule::Error::http_error($r, 404, $vars, $template);
+	    Joule::Error::http_error($r, 404, $vars);
     } elsif (!$modname->can('site')) {
 	    warn "$modname refused to cooperate.";
-	    Joule::Error::http_error($r, 404, $vars, $template); # FIXME: 500, really
+	    Joule::Error::http_error($r, 404, $vars); # FIXME: 500, really
     } else {
 
 	    my $status = ("Joule::Status::From_".uc($vars->{site}))->new($vars);
@@ -72,7 +70,8 @@ sub handler {
 
             $r->content_type($vars->{'mimetype'});
             my @mime = split(/\//, $vars->{'mimetype'});
-	    $template->process($mime[1]."_main.tmpl", $vars) || die $template->error();
+	    
+	    Joule::Template::go($mime[1]."_main.tmpl", $vars);
     }
 
     return 1;

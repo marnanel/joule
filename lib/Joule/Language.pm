@@ -150,9 +150,7 @@ sub strings {
     my %result;
 
     for (keys %{$translations{$language}}) {
-	my $str = $translations{$language}->{$_};
-	$str =~ s/\[([A-Z]+)\]/_dynamic_template($1, $template, $vars)/ge;
-	$result{$_} = $str;
+	$result{$_} = $translations{$language}->{$_};
     }
 
     $result{'LANGS'} = [];

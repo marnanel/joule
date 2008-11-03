@@ -30,15 +30,13 @@ sub handler {
 
     return 0 unless $r->uri =~ /^\/[^\/]+$/ && $r->uri !~ /\.\./;
 
-    my $template = Joule::Template::template;
-
     # note: do not use glob in scalar context in mod_perl:
     # it has state
     my @static = glob(File::ShareDir::dist_dir('Joule').'/static'.$r->uri.'.*');
 
     unless (@static) {
 	warn "unknown static";
-	Joule::Error::http_error($r, 404, $vars, $template);
+	Joule::Error::http_error($r, 404, $vars);
 	return 1;
     }
 
@@ -46,11 +44,12 @@ sub handler {
     my ($extension) = $static =~ /\.([A-Za-z0-9]+)$/;
 
     if ($extension eq 'tmpl') {
-            # FIXME: This should find a title too
 	    $r->content_type('text/html');
 	    $vars->{'literalbody'} = '';
+	    my $template = Joule::Template::template;
+
 	    $template->process($static, $vars, \($vars->{'literalbody'})) || die $template->error();
-	    $template->process("html_main.tmpl", $vars) || die $template->error();
+            Joule::Template::go("html_main.tmpl", $vars);
     } else {
 
 	    my %mimemapping = (

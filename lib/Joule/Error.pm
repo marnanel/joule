@@ -19,16 +19,20 @@ package Joule::Error;
 use strict;
 use warnings;
 
+use Joule::Template;
+
 sub http_error {
 
-        my ($r, $status, $vars, $template) = @_;
+        my ($r, $status, $vars) = @_;
 
 	$r->content_type('text/html');
 	$r->status($status);
 	# factor this out
 	$vars->{'literalbody'} = '';
+	my $template = Joule::Template::template;
 	$template->process("$status.tmpl", $vars, \($vars->{'literalbody'})) || die $template->error();
-	$template->process("html_main.tmpl", $vars) || die $template->error();
+
+        Joule::Template::go("html_main.tmpl", $vars);
 }
 
 1;

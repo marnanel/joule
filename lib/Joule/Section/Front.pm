@@ -27,8 +27,7 @@ sub handler {
 
 	$r->content_type('text/html');
 
-	my $template = Joule::Template::template;
-	$template->process("html_main.tmpl", $vars) || die $template->error();
+	Joule::Template::go("html_main.tmpl", $vars);
 
 	return 1;
 }
