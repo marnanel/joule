@@ -43,10 +43,8 @@ sub handler {
 		  );
 	$vars{strings} = Joule::Language::strings($r, \%vars);
 
-	my $template = Joule::Template::template();
-
         for my $i qw(Redirect Static Report Front) {
-	    last if "Joule::Section::$i"->handler($r, \%vars, $template);
+	    last if "Joule::Section::$i"->handler($r, \%vars);
         }
 
 	return Apache2::Const::OK;
