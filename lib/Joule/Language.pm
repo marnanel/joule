@@ -85,6 +85,7 @@ sub _setup {
 	next unless $i;
 	my $msgstr = _unquote($translations{en}->{$i});
 
+	# beware code duplication!  refactor me!
 	for my $param (@{ $params{$i} }) {
 	    if ($param =~ /^\*(.*)$/) {
 		my $filename = "lang_$1.tmpl";
