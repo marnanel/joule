@@ -111,4 +111,19 @@ msgstr "unfriended"
 msgid "None."
 msgstr "none"
 
+# this is the title of most pages
+msgid "joule - your friendly friend-of monitor"
+msgstr "title"
+
+# this is the title of the report pages
+msgid "fans of [USERNAME] on [SITENAME], past and present"
+msgstr "reporttitle"
+
+# title of the report table
+msgid "Changes in the fan list over time"
+msgstr "table"
+
+# in the top links-- links to the RSS feed
+msgid "feed"
+msgstr "feed"
 

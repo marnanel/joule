@@ -3,7 +3,7 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="[% strings.CURRENT %]" lang="[% strings.CURRENT %]">
 <head>
-<title>[% IF user %]fans of [% user %] on [% sitename %], past and present[% ELSE %]joule - your friendly friend-of monitor[% END %]</title>
+<title>[% IF user %][% strings.reporttitle %][% ELSE %][% strings.title %][% END %]</title>
 <link rel="stylesheet" type="text/css" href="/rhes" />
 [% IF user %]<link rel="alternate" type="application/rss+xml" title="RSS" href="/rss/[% site %]/[% user %]" />[% END %]
 <script type="text/javascript"><!--
@@ -37,7 +37,7 @@ function go(){document.getElementById('u').focus();}//--></script>
 <a href="/[% ischart %][% isfull %]noblanks/[%site%]/[%user%]">[% strings.noblanks %]</a> &middot;
 [% END %]
 [% END %]
-<a href="/rss/[%site%]/[% user %]">feed</a> &middot;
+<a href="/rss/[%site%]/[% user %]">[% strings.feed %]</a> &middot;
 [% ELSE %]
 <a href="http://marnanel.org">marnanel</a> &middot;
 [% END %]
@@ -74,9 +74,7 @@ This is not the real Joule.  Yet.
 <p class="credits">
 [%strings.bymarn%] &middot; [%strings.byfin%]<br />
 <a href="http://iww.org">[%strings.union%]</a> &middot; [%strings.hosted%] &middot;
-valid <a href="http://validator.w3.org/check/referer">html</a>[% IF user %],
-<a href="http://feedvalidator.org/check.cgi?url=http://[% hostname %]/rss/[% site %]/[% user %]">rss</a>[% END %]
-and <a href="http://jigsaw.w3.org/css-validator/check/referer">css</a>
+[% IF user %][% strings.validrss %][% ELSE %][% strings.valid %][% END %]
 [% IF strings.CURRENT != "en" %] <br /> [% strings.translator %] [% END %]
 [%# INCLUDE daystats.tmpl %]
 </p>
