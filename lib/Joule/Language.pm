@@ -83,7 +83,18 @@ sub _setup {
 
     for my $i (keys %{$translations{en}}) {
 	next unless $i;
-	$translations{en}->{$i} = _unquote($translations{en}->{$i});
+	my $msgstr = _unquote($translations{en}->{$i});
+
+	for my $param (@{ $params{$i} }) {
+	    if ($param =~ /^\*(.*)$/) {
+		my $filename = "lang_$1.tmpl";
+		$msgstr =~ s/\{([^\}]+)\}/my $a; $template->process($filename, {text => $1}, \$a); $a;/e;
+	    } else {
+		$msgstr =~ s/\{([^\}]+)\}/<a href="$param">$1<\/a>/;
+	    } 
+	}
+
+	$translations{en}->{$i} = $msgstr;
     }
 }
 
