@@ -107,13 +107,6 @@ sub is_language {
     return -e File::ShareDir::dist_dir('Joule') . "/po/$code.po";
 }
 
-sub _dynamic_template {
-    my ($field, $template, $vars) = @_;
-    my $result;
-    $template->process("lang_$field.tmpl", $vars, \$result);
-    return $result;
-}
-
 my %languages_in_countries = (
 			      DE => 'de', # German in Germany
 			      AT => 'de', # German in Austria

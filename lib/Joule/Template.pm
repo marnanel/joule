@@ -41,14 +41,21 @@ sub template {
 # FIXME: There needs to be a version of "go" which returns its
 # result rather than printing it
 
+sub _dynamic_template {
+    my ($field, $vars) = @_;
+    my $result;
+    $_template->process("lang_$field.tmpl", $vars, \$result);
+    return $result;
+}
+
 sub go {
     my ($filename, $vars) = @_;
 
-#    for (keys %{$translations{$language}}) {
-#	my $str = $translations{$language}->{$_};
-#	$str =~ s/\[([A-Z]+)\]/_dynamic_template($1, $template, $vars)/ge;
-#	$result{$_} = $str;
-#    }
+    for (keys %{ $vars->{strings} }) {
+	my $str = $vars->{strings}->{$_};
+	$str =~ s/\[([A-Z]+)\]/_dynamic_template($1, $vars)/ge;
+	$vars->{strings}->{$_} = $str;
+    }
 
     $_template->process($filename, $vars) || die $_template->error();
 
