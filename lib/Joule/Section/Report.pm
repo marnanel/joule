@@ -37,6 +37,7 @@ sub handler {
 		    graph => {mimetype => 'text/html', graph => 1, limit=>50},
 		    graphfull => {mimetype => 'text/html', graph => 1},
 		    rss => {mimetype => 'application/rss+xml', limit=>50},
+		    rssnoblanks => {mimetype => 'application/rss+xml', limit=>50, noblanks=>1},
 		);
 
     unless ($modes{$1}) {

@@ -5,7 +5,8 @@
 <head>
 <title>[% IF user %][% strings.reporttitle %][% ELSE %][% strings.title %][% END %]</title>
 <link rel="stylesheet" type="text/css" href="/rhes" />
-[% IF user %]<link rel="alternate" type="application/rss+xml" title="RSS" href="/rss/[% site %]/[% user %]" />[% END %]
+[% IF NOT graph AND noblanks %][% SET isnoblanks="noblanks" %][% ELSE %][% SET isnoblanks="" %][% END %]
+[% IF user %]<link rel="alternate" type="application/rss+xml" title="RSS" href="/rss[% isnoblanks %]/[% site %]/[% user %]" />[% END %]
 <script type="text/javascript"><!--
 function go(){document.getElementById('u').focus();}//--></script>
 <link rel="shortcut icon" href="/favicon.ico" />
@@ -23,7 +24,6 @@ function go(){document.getElementById('u').focus();}//--></script>
 [% IF user %]
 [% IF graph %][% SET ischart="graph" %][% ELSE %][% SET ischart="chart" %][% END %]
 [% IF limit %][% SET isfull="" %][% ELSE %][% SET isfull="full" %][% END %]
-[% IF NOT graph AND noblanks %][% SET isnoblanks="noblanks" %][% ELSE %][% SET isnoblanks="" %][% END %]
 <a href="/[% IF graph %]chart[% ELSE %]graph[% END %][% isfull %][% IF graph %][% isnoblanks %][% END %]/[%site%]/[%user%]">[% IF graph %][% strings.chart %][% ELSE %][% strings.graph %][% END %]</a> &middot;
 [% IF limit %]
 <a href="/[% ischart %]full[% isnoblanks %]/[%site%]/[%user%]">[% strings.full %]</a> &middot;
@@ -37,7 +37,7 @@ function go(){document.getElementById('u').focus();}//--></script>
 <a href="/[% ischart %][% isfull %]noblanks/[%site%]/[%user%]">[% strings.noblanks %]</a> &middot;
 [% END %]
 [% END %]
-<a href="/rss/[%site%]/[% user %]">[% strings.feed %]</a> &middot;
+<a href="/rss[% isnoblanks %]/[%site%]/[% user %]">[% strings.feed %]</a> &middot;
 [% ELSE %]
 <a href="http://marnanel.org">marnanel</a> &middot;
 [% END %]
