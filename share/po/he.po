@@ -1,0 +1,132 @@
+# Hebrew translation for joule
+# Copyright (c) 2008 Rosetta Contributors and Canonical Ltd 2008
+# This file is distributed under the same license as the joule package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2008.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: joule\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2008-11-04 13:54+0000\n"
+"PO-Revision-Date: 2008-11-15 04:13+0000\n"
+"Last-Translator: Yaron <sh.yaron@gmail.com>\n"
+"Language-Team: Hebrew <he@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2008-11-15 04:08+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
+
+msgid "English"
+msgstr "אנגלית"
+
+# Translate this to include your language and name.
+# (The English isn't really shown.)
+msgid "English translation by Thomas Thurman"
+msgstr "Hebrew translation by Yaron"
+
+msgid ""
+"<p>Joule is a way of keeping track of who's reading your stuff.</p><p>Lots "
+"of sites allow you to make a list of people you want to follow<br "
+"/>(sometimes called a friends list, or a watch list).<br />Sometimes they "
+"also let you see who has you on their friends list.<br />But wouldn't it be "
+"nifty if you could see when people start<br />and stop reading you, like "
+"{this}?<br />That's what Joule is for.</p><p>Joule has been around for six "
+"years and has tens of thousands of happy users.<br />Join in by typing your "
+"username into the box above.</p>"
+msgstr ""
+"<p>Joule מספקת לך דרך נוחה לדעת מי קורא את החומרים שלך.</p><p>אתרים רבים "
+"מאפשרים לך לערוך רשימה של אנשים שברצונך לעקוב אחריהם<br />(לפעמים נקראת "
+"רשימת חברים, או רשימת מעקב).<br />לעיתים גם ניתן לראות מי כלל אותך ברשימת "
+"החברים שלו.<br />אך לא יהיה זה מעניין לראות מתי אנשים מתחילים<br />ומפסיקים "
+"לקרוא את החומרים שלך, {באופן זה}?<br />זוהי המטרה של Joule.</p><p>Joule "
+"קיימת בשטח מזה חמש שנים ומאגדת בתוכה עשרות אלפי משתמשים מאושרים.<br />הצטרף "
+"עוד היום על ידי הקלדת שם המשתמש שלך לתיבה שלהלן.</p>"
+
+msgid "Show me the fans of [NAME] on [SITE] as a {chart} or {graph}."
+msgstr "הצג בפני את המעריצים של [NAME] ב־[SITE] כ{תרשים} או כ{גרף}."
+
+msgid "joule is by {Thomas Thurman}"
+msgstr "Joule נוצרה על ידי {Thomas Thurman}"
+
+msgid "page designed by {Firinel Thurman}"
+msgstr "העמוד עוצב על ידי {Firinel Thurman}"
+
+msgid "{code released} under {the GNU Affero Licence}"
+msgstr "{הקוד שוחרר} תחת {הרשיון GNU Affero}"
+
+msgid "proudly union made"
+msgstr "נוצר בגאווה על ידי האיגוד"
+
+msgid "hosted by {red stair}"
+msgstr "המארח {red stair}"
+
+msgid "valid {html}, {css}, and {rss}"
+msgstr "{html}, {css}, ו־{rss} תקניים"
+
+# some pages don't have an RSS feed
+msgid "valid {html} and {css}"
+msgstr ""
+
+msgid ""
+"Yesterday: {} RSS hits ({}% LJ, {} Google Reader), {} HTML hits "
+"({}% Firefox, {}% IE, {}% Safari); {} Google hits"
+msgstr ""
+"אתמול: {} ביקורים ב־RSS ({}% LJ, {} Google Reader), {} ביקורי HTML "
+"({}% פיירפוקס, {}% IE, {}% ספארי); {} ביקורים מגוגל"
+
+msgid "graph"
+msgstr "גרף"
+
+msgid "chart"
+msgstr "תרשים"
+
+msgid "with blanks"
+msgstr "עם רווחים"
+
+msgid "without blanks"
+msgstr "ללא רווחים"
+
+msgid "community"
+msgstr "קהילה"
+
+msgid "faq"
+msgstr "שאלות נפוצות"
+
+msgid "code"
+msgstr "קוד"
+
+msgid "full view"
+msgstr "תצוגה מלאה"
+
+msgid "most recent"
+msgstr "האחרונים"
+
+msgid "Datestamp"
+msgstr "חותמת הזמן"
+
+msgid "Friended by"
+msgstr "הוגדר כחבר על ידי"
+
+msgid "Unfriended by"
+msgstr "בוטלה החברות על ידי"
+
+# Nobody friended or unfriended them this time
+msgid "None."
+msgstr "None."
+
+# this is the title of most pages
+msgid "joule - your friendly friend-of monitor"
+msgstr "joule - your friendly friend-of monitor"
+
+# this is the title of the report pages
+msgid "fans of [USERNAME] on [SITENAME], past and present"
+msgstr "fans of [USERNAME] on [SITENAME], past and present"
+
+# title of the report table
+msgid "Changes in the fan list over time"
+msgstr "Changes in the fan list over time"
+
+# in the top links-- links to the RSS feed
+msgid "feed"
+msgstr "feed"

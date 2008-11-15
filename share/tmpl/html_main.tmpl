@@ -50,15 +50,13 @@ function go(){document.getElementById('u').focus();}//--></script>
 [% strings.showme %]
 [% IF errormessage %]<b>[% errormessage %]</b>[% END %]
 <p class="credits">
-This is not the real Joule.  Yet.
+This is the reworked Joule, now in four languages!
 </p>
 
 [% IF literalbody %]
 [% literalbody %]
 [% ELSIF NOT user %]
 [% INCLUDE html_front_page.tmpl %]
-[% ELSIF partlock %]
-[% INCLUDE partlock.tmpl %]
 [% ELSIF lonely %]
 [% INCLUDE lonely.tmpl %]
 [% ELSIF virgin %]
