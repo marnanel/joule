@@ -30,7 +30,7 @@ sub lang {
 				    -value => $newvalue
 				    );
 
-	$c_out->bake($r);
+	$r->headers_out->set('Set-Cookie' => $c_out);
 	return $newvalue;
 
     } else {
