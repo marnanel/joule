@@ -107,6 +107,7 @@ sub is_language {
     return -e File::ShareDir::dist_dir('Joule') . "/po/$code.po";
 }
 
+# fixme: this should be a space-separated field in the po file itself
 my %languages_in_countries = (
 			      DE => 'de', # German in Germany
 			      AT => 'de', # German in Austria
