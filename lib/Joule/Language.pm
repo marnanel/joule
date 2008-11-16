@@ -112,6 +112,7 @@ my %languages_in_countries = (
 			      AT => 'de', # German in Austria
 			      RU => 'ru', # Russian in Russia
 			      SU => 'ru', # Russian in very old computers in Russia
+			      IL => 'he', # Hebrew in Israel
 			      );
 
 my $geolocation = IP::Country::DNSBL->new();
