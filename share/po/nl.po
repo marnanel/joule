@@ -1,0 +1,136 @@
+# Any problems, let me know.
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"PO-Revision-Date: 2008-10-28 23:10+0000\n"
+"Last-Translator: Nathalie Cassiers <wordofwyrd@yahoo.com>\n"
+"Language-Team: Dutch <ll@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+# Translate this to the name of your language
+msgid "English"
+msgstr "Nederlands"
+
+# Translate this to include your language and name.
+# (The English isn't really shown.)
+msgid "English translation by Thomas Thurman"
+msgstr "Nederlandse vertaling door Nathalie Cassiers"
+
+# Text inside {curly brackets} should usually be translated, but will be treated
+# specially (usually as a hyperlink). You should keep these in the same order
+# if possible. If it's not possible, please ask me for advice.
+# Text inside [square brackets] should be left alone because it will be replaced
+# with a value. You can reorder these as much as you like.
+msgid ""
+"<p>Joule is a way of keeping track of who's reading your stuff.</p>"
+"<p>Lots of sites allow you to make a list of people you want to follow<br />"
+"(sometimes called a friends list, or a watch list).<br />"
+"Sometimes they also let you see who has you on their friends list.<br />"
+"But wouldn't it be nifty if you could see when people start<br />"
+"and stop reading you, like {this}?<br />"
+"That's what Joule is for.</p>"
+"<p>Joule has been around for six years and has tens of thousands of happy users.<br />"
+"Join in by typing your username into the box above.</p>"
+msgstr ""
+"<p>Joule is een manier om op de hoogte te blijven van wie jouw schrijfsels leest.</p>"
+"<p>Heel wat sites laten je toe een lijst samen te stellen van mensen die je wil volgen.<br />"
+"(soms wordt dit een vriendenlijst genoemd, of volglijst).<br />"
+"Soms laten ze ook toe dat je ziet wie jou toegevoegd heeft aan hun lijst.<br />"
+"Maar zou het niet super zijn mocht je zien wanneer ze je beginnen volgen<br />"
+"of wanneer ze daarmee ophouden, zoals {dit}?<br />"
+"Daarvoor is er Joule.</p>"
+"<p>Joule bestaat al zes jaar en heeft tienduizenden tevreden gebruikers.<br />"
+"Voeg je bij hen door jouw gebruikersnaam in het veld hierboven in te vullen.</p>"
+
+msgid "Show me the fans of [NAME] on [SITE] as a {chart} or {graph}."
+msgstr "Toon de fans van [NAME] op [SITE] als {tabel} of {grafiek}."
+
+msgid "joule is by {Thomas Thurman}"
+msgstr "joule wordt gemaakt door {Thomas Thurman}"
+
+msgid "page designed by {Firinel Thurman}"
+msgstr "pagina design door {Firinel Thurman}"
+
+msgid "{code released} under {the GNU Affero Licence}"
+msgstr "code uitgebracht onder de {GNU Affero Licentie}"
+
+msgid "proudly union made"
+msgstr "trots vakbondswerk"
+
+msgid "hosted by {red stair}"
+msgstr "webhosting door {red stair}"
+
+msgid "valid {html}, {css}, and {rss}"
+msgstr "geldig {html}, {css}, en {rss}"
+
+# some pages don't have an RSS feed
+msgid "valid {html} and {css}"
+msgstr "geldig {html} en {css}"
+
+# statistics. {} gets replaced by numbers throughout
+msgid "Yesterday: {} RSS hits ({}% LJ, {} Google Reader), {} HTML hits ({}% Firefox, {}% IE, {}% Safari); {} Google hits"
+msgstr " Gisteren: {} RSS hits ({}% LJ, {} Google Reader), {} HTML hits ({}% Firefox, {}% IE, {}% Safari); {} Google hits "
+
+msgid "graph"
+msgstr "grafiek"
+
+msgid "chart"
+msgstr "tabel"
+
+msgid "with blanks"
+msgstr "met tussenruimtes"
+
+msgid "without blanks"
+msgstr "zonder tussenruimtes"
+
+# Use the same term as for an LJ community
+msgid "community"
+msgstr "community"
+
+# frequently asked questions
+msgid "faq"
+msgstr "FAQ"
+
+msgid "code"
+msgstr "code"
+
+msgid "full view"
+msgstr "alles tonen"
+
+msgid "most recent"
+msgstr "meest recente"
+
+# Column heading
+msgid "Datestamp"
+msgstr "datum"
+
+# Column heading
+msgid "Friended by"
+msgstr "als vriend toegevoegd door"
+
+# Column heading
+msgid "Unfriended by"
+msgstr "als vriend verwijderd door "
+
+# Nobody friended or unfriended them this time
+msgid "None."
+msgstr "niemand"
+
+# this is the title of most pages
+msgid "joule - your friendly friend-of monitor"
+msgstr "joule - de vriendelijke vriendenmonitor"
+
+# this is the title of the report pages
+msgid "fans of [USERNAME] on [SITENAME], past and present"
+msgstr "fans van [USERNAME] op [SITENAME], verleden en heden"
+
+# title of the report table
+msgid "Changes in the fan list over time"
+msgstr "verandering in de fan lijst door de tijd"
+
+# in the top links-- links to the RSS feed
+msgid "feed"
+msgstr "feed"
+
