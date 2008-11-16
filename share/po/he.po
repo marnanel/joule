@@ -5,25 +5,23 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: joule\n"
-"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2008-11-04 13:54+0000\n"
-"PO-Revision-Date: 2008-11-15 04:13+0000\n"
-"Last-Translator: Yaron <sh.yaron@gmail.com>\n"
-"Language-Team: Hebrew <he@li.org>\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2008-11-15 04:08+0000\n"
-"X-Generator: Launchpad (build Unknown)\n"
+"Project-Id-Version: joule"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>"
+"POT-Creation-Date: 2008-11-15 20:23+0000"
+"PO-Revision-Date: 2008-11-16 06:55+0000"
+"Last-Translator: Yaron <sh.yaron@gmail.com>"
+"Language-Team: Hebrew <he@li.org>"
+"MIME-Version: 1.0"
+"Content-Type: text/plain; charset=UTF-8"
+"Content-Transfer-Encoding: 8bit"
+"X-Launchpad-Export-Date: 2008-11-16 23:16+0000"
+"X-Generator: Launchpad (build Unknown)"
 
 msgid "English"
-msgstr "אנגלית"
+msgstr "עברית"
 
-# Translate this to include your language and name.
-# (The English isn't really shown.)
 msgid "English translation by Thomas Thurman"
-msgstr "Hebrew translation by Yaron"
+msgstr "התרגום לעברית בוצע על ידי ירון שהרבני"
 
 msgid ""
 "<p>Joule is a way of keeping track of who's reading your stuff.</p><p>Lots "
@@ -35,19 +33,21 @@ msgid ""
 "years and has tens of thousands of happy users.<br />Join in by typing your "
 "username into the box above.</p>"
 msgstr ""
-"<p>Joule מספקת לך דרך נוחה לדעת מי קורא את החומרים שלך.</p><p>אתרים רבים "
-"מאפשרים לך לערוך רשימה של אנשים שברצונך לעקוב אחריהם<br />(לפעמים נקראת "
-"רשימת חברים, או רשימת מעקב).<br />לעיתים גם ניתן לראות מי כלל אותך ברשימת "
-"החברים שלו.<br />אך לא יהיה זה מעניין לראות מתי אנשים מתחילים<br />ומפסיקים "
-"לקרוא את החומרים שלך, {באופן זה}?<br />זוהי המטרה של Joule.</p><p>Joule "
-"קיימת בשטח מזה חמש שנים ומאגדת בתוכה עשרות אלפי משתמשים מאושרים.<br />הצטרף "
-"עוד היום על ידי הקלדת שם המשתמש שלך לתיבה שלהלן.</p>"
+"<p>Joule מספקת לך דרך לעקוב אחר האנשים הקוראים את החומרים שלך</p><p>"
+"אתרים רבים מאפשרים לך לערוך רשימה של אנשים שברצונך לעקוב אחריהם</p><p>"
+"(לפעמים נקראת רשימת חברים, או רשימת מעקב).</p><p>"
+"לעיתים גם ניתן לראות מי כלל אותך ברשימת החברים שלו.</p><p>"
+"אך לא יהיה זה מעניין לראות מתי אנשים מתחילים</p><p>"
+"ומפסיקים לקרוא את החומרים שלך, {באופן זה}?</p><p>"
+"זוהי המטרה של Joule.</p><p>"
+"Joule כבר קיימת מזה 6 שנים ורכשה עשרות אלפי משתמשים מאושרים.<br />הצטרף על "
+"ידי הקלדת שם המשתמש שלך לתיבה שלהלן.</p>"
 
 msgid "Show me the fans of [NAME] on [SITE] as a {chart} or {graph}."
-msgstr "הצג בפני את המעריצים של [NAME] ב־[SITE] כ{תרשים} או כ{גרף}."
+msgstr "הצג בפני את המעריצים של [NAME] באתר [SITE] כ{תרשים} או כ{גרף}."
 
 msgid "joule is by {Thomas Thurman}"
-msgstr "Joule נוצרה על ידי {Thomas Thurman}"
+msgstr "joule נוצרה על ידי {Thomas Thurman}"
 
 msgid "page designed by {Firinel Thurman}"
 msgstr "העמוד עוצב על ידי {Firinel Thurman}"
@@ -64,16 +64,15 @@ msgstr "המארח {red stair}"
 msgid "valid {html}, {css}, and {rss}"
 msgstr "{html}, {css}, ו־{rss} תקניים"
 
-# some pages don't have an RSS feed
 msgid "valid {html} and {css}"
-msgstr ""
+msgstr "תקניים {html} ו־{css}"
 
 msgid ""
-"Yesterday: {} RSS hits ({}% LJ, {} Google Reader), {} HTML hits "
-"({}% Firefox, {}% IE, {}% Safari); {} Google hits"
+"Yesterday: {} RSS hits ({}% LJ, {} Google Reader), {} HTML hits ({}% "
+"Firefox, {}% IE, {}% Safari); {} Google hits"
 msgstr ""
-"אתמול: {} ביקורים ב־RSS ({}% LJ, {} Google Reader), {} ביקורי HTML "
-"({}% פיירפוקס, {}% IE, {}% ספארי); {} ביקורים מגוגל"
+"אתמול: {} ביקורי RSS ({}% LJ, {} Google Reader), {} ביקורי HTML ({}% "
+"פיירפוקס, {}% IE, {}% ספארי); {} כניסות מ־Google"
 
 msgid "graph"
 msgstr "גרף"
@@ -111,22 +110,17 @@ msgstr "הוגדר כחבר על ידי"
 msgid "Unfriended by"
 msgstr "בוטלה החברות על ידי"
 
-# Nobody friended or unfriended them this time
 msgid "None."
-msgstr "None."
+msgstr "כלום."
 
-# this is the title of most pages
 msgid "joule - your friendly friend-of monitor"
-msgstr "joule - your friendly friend-of monitor"
+msgstr "joule - מעקב ידידותי אחר החברים"
 
-# this is the title of the report pages
 msgid "fans of [USERNAME] on [SITENAME], past and present"
-msgstr "fans of [USERNAME] on [SITENAME], past and present"
+msgstr "מעריצים של [USERNAME] באתר [SITENAME], עבר והווה"
 
-# title of the report table
 msgid "Changes in the fan list over time"
-msgstr "Changes in the fan list over time"
+msgstr "שינויים ברשימת המעריצים לאורך הזמן"
 
-# in the top links-- links to the RSS feed
 msgid "feed"
-msgstr "feed"
+msgstr "הזנה"
