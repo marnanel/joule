@@ -104,7 +104,7 @@ sub is_language {
 
     return 0 unless $code =~ /^[a-z]+$/;
 
-    return -e File::ShareDir::dist_dir('Joule') . "/po/$code.po";
+    return $code eq 'en' || -e File::ShareDir::dist_dir('Joule') . "/po/$code.po";
 }
 
 # fixme: this should be a space-separated field in the po file itself
