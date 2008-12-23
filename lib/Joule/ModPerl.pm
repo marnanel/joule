@@ -29,6 +29,7 @@ use Joule::Section::Front;
 use Joule::Status::All;
 
 use Joule::Language;
+use Joule::GoogleMobile;
 
 sub handler {
 
@@ -41,6 +42,11 @@ sub handler {
 		        hostname => $r->hostname,
 			sites => Joule::Status::All->sites,
 		  );
+	if (mobile => $r->hostname =~ /^m\./) {
+	    $vars{mobile} = 1;
+	    $vars{mobileads} = Joule::GoogleMobile::mobile_ads;
+	}
+
 	$vars{strings} = Joule::Language::strings($r, \%vars);
 
         for my $i qw(Redirect Static Report Front) {
@@ -49,4 +55,5 @@ sub handler {
 
 	return Apache2::Const::OK;
 }
+
 1;

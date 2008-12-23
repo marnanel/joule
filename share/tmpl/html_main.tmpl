@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="[% strings.CURRENT %]" lang="[% strings.CURRENT %]"[% IF strings.CURRENT=="he" %] dir="rtl"[% END %]>
 <head>
 <title>[% IF user %][% strings.reporttitle %][% ELSE %][% strings.title %][% END %]</title>
-<link rel="stylesheet" type="text/css" href="/rhes" />
+[% IF not mobile %]<link rel="stylesheet" type="text/css" href="/rhes" />[% END %]
 [% IF NOT graph AND noblanks %][% SET isnoblanks="noblanks" %][% ELSE %][% SET isnoblanks="" %][% END %]
 [% IF user %]<link rel="alternate" type="application/rss+xml" title="RSS" href="/rss[% isnoblanks %]/[% site %]/[% user %]" />[% END %]
 <script type="text/javascript"><!--
@@ -12,7 +12,8 @@ function go(){document.getElementById('u').focus();}//--></script>
 <link rel="shortcut icon" href="/favicon.ico" />
 </head>
 <body[% IF NOT user %] onload="go()"[% END %]><div id="content">
-<h1><a href="/"><img id="sitename" src="/marnanel-rhes-joulea-01" alt="*joule*" width="465" height="100" /> </a></h1>
+[% IF mobile %]<h1><a href="/"><img src="/marnanel-rhes-jouleb-01" alt="*joule*" width="74" height="100" style="float: right" /> </a></h1>
+[% ELSE %]<h1><a href="/"><img id="sitename" src="/marnanel-rhes-joulea-01" alt="*joule*" width="465" height="100" /> </a></h1>[% END %]
 <div id="poppy"></div>
 <div id="languages">
 [% FOREACH lang = strings.LANGS %]<a href="?lang=[% lang.code %]"[% IF lang.code == strings.CURRENT %] class="current"[% END %]>[% lang.name %]</a> &middot;
@@ -43,14 +44,14 @@ function go(){document.getElementById('u').focus();}//--></script>
 [% END %]
 <a href="http://community.livejournal.com/marnanel_joule/">[% strings.comm %]</a>
 </div>
-[% IF NOT noads %]<div id="ads">[% INCLUDE adsense1.tmpl %]</div>[% END %]
+[% IF NOT noads %]<div id="ads">[% IF mobile %][% mobileads %][% ELSE %][% INCLUDE adsense1.tmpl %][% END %]</div>[% END %]
 
 <form class="name" action="/" method="get">
 <div id="text">
 [% strings.showme %]
 [% IF errormessage %]<b>[% errormessage %]</b>[% END %]
 <p class="credits">
-This is the reworked Joule, now in five languages!
+[% IF mobile %] Welcome to mobile Joule.  Feedback is welcome! (<a href="http://joule.marnanel.org">normal site</a>)[% ELSE %]New: mobile version of Joule at <a href="http://m.joule.marnanel.org">m.joule.marnanel.org</a>![% END %]
 </p>
 
 [% IF literalbody %]
@@ -68,7 +69,6 @@ This is the reworked Joule, now in five languages!
 [% END %]
 
 [% motd %]
-
 <p class="credits">
 [%strings.bymarn%] &middot; [%strings.byfin%]<br />
 <a href="http://iww.org">[%strings.union%]</a> &middot; [%strings.hosted%] &middot;

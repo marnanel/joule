@@ -1,3 +1,11 @@
+[% IF mobile %]
+[% FOR day IN days %]
+<i>[% day.date %]</i>:
+<b>+</b> [%= INCLUDE user_list.tmpl list=day.friended =%]
+<b>-</b> [%= INCLUDE user_list.tmpl list=day.unfriended =%]
+<br />
+[% END %]
+[% ELSE %]
 <table class="ch" summary="Changes in the fan list over time">
 <tr><th>[%strings.date%]</th><th>[%strings.friended%]</th><th>[%strings.unfriended%]</th></tr>
 [% SET odd=1 %]
@@ -9,4 +17,4 @@
 </tr>
 [% END %]
 </table>
-
+[% END %]
