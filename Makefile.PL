@@ -22,14 +22,40 @@
   } else {
 	  name           'Joule';
   } 
-  all_from       'lib/Joule/ModPerl.pm';
+
   abstract       'Records differences over time in the readership of a journal';
   author         'Thomas Thurman <tthurman@gnome.org>';
   version        '3.01';  
   license        'affero';
 
+  requires 'Apache2::Connection';
+  requires 'Apache2::Const';
+  requires 'Apache2::Cookie';
+  requires 'Apache2::Request';
+  requires 'APR::Table';
+  requires 'CGI::Cookie';
+  requires 'CGI';
+  requires 'Config';
+  requires 'Cwd';
   requires 'Data::Dumper';
+  requires 'DBI';
+  requires 'Digest::MD5';
+  requires 'File::Find';
+  requires 'File::Path';
+  requires 'File::ShareDir';
+  requires 'File::Spec';
+  requires 'FindBin';
+  requires 'HTML::TreeBuilder';
+  requires 'IP::Country::DNSBL';
+  requires 'JSON';
+  requires 'Locale::PO';
+  requires 'LWP::UserAgent';
+  requires 'Module::Install::Base';
+  requires 'Perl6::Slurp';
+  requires 'POSIX';
   requires 'Template';
+  requires 'Time::HiRes';
+  requires 'URI::Escape';
 
   # Can we tell where files are going and look for a no-clobber.txt?
   
