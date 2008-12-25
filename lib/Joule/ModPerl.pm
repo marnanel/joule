@@ -23,6 +23,7 @@ use Apache2::Const -compile => qw(OK);
 
 use Joule::Section::Redirect;
 use Joule::Section::Static;
+use Joule::Section::TakeDown;
 use Joule::Section::Report;
 use Joule::Section::Front;
 
@@ -49,7 +50,7 @@ sub handler {
 
 	$vars{strings} = Joule::Language::strings($r, \%vars);
 
-        for my $i qw(Redirect Static Report Front) {
+        for my $i qw(Redirect Static TakeDown Report Front) {
 	    last if "Joule::Section::$i"->handler($r, \%vars);
         }
 
