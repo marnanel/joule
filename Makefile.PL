@@ -17,11 +17,7 @@
   use inc::Module::Install;
   
   # Define metadata
-  if ($ENV{STAGING}) {
-	  name           'StagingJoule';
-  } else {
-	  name           'Joule';
-  } 
+  name           'Joule';
 
   abstract       'Records differences over time in the readership of a journal';
   author         'Thomas Thurman <tthurman@gnome.org>';
