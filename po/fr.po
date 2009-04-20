@@ -1,0 +1,128 @@
+# French translation for joule
+# Copyright (c) 2009 Rosetta Contributors and Canonical Ltd 2009
+# This file is distributed under the same license as the joule package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2009.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: joule\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2008-11-15 20:23+0000\n"
+"PO-Revision-Date: 2009-04-12 17:37+0000\n"
+"Last-Translator: Gabriel de Perthuis <Unknown>\n"
+"Language-Team: French <fr@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2009-04-20 05:40+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
+
+msgid "English"
+msgstr "Français"
+
+msgid "English translation by Thomas Thurman"
+msgstr "Traduction française par Gabriel de Perthuis"
+
+msgid ""
+"<p>Joule is a way of keeping track of who's reading your stuff.</p><p>Lots "
+"of sites allow you to make a list of people you want to follow<br "
+"/>(sometimes called a friends list, or a watch list).<br />Sometimes they "
+"also let you see who has you on their friends list.<br />But wouldn't it be "
+"nifty if you could see when people start<br />and stop reading you, like "
+"{this}?<br />That's what Joule is for.</p><p>Joule has been around for six "
+"years and has tens of thousands of happy users.<br />Join in by typing your "
+"username into the box above.</p>"
+msgstr ""
+"<p>Joule est un outil qui vous tient au courant de qui vous "
+"lit.</p><p>Beaucoup de sites vous laissent établir une liste des gens que "
+"vous voulez suivre<br />(parfois appelées listes de lecture ou listes "
+"d'amis).<br />Certains de ces sites vous laissent aussi voir qui vous a sur "
+"sa liste.<br />Mais ne serait il pas plus astucieux de vous signaler<br "
+"/>quand des gens commencent et cessent de vous lire, {comme ceci}?<br "
+"/>C'est la raison d'être de Joule.</p><p>Joule existe depuis six ans et a "
+"des dizaines de milliers d'heureux utilisateurs.<br />Faites-en partie en "
+"entrant votre nom d'utilisateur dans le champ ci-dessus.</p>"
+
+msgid "Show me the fans of [NAME] on [SITE] as a {chart} or {graph}."
+msgstr ""
+"Montrez-moi les admirateurs de [NAME] sur [SITE] sous forme de {tableau}, "
+"sous forme de {calendrier}."
+
+msgid "joule is by {Thomas Thurman}"
+msgstr "joule est une création de {Thomas Thurman}"
+
+msgid "page designed by {Firinel Thurman}"
+msgstr "la page a été conçue par {Firinel Thurman}"
+
+msgid "{code released} under {the GNU Affero Licence}"
+msgstr "{code source disponible} sous licence {GNU Affero}"
+
+msgid "proudly union made"
+msgstr "fait par de fiers travailleurs syndiqués"
+
+msgid "hosted by {red stair}"
+msgstr "hébergé par {red stair}"
+
+msgid "valid {html}, {css}, and {rss}"
+msgstr "{html}, {css} et {rss} valides"
+
+msgid "valid {html} and {css}"
+msgstr "{html} et {css} valides"
+
+msgid ""
+"Yesterday: {} RSS hits ({}% LJ, {} Google Reader), {} HTML hits ({}% "
+"Firefox, {}% IE, {}% Safari); {} Google hits"
+msgstr ""
+"Hier: {} visites d'agents RSS ({}% LJ, {}% Google Reader}, {} visites HTML "
+"({}% Firefox, {}% IE, {}% Safari); {} visites du googlebot."
+
+msgid "graph"
+msgstr "calendrier"
+
+msgid "chart"
+msgstr "tableau"
+
+msgid "with blanks"
+msgstr "avec entrées vides"
+
+msgid "without blanks"
+msgstr "sans entrées vides"
+
+msgid "community"
+msgstr "communauté"
+
+msgid "faq"
+msgstr "faq"
+
+msgid "code"
+msgstr "code"
+
+msgid "full view"
+msgstr "vue détaillée"
+
+msgid "most recent"
+msgstr "plus récent"
+
+msgid "Datestamp"
+msgstr "Daté du"
+
+msgid "Friended by"
+msgstr "Ajouté par"
+
+msgid "Unfriended by"
+msgstr "Retiré par"
+
+msgid "None."
+msgstr "Personne."
+
+msgid "joule - your friendly friend-of monitor"
+msgstr "joule — un bienveillant suivi de vos admirateurs"
+
+msgid "fans of [USERNAME] on [SITENAME], past and present"
+msgstr "admirateurs de [USERNAME] sur [SITENAME], passés et présents"
+
+msgid "Changes in the fan list over time"
+msgstr "Évolution de la liste d'admirateurs au cours du temps"
+
+msgid "feed"
+msgstr "flux"
