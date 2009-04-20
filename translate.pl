@@ -47,7 +47,13 @@ sub make_link {
     }
 }
 
-# okay, for English, put in everything; this is the default
+# okay, for English, put in everything; this is the default.
+# strings can contain two kinds of fields:
+#   [NAME]  inserts the result of evaluating template lang_NAME.tmpl
+#   {foo}  inserts a link whose text is "foo" and whose value is
+#          given by the corresponding link in keys.po.
+#          HOWEVER, if that link begins with a *, this is another template evaluation.
+# possible simplification: replace [NAME] by {NAME}.
 for my $v (keys %keynames) {
     my $value = Locale::PO->dequote($v);
     my $i=1;
