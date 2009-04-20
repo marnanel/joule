@@ -17,7 +17,7 @@
 ################################################################
 
 # This program is called by the installation script and
-# creates a file "translate.tt2" in the templates directory.
+# creates a file "translate.tmpl" in the templates directory.
 # That file is generated code, and should never be checked in.
 
 ################################################################
@@ -34,13 +34,26 @@ print TRANSLATE "[\%# Generated code.  Do not edit.  Do not check in. \%]\n";
 my %keynames = map { ($_->msgid or '') => [split(' ',$_->dequote($_->msgstr or ''))] }
 @{ Locale::PO->load_file_asarray("po/keys.po") };
 
-delete $keynames{''}; # remove the header
+delete $keynames{'""'}; # remove the header
+delete $keynames{''};
+
+sub make_link {
+    my ($target, $text) = @_;
+
+    if ($target =~/^\*/) {
+	# fix these later
+	warn "Don't know how to handle: $target";
+	return '';
+    } else {
+	return "<a href=\"$target\">$text<\/a>";
+    }
+}
 
 # okay, for English, put in everything; this is the default
 for my $v (keys %keynames) {
     my $value = Locale::PO->dequote($v);
     my $i=1;
-    $value =~ s/{(.*?)}/'<a href="'.($keynames{$v}->[$i++] or '???').'">'.$1.'<\/a>'/ge;
+    $value =~ s/{(.*?)}/make_link($keynames{$v}->[$i++] || '???', $1 || '???')/ge;
     $value =~ s/\[(.*?)\]/[% PROCESS "lang_$1" %]/g;
     print TRANSLATE "[\% t_$keynames{$v}->[0] = BLOCK \%]$value\[\% END \%]\n";
 }
@@ -55,6 +68,7 @@ for (sort glob('po/*.po')) {
     print TRANSLATE "\n[\% ${els}IF lang==\"$iso639\" \%]\n";
 
     my $po = Locale::PO->load_file_ashash($_);
+    delete $po->{'""'};
     delete $po->{''};
     
     for my $v (keys %keynames) {
@@ -63,7 +77,7 @@ for (sort glob('po/*.po')) {
 	die "Value has [% already in it" if $value =~ /\[%/;
 
 	my $i=1;
-	$value =~ s/{(.*?)}/'<a href="'.($keynames{$v}->[$i++] or '???').'">'.$1.'<\/a>'/ge;
+	$value =~ s/{(.*?)}/make_link($keynames{$v}->[$i++] || '???', $1 || '???')/ge;
 	$value =~ s/\[(.*?)\]/[% PROCESS "lang_$1" %]/g;
 	print TRANSLATE "[\% t_$keynames{$v}->[0] = BLOCK \%]$value\[\% END \%]\n";
     }
