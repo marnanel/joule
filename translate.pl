@@ -26,26 +26,55 @@ use strict;
 use warnings;
 use Locale::PO;
 
-print "Creating translations...\n";
+print "Creating translations...";
 
 open TRANSLATE, ">share/tmpl/translate.tmpl" or die "Can't open: $!";
 print TRANSLATE "[\%# Generated code.  Do not edit.  Do not check in. \%]\n";
 
-my %keynames = map { $_->dequote($_->msgid or '') => [split(' ',$_->dequote($_->msgstr or ''))] } @{ Locale::PO->load_file_asarray("po/keys.po") };
+my %keynames = map { ($_->msgid or '') => [split(' ',$_->dequote($_->msgstr or ''))] }
+@{ Locale::PO->load_file_asarray("po/keys.po") };
 
 delete $keynames{''}; # remove the header
 
 # okay, for English, put in everything; this is the default
-for (keys %keynames) {
-    my $value = $_;
+for my $v (keys %keynames) {
+    my $value = Locale::PO->dequote($v);
     my $i=1;
-    $value =~ s/{(.*?)}/'<a href="'.($keynames{$_}->[$i++] or '???').'">'.$1.'<\/a>'/ge;
+    $value =~ s/{(.*?)}/'<a href="'.($keynames{$v}->[$i++] or '???').'">'.$1.'<\/a>'/ge;
     $value =~ s/\[(.*?)\]/[% PROCESS "lang_$1" %]/g;
-    print TRANSLATE "[\% t_$keynames{$_}->[0] = BLOCK \%]$value\[\% END \%]\n";
+    print TRANSLATE "[\% t_$keynames{$v}->[0] = BLOCK \%]$value\[\% END \%]\n";
 }
+
+my $els = '';
+
+for (sort glob('po/*.po')) {
+    next if /keys.po$/;
+    my ($iso639) = m!/(.*)\.po!;
+    print " $iso639";
+
+    print TRANSLATE "\n[\% ${els}IF lang==\"$iso639\" \%]\n";
+
+    my $po = Locale::PO->load_file_ashash($_);
+    delete $po->{''};
+    
+    for my $v (keys %keynames) {
+	my $value = Locale::PO->dequote($po->{$v}->msgstr);
+
+	die "Value has [% already in it" if $value =~ /\[%/;
+
+	my $i=1;
+	$value =~ s/{(.*?)}/'<a href="'.($keynames{$v}->[$i++] or '???').'">'.$1.'<\/a>'/ge;
+	$value =~ s/\[(.*?)\]/[% PROCESS "lang_$1" %]/g;
+	print TRANSLATE "[\% t_$keynames{$v}->[0] = BLOCK \%]$value\[\% END \%]\n";
+    }
+
+    $els = 'ELS';
+}
+
+print TRANSLATE "[\% END \%]\n" if $els;
 
 print TRANSLATE "[\%# eof translate.tmpl \%]\n";
 
 close TRANSLATE or die "Can't close: $!";
 
-print "...done.\n";
+print " done.\n";
