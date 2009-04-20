@@ -21,7 +21,7 @@
 
   abstract       'Records differences over time in the readership of a journal';
   author         'Thomas Thurman <tthurman@gnome.org>';
-  version        '3.01';  
+  version        '3.02';  
   license        'affero';
 
   requires 'Apache2::Connection';
@@ -53,7 +53,7 @@
   requires 'Time::HiRes';
   requires 'URI::Escape';
 
-  # Can we tell where files are going and look for a no-clobber.txt?
+do "translate.pl";
   
   install_share unless $ENV{NOSHARE};
 
