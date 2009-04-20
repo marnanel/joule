@@ -48,7 +48,8 @@ sub handler {
 	    $vars{mobileads} = Joule::GoogleMobile::mobile_ads;
 	}
 
-	$vars{strings} = Joule::Language::strings($r, \%vars);
+	#$vars{strings} = Joule::Language::strings($r, \%vars);
+	$vars{lang} = Joule::Language::_user_language($r); # FIXME
 
         for my $i qw(Redirect Static TakeDown Report Front) {
 	    last if "Joule::Section::$i"->handler($r, \%vars);

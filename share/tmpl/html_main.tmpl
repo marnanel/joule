@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="[% strings.CURRENT %]" lang="[% strings.CURRENT %]"[% IF strings.CURRENT=="he" %] dir="rtl"[% END %]>
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">[% PROCESS translate.tmpl %]
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="[% lang %]" lang="[% lang %]"[% IF lang=="he" %] dir="rtl"[% END %]>
 <head>
-<title>[% IF user %][% strings.reporttitle %][% ELSE %][% strings.title %][% END %]</title>
+<title>[% IF user %][% t_reporttitle %][% ELSE %][% t_title %][% END %]</title>
 [% IF not mobile %]<link rel="stylesheet" type="text/css" href="/rhes" />[% END %]
 [% IF NOT graph AND noblanks %][% SET isnoblanks="noblanks" %][% ELSE %][% SET isnoblanks="" %][% END %]
 [% IF user %]<link rel="alternate" type="application/rss+xml" title="RSS" href="/rss[% isnoblanks %]/[% site %]/[% user %]" />[% END %]
@@ -16,39 +16,39 @@ function go(){document.getElementById('u').focus();}//--></script>
 [% ELSE %]<h1><a href="/"><img id="sitename" src="/marnanel-rhes-joulea-01" alt="*joule*" width="465" height="100" /> </a></h1>[% END %]
 <div id="poppy"></div>
 <div id="languages">
-[% FOREACH lang = strings.LANGS %]<a href="?lang=[% lang.code %]"[% IF lang.code == strings.CURRENT %] class="current"[% END %]>[% lang.name %]</a> &middot;
+[% FOREACH lang = t_LANGS %]<a href="?lang=[% lang.code %]"[% IF lang.code == lang %] class="current"[% END %]>[% lang.name %]</a> &middot;
 [% END %] <a href="http://community.livejournal.com/marnanel_joule/8360.html">more?</a>
 </div>
 <div id="navigation">
-<a href="/faq">[% strings.faq %]</a> &middot;
-<a href="https://launchpad.net/joule">[% strings.code %]</a> &middot;
+<a href="/faq">[% t_faq %]</a> &middot;
+<a href="https://launchpad.net/joule">[% t_code %]</a> &middot;
 [% IF user %]
 [% IF graph %][% SET ischart="graph" %][% ELSE %][% SET ischart="chart" %][% END %]
 [% IF limit %][% SET isfull="" %][% ELSE %][% SET isfull="full" %][% END %]
-<a href="/[% IF graph %]chart[% ELSE %]graph[% END %][% isfull %][% IF graph %][% isnoblanks %][% END %]/[%site%]/[%user%]">[% IF graph %][% strings.chart %][% ELSE %][% strings.graph %][% END %]</a> &middot;
+<a href="/[% IF graph %]chart[% ELSE %]graph[% END %][% isfull %][% IF graph %][% isnoblanks %][% END %]/[%site%]/[%user%]">[% IF graph %][% t_chart %][% ELSE %][% t_graph %][% END %]</a> &middot;
 [% IF limit %]
-<a href="/[% ischart %]full[% isnoblanks %]/[%site%]/[%user%]">[% strings.full %]</a> &middot;
+<a href="/[% ischart %]full[% isnoblanks %]/[%site%]/[%user%]">[% t_full %]</a> &middot;
 [% ELSE %]
-<a href="/[% ischart %][% isnoblanks %]/[%site%]/[%user%]">[% strings.lastn %]</a> &middot;
+<a href="/[% ischart %][% isnoblanks %]/[%site%]/[%user%]">[% t_lastn %]</a> &middot;
 [% END %]
 [% IF NOT graph %]
 [% IF noblanks %]
-<a href="/[% ischart %][% isfull %]/[%site%]/[%user%]">[% strings.withblanks %]</a> &middot;
+<a href="/[% ischart %][% isfull %]/[%site%]/[%user%]">[% t_withblanks %]</a> &middot;
 [% ELSE %]
-<a href="/[% ischart %][% isfull %]noblanks/[%site%]/[%user%]">[% strings.noblanks %]</a> &middot;
+<a href="/[% ischart %][% isfull %]noblanks/[%site%]/[%user%]">[% t_noblanks %]</a> &middot;
 [% END %]
 [% END %]
-<a href="/rss[% isnoblanks %]/[%site%]/[% user %]">[% strings.feed %]</a> &middot;
+<a href="/rss[% isnoblanks %]/[%site%]/[% user %]">[% t_feed %]</a> &middot;
 [% ELSE %]
 <a href="http://marnanel.org">marnanel</a> &middot;
 [% END %]
-<a href="http://community.livejournal.com/marnanel_joule/">[% strings.comm %]</a>
+<a href="http://community.livejournal.com/marnanel_joule/">[% t_comm %]</a>
 </div>
 [% IF NOT noads %]<div id="ads">[% IF mobile %][% mobileads %][% ELSE %][% INCLUDE adsense1.tmpl %][% END %]</div>[% END %]
 
 <form class="name" action="/" method="get">
 <div id="text">
-[% strings.showme %]
+[% t_showme %]
 [% IF errormessage %]<b>[% errormessage %]</b>[% END %]
 <p class="credits">
 [% IF mobile %] Welcome to mobile Joule.  Feedback is welcome! (<a href="http://joule.marnanel.org">normal site</a>)[% ELSE %]New: mobile version of Joule at <a href="http://m.joule.marnanel.org">m.joule.marnanel.org</a>![% END %]
@@ -70,10 +70,10 @@ function go(){document.getElementById('u').focus();}//--></script>
 
 [% motd %]
 <p class="credits">
-[%strings.bymarn%] &middot; [%strings.byfin%]<br />
-<a href="http://iww.org">[%strings.union%]</a> &middot; [%strings.hosted%] &middot;
-[% IF user %][% strings.validrss %][% ELSE %][% strings.valid %][% END %]
-[% IF strings.CURRENT != "en" %] <br /> [% strings.translator %] [% END %]
+[%t_bymarn%] &middot; [%t_byfin%]<br />
+<a href="http://iww.org">[%t_union%]</a> &middot; [%t_hosted%] &middot;
+[% IF user %][% t_validrss %][% ELSE %][% t_valid %][% END %]
+[% IF lang != "en" %] <br /> [% t_translator %] [% END %]
 [%# INCLUDE daystats.tmpl %]
 </p>
 

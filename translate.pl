@@ -41,7 +41,7 @@ sub make_link {
     my ($target, $text) = @_;
 
     if ($target =~/^\*(.*)/) {
-	return "[\% PROCESS \"lang_$1\" text=\"$text\" \%]";
+	return "[\% PROCESS \"lang_$1.tmpl\" text=\"$text\" \%]";
     } else {
 	return "<a href=\"$target\">$text<\/a>";
     }
@@ -57,7 +57,7 @@ sub make_link {
 for my $v (keys %keynames) {
     my $value = Locale::PO->dequote($v);
     my $i=1;
-    $value =~ s/\[(.*?)\]/[% PROCESS "lang_$1" %]/g;
+    $value =~ s/\[(.*?)\]/[% PROCESS "lang_$1.tmpl" %]/g;
     $value =~ s/{(.*?)}/make_link($keynames{$v}->[$i++] || '???', $1 || '???')/ge;
     print TRANSLATE "[\% t_$keynames{$v}->[0] = BLOCK \%]$value\[\% END \%]\n";
 }
@@ -81,7 +81,7 @@ for (sort glob('po/*.po')) {
 	die "Value has [% already in it" if $value =~ /\[%/;
 
 	my $i=1;
-	$value =~ s/\[(.*?)\]/[% PROCESS "lang_$1" %]/g;
+	$value =~ s/\[(.*?)\]/[% PROCESS "lang_$1.tmpl" %]/g;
 	$value =~ s/{(.*?)}/make_link($keynames{$v}->[$i++] || '???', $1 || '???')/ge;
 	print TRANSLATE "[\% t_$keynames{$v}->[0] = BLOCK \%]$value\[\% END \%]\n";
     }
