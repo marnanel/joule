@@ -26,6 +26,8 @@ use strict;
 use warnings;
 use Locale::PO;
 
+print "Creating translations...\n";
+
 open TRANSLATE, ">share/tmpl/translate.tmpl" or die "Can't open: $!";
 print TRANSLATE "[\%# Generated code.  Do not edit.  Do not check in. \%]\n";
 
@@ -39,9 +41,11 @@ for (keys %keynames) {
     my $i=1;
     $value =~ s/{(.*?)}/'<a href="'.($keynames{$_}->[$i++] or '???').'">'.$1.'<\/a>'/ge;
     $value =~ s/\[(.*?)\]/[% PROCESS "lang_$1" %]/g;
-    print "[\% t_$keynames{$_}->[0] = BLOCK \%]$value\[\% END \%]\n";
+    print TRANSLATE "[\% t_$keynames{$_}->[0] = BLOCK \%]$value\[\% END \%]\n";
 }
 
 print TRANSLATE "[\%# eof translate.tmpl \%]\n";
 
 close TRANSLATE or die "Can't close: $!";
+
+print "...done.\n";
