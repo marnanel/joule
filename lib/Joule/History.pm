@@ -166,7 +166,7 @@ sub content {
 
     for (reverse sort keys %results) {
 	    $results{$_}->{date} = $_;
-            if ($opts->{format} eq 'rss') {
+            if ($opts->{format} && $opts->{format} eq 'rss') {
               # FIXME: would like to do this in the template with a filter
               my ($y, $m, $d) = $_ =~ /^(....)-(..)-(..)$/;
               $results{$_}->{rfc822date} = POSIX::strftime(
