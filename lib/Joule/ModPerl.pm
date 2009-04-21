@@ -43,13 +43,13 @@ sub handler {
 		        hostname => $r->hostname,
 			sites => Joule::Status::All->sites,
 		  );
-	if (mobile => $r->hostname =~ /^m\./) {
+
+	if ($r->hostname =~ /^m\./) {
 	    $vars{mobile} = 1;
 	    $vars{mobileads} = Joule::GoogleMobile::mobile_ads;
 	}
 
-	#$vars{strings} = Joule::Language::strings($r, \%vars);
-	$vars{lang} = Joule::Language::user_language($r); # FIXME
+	$vars{'lang'} = Joule::Language::user_language($r);
 
         for my $i qw(Redirect Static TakeDown Report Front) {
 	    last if "Joule::Section::$i"->handler($r, \%vars);
