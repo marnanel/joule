@@ -49,7 +49,7 @@ sub handler {
 	}
 
 	#$vars{strings} = Joule::Language::strings($r, \%vars);
-	$vars{lang} = Joule::Language::_user_language($r); # FIXME
+	$vars{lang} = Joule::Language::user_language($r); # FIXME
 
         for my $i qw(Redirect Static TakeDown Report Front) {
 	    last if "Joule::Section::$i"->handler($r, \%vars);

@@ -22,90 +22,11 @@ use strict;
 use warnings;
 
 use File::ShareDir;
-use Locale::PO;
 use IP::Country::DNSBL;
 use Apache2::Connection;
 
 use Joule::Template;
 use Joule::Cookie;
-
-my %translations;
-
-# I have no idea why Locale::PO leaves in the quotes
-sub _unquote {
-    my ($str) = @_;
-    $str =~ s/\\"/"/g;
-    $str =~ s/^"//;
-    $str =~ s/"$//;
-    return $str;
-}
-
-sub _setup {
-    my $podir = File::ShareDir::dist_dir('Joule') . '/po';
-    my $keys = Locale::PO->load_file_ashash("$podir/keys.po");
-
-    %translations = (en=>{});
-    my %params;
-
-    for my $i (keys %$keys) {
-	next unless $i;
-	my ($keyword, @params) = split(/\s+/,_unquote($keys->{$i}->msgstr));
-	$translations{en}->{$keyword} = $i;
-	$params{$keyword} = \@params;
-    }
-
-    my $template = Joule::Template::template;
-
-    for my $i (glob("$podir/??.po")) {
-	my $po = eval { Locale::PO->load_file_ashash($i) };
-	my ($iso639) = $i =~ /\/(..)\.po$/;
-	for my $j (keys(%{ $translations{en} })) {
-	    next unless $j;
-	    use Data::Dumper;
-	    die "There is no translation for $j $translations{en}->{$j} in $iso639." unless $po->{$translations{en}->{$j}};
-	    my $msgstr = _unquote($po->{$translations{en}->{$j}}->msgstr);
-
-	    for my $param (@{ $params{$j} }) {
-		if ($param =~ /^\*(.*)$/) {
-		    my $filename = "lang_$1.tmpl";
-		    $msgstr =~ s/\{([^\}]+)\}/my $a; $template->process($filename, {text => $1}, \$a); $a;/e;
-		} else {
-		    $msgstr =~ s/\{([^\}]+)\}/<a href="$param">$1<\/a>/;
-		}
-	    }
-
-	    $translations{$iso639}->{_unquote($j)} = $msgstr;
-	}
-    }
-
-    # we needed to have the English values quoted so they could be
-    # found in the hash; it's safe to unquote them now
-
-    for my $i (keys %{$translations{en}}) {
-	next unless $i;
-	my $msgstr = _unquote($translations{en}->{$i});
-
-	# beware code duplication!  refactor me!
-	for my $param (@{ $params{$i} }) {
-	    if ($param =~ /^\*(.*)$/) {
-		my $filename = "lang_$1.tmpl";
-		$msgstr =~ s/\{([^\}]+)\}/my $a; $template->process($filename, {text => $1}, \$a); $a;/e;
-	    } else {
-		$msgstr =~ s/\{([^\}]+)\}/<a href="$param">$1<\/a>/;
-	    } 
-	}
-
-	$translations{en}->{$i} = $msgstr;
-    }
-}
-
-sub is_language {
-    my ($code) = @_;
-
-    return 0 unless $code =~ /^[a-z]+$/;
-
-    return $code eq 'en' || -e File::ShareDir::dist_dir('Joule') . "/po/$code.po";
-}
 
 # fixme: this should be a space-separated field in the po file itself
 my %languages_in_countries = (
@@ -119,13 +40,13 @@ my %languages_in_countries = (
 
 my $geolocation = IP::Country::DNSBL->new();
 
-sub _user_language {
+sub user_language {
 
     my ($r) = @_;
 
     # If they have a cookie, that always wins.
     my $cookie = Joule::Cookie::lang($r);
-    return $cookie if $cookie and is_language($cookie);
+    return $cookie if $cookie;
 
     # Else, check Accept-Language.
 
@@ -137,31 +58,6 @@ sub _user_language {
     # Else give up and use English.
     return 'en';
 }
-
-sub strings {
-    my ($r, $vars) = @_;
-
-    my $template = Joule::Template::template;
-    my $language = _user_language($r);
-    my %result;
-
-    for (keys %{$translations{$language}}) {
-	$result{$_} = $translations{$language}->{$_};
-    }
-
-    $result{'LANGS'} = [];
-    for (sort keys %translations) {
-	push @{$result{'LANGS'}}, {
-	    name => $translations{$_}->{lang},
-	    code => $_,
-	};
-    }
-    $result{'CURRENT'} = $language;
-
-    return \%result;
-}
-
-_setup;
 
 1;
 
