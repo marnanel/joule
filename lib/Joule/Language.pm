@@ -36,6 +36,7 @@ my %languages_in_countries = (
 			      SU => 'ru', # Russian in very old computers in Russia
 			      IL => 'he', # Hebrew in Israel
                               NL => 'nl', # Dutch in the Netherlands
+                              FR => 'fr', # French in France
 			      );
 
 my $geolocation = IP::Country::DNSBL->new();
