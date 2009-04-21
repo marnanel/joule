@@ -54,7 +54,7 @@ sub user_language {
     # Else, guess via languages_in_countries
 
     my $country = $geolocation->inet_atocc($r->connection->remote_ip);
-    return $languages_in_countries{$country} if $languages_in_countries{$country};
+    return $languages_in_countries{$country} if $country && $languages_in_countries{$country};
 
     # Else give up and use English.
     return 'en';
