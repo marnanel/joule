@@ -63,7 +63,7 @@ for my $v (keys %keynames) {
 }
 
 my $els = '';
-my @langs;
+my @langs = ('{code="en" name="English"} ');
 
 for (sort glob('po/*.po')) {
     next if /keys.po$/;
