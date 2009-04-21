@@ -92,7 +92,7 @@ for (sort glob('po/*.po')) {
     $els = 'ELS';
 }
 
-print TRANSLATE "[\% END \%]\n" if $els;
+print TRANSLATE "\n[\% ${els}IF lang!=\"en\" \%][\% lang = \"en\" \%][\% END \%]\n";
 
 print TRANSLATE "[\% langlinks = [". join(', ', @langs) . "] \%]\n";
 
