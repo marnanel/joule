@@ -40,7 +40,7 @@ sub handler {
 	return 1;
     }
 
-    my $static = @static[0];
+    my $static = $static[0];
     my ($extension) = $static =~ /\.([A-Za-z0-9]+)$/;
 
     if ($extension eq 'tmpl') {
