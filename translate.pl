@@ -63,6 +63,7 @@ for my $v (keys %keynames) {
 }
 
 my $els = '';
+my @langs;
 
 for (sort glob('po/*.po')) {
     next if /keys.po$/;
@@ -74,6 +75,8 @@ for (sort glob('po/*.po')) {
     my $po = Locale::PO->load_file_ashash($_);
     delete $po->{'""'};
     delete $po->{''};
+
+    push @langs, " {\ncode = \"$iso639\"\nname=\"".Locale::PO->dequote($po->{'"English"'}->msgstr)."\"\n}";
     
     for my $v (keys %keynames) {
 	my $value = Locale::PO->dequote($po->{$v}->msgstr);
@@ -90,6 +93,8 @@ for (sort glob('po/*.po')) {
 }
 
 print TRANSLATE "[\% END \%]\n" if $els;
+
+print TRANSLATE "[\% langlinks = [". join(', ', @langs) . "] \%]\n";
 
 print TRANSLATE "[\%# eof translate.tmpl \%]\n";
 

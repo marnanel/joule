@@ -16,7 +16,7 @@ function go(){document.getElementById('u').focus();}//--></script>
 [% ELSE %]<h1><a href="/"><img id="sitename" src="/marnanel-rhes-joulea-01" alt="*joule*" width="465" height="100" /> </a></h1>[% END %]
 <div id="poppy"></div>
 <div id="languages">
-[% FOREACH lang = t_LANGS %]<a href="?lang=[% lang.code %]"[% IF lang.code == lang %] class="current"[% END %]>[% lang.name %]</a> &middot;
+[% FOREACH l = langlinks %]<a href="?lang=[% l.code %]"[% IF l.code == lang %] class="current"[% END %]>[% l.name %]</a> &middot;
 [% END %] <a href="http://community.livejournal.com/marnanel_joule/8360.html">more?</a>
 </div>
 <div id="navigation">
