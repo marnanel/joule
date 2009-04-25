@@ -30,7 +30,8 @@ sub new {
 sub site { "LiveJournal"; }
 
 sub names {
-    my ($self) = @_;
+    my ($self, $callback) = @_;
+
     my $ua = LWP::UserAgent->new();
     $ua->agent("Joule/3.0 (http://marnanel.org/joule; thomas\@thurman.org.uk)");
 
@@ -40,13 +41,9 @@ sub names {
 
     die __PACKAGE__ . ' error: ' . $res->status_line() unless $res->is_success();
     
-    my @result;
-
     for (split('\n', $res->content())) {
-      push @result, $1 if $_ =~ /^< (.*)$/;
+      $callback->($1) if $_ =~ /^< (.*)$/;
     }
-
-    return @result;
 }
 
 1;
