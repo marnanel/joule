@@ -49,16 +49,6 @@ sub current {
     return map { $_->[0] } @{ $sth->fetchall_arrayref() };
 }
 
-sub _snapshot_handle {
-    my ($self) = @_;
-
-    my $sth = $self->{dbh}->prepare("SELECT nextval('snapshot_seq')");
-    my ($handle) = $sth->fetchrow_array();
-
-    # Return curried function
-    return sub { $self->_add_snapshot_row($handle, shift); }
-}
-
 sub content {
     my ($self, $opts) = @_;
 
@@ -83,15 +73,22 @@ sub content {
 
        $self->{dbh}->begin_work();
 
-       $self->{'status'}->names($self->_snapshot_handle());
-       die "Got as far as the fetch";
+       my $sth = $self->{dbh}->prepare("SELECT nextval('snapshot_seq')");
+       my ($snapshot_id) = $sth->fetchrow_array();
+       my $name_count = 0;
+
+       $self->{'status'}->names(sub {
+	   $name_count++;
+	   $self->_add_snapshot_row($snapshot_id, shift);
+				});
+       die "Got as far as the fetch -- $name_count found";
 
        my @newfetch; # dummy so it compiles
 
        $opts->{lonely} = 1 unless @newfetch;
        return () if $opts->{lonely} and $opts->{virgin}; # because we don't know for sure it exists at all
 
-       my $sth = $self->{dbh}->prepare("SELECT COUNT(*) FROM account WHERE userid=?");
+       $sth = $self->{dbh}->prepare("SELECT COUNT(*) FROM account WHERE userid=?");
        $sth->execute($self->{userid});
        unless ($sth->fetchrow()) {
           $sth = $self->{dbh}->prepare("INSERT INTO account VALUES (?)");
