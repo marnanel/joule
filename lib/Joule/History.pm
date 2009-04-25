@@ -1,5 +1,5 @@
 #    Joule - track changes in an online list over time
-#    Copyright (C) 2002-2008 Thomas Thurman
+#    Copyright (C) 2002-2009 Thomas Thurman
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -49,6 +49,16 @@ sub current {
     return map { $_->[0] } @{ $sth->fetchall_arrayref() };
 }
 
+sub _snapshot_handle {
+    my ($self) = @_;
+
+    my $sth = $self->{dbh}->prepare("SELECT nextval('snapshot_seq')");
+    my ($handle) = $sth->fetchrow_array();
+
+    # Return curried function
+    return sub { $self->_add_snapshot_row($handle, shift); }
+}
+
 sub content {
     my ($self, $opts) = @_;
 
@@ -73,7 +83,10 @@ sub content {
 
        $self->{dbh}->begin_work();
 
-       my @newfetch = $self->{'status'}->names();
+       $self->{'status'}->names($self->_snapshot_handle());
+       die "Got as far as the fetch";
+
+       my @newfetch; # dummy so it compiles
 
        $opts->{lonely} = 1 unless @newfetch;
        return () if $opts->{lonely} and $opts->{virgin}; # because we don't know for sure it exists at all
