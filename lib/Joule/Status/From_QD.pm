@@ -24,7 +24,7 @@ sub new {
 
     die "unknown user" unless $vars->{user} eq 'dummy';
 
-    bless {count=>0}, $class;
+    bless {}, $class;
 }
 
 sub site { "Dummy testing site"; }
@@ -32,14 +32,9 @@ sub site { "Dummy testing site"; }
 sub names {
     my ($self, $callback) = @_;
 
-    my @result;
-
-    $self->{count}++;
-    if ($self->{count} % 2) {
-	@result = qw(alpha beta gamma delta);
-    } else {
-	@result = qw(alpha gamma epsilon zeta);
-    }
+    open JSON, '</tmp/joule.qd.json' or return;
+    my @result = from_json(<JSON>);
+    close JSON or return;
 
     for (@result) {
 	$callback->($_);
