@@ -53,8 +53,6 @@ sub _add_snapshot_row {
     my ($self, $snap, $name) = @_;
     my $sth = $self->{dbh}->prepare('INSERT INTO snapshot (snap, name) VALUES (?,?)');
     $sth->execute($snap, $name);
-    open TEST, ">/tmp/j-$snap-$name";
-    close TEST;
 }
 
 sub content {
