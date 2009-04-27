@@ -49,6 +49,14 @@ sub current {
     return map { $_->[0] } @{ $sth->fetchall_arrayref() };
 }
 
+sub _add_snapshot_row {
+    my ($self, $snap, $name) = @_;
+    my $sth = $self->{dbh}->prepare('INSERT INTO snapshot (snap, name) VALUES (?,?)');
+    $sth->execute($snap, $name);
+    open TEST, ">/tmp/j-$snap-$name";
+    close TEST;
+}
+
 sub content {
     my ($self, $opts) = @_;
 
@@ -61,19 +69,22 @@ sub content {
     my $done_today = $self->{dbh}->prepare("SELECT COUNT(datestamp) FROM checking WHERE userid=? AND datestamp=CURRENT_DATE LIMIT 1");
     $done_today->execute($self->{userid});
 
+    my $sth;
+
     unless ($done_today->fetchrow()) {
 
        # it hasn't been done today
 
        $self->{dbh}->begin_work();
 
-       my $sth = $self->{dbh}->prepare("SELECT nextval('snapshot_seq'), current_date");
+       $sth = $self->{dbh}->prepare("SELECT nextval('snapid'), current_date");
+       $sth->execute();
        my ($snap, $today) = $sth->fetchrow_array();
        my $name_count = 0;
 
        $self->{'status'}->names(sub {
 	   $name_count++;
-	   $self->_add_snapshot_row($snapshot_id, shift);
+	   $self->_add_snapshot_row($snap, shift);
 				});
 
        $opts->{lonely} = 1 unless $name_count;
@@ -96,7 +107,7 @@ sub content {
 	   $sth = $self->{dbh}->prepare(
 	       "insert into current (userid, fan) ".
 	       "select ?, name from snapshot where snap=?");
-	   $sth->execute($self->{userid}, 1);
+	   $sth->execute($self->{userid}, $snap);
 
        } else {
 
@@ -114,30 +125,27 @@ sub content {
 	       "insert into change(userid,datestamp,fan,added) ".
 	       "select ?, ?, fan, false ".
 	       "from current where userid=? and fan not in ".
-	       "(select name from snapshot where snap=?) and userid=$self->{userid}";
-	       );
-	   $sth->execute($self->{userid}, $today, $self->{userid}, $snap);
+	       "(select name from snapshot where snap=?) and userid=?");
+	   $sth->execute($self->{userid}, $today, $self->{userid}, $snap, $self->{userid});
 
 	   $sth = $self->{dbh}->prepare(
 	       "insert into current select userid, fan from change ".
-	       "where userid=? and datestamp=? and added"
-	       );
+	       "where userid=? and datestamp=? and added");
 	   $sth->execute($self->{userid}, $today);
 
 	   $sth = $self->{dbh}->prepare(
 	       "delete from current where userid=? ".
 	       "and fan in (select fan from change where ".
-	       "userid=? and datestamp=? and not added)"
-	       );
+	       "userid=? and datestamp=? and not added)");
 	   $sth->execute($self->{userid}, $self->{userid}, $today);
        }
+
+       $sth = $self->{dbh}->prepare('delete from snapshot where snap=?');
+       $sth->execute($snap);
+
+       # Aaaaand... commit.
+       $self->{dbh}->commit();
     }
-
-    $sth = $self->{dbh}->prepare('delete from snapshot where snap=?');
-    $sth->execute($snap);
-
-    # Aaaaand... commit.
-    $self->{dbh}->commit();
 
     # There's no more useful information to return on virgin accounts.
     return () if $opts->{virgin};
@@ -164,8 +172,7 @@ sub content {
 		    ' ORDER BY checking.datestamp DESC';
     }
 
-    my $sth = $self->{dbh}->prepare($query);
-
+    $sth = $self->{dbh}->prepare($query);
     $sth->execute($self->{userid});
 
     my %results;

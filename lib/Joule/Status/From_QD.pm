@@ -18,6 +18,7 @@ package Joule::Status::From_QD;
 
 use strict;
 use warnings;
+use JSON;
 
 sub new {
     my ($class, $vars) = @_;
@@ -33,7 +34,7 @@ sub names {
     my ($self, $callback) = @_;
 
     open JSON, '</tmp/joule.qd.json' or return;
-    my @result = from_json(<JSON>);
+    my @result = @{from_json(<JSON>)};
     close JSON or return;
 
     for (@result) {
