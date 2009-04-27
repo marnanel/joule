@@ -1,5 +1,5 @@
 #    Joule - track changes in an online list over time
-#    Copyright (C) 2002-2008 Thomas Thurman
+#    Copyright (C) 2002-2009 Thomas Thurman
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -49,6 +49,14 @@ sub current {
     return map { $_->[0] } @{ $sth->fetchall_arrayref() };
 }
 
+sub _add_snapshot_row {
+    my ($self, $snap, $name) = @_;
+    my $sth = $self->{dbh}->prepare('INSERT INTO snapshot (snap, name) VALUES (?,?)');
+    $sth->execute($snap, $name);
+    open TEST, ">/tmp/j-$snap-$name";
+    close TEST;
+}
+
 sub content {
     my ($self, $opts) = @_;
 
@@ -61,66 +69,86 @@ sub content {
     my $done_today = $self->{dbh}->prepare("SELECT COUNT(datestamp) FROM checking WHERE userid=? AND datestamp=CURRENT_DATE LIMIT 1");
     $done_today->execute($self->{userid});
 
-    if ($done_today->fetchrow()) {
+    my $sth;
 
-       if ($opts->{virgin}) {
-         $opts->{current_names} = [ $self->{'status'}->names() ];
-         return ();
-       }
+    unless ($done_today->fetchrow()) {
 
-    } else {
        # it hasn't been done today
 
        $self->{dbh}->begin_work();
 
-       my @newfetch = $self->{'status'}->names();
+       $sth = $self->{dbh}->prepare("SELECT nextval('snapid'), current_date");
+       $sth->execute();
+       my ($snap, $today) = $sth->fetchrow_array();
+       my $name_count = 0;
 
-       $opts->{lonely} = 1 unless @newfetch;
+       $self->{'status'}->names(sub {
+	   $name_count++;
+	   $self->_add_snapshot_row($snap, shift);
+				});
+
+       $opts->{lonely} = 1 unless $name_count;
        return () if $opts->{lonely} and $opts->{virgin}; # because we don't know for sure it exists at all
 
-       my $sth = $self->{dbh}->prepare("SELECT COUNT(*) FROM account WHERE userid=?");
+       $sth = $self->{dbh}->prepare("SELECT COUNT(*) FROM account WHERE userid=? LIMIT 1");
        $sth->execute($self->{userid});
        unless ($sth->fetchrow()) {
-          $sth = $self->{dbh}->prepare("INSERT INTO account VALUES (?)");
-          $sth->execute($self->{userid});
+	   $sth = $self->{dbh}->prepare("INSERT INTO account VALUES (?)");
+	   $sth->execute($self->{userid});
        }
 
        my $adder = $self->{dbh}->prepare("INSERT INTO checking(userid, datestamp) VALUES (?, CURRENT_DATE)");
        $adder->execute($self->{userid});
 
-       my $current_add = $self->{dbh}->prepare("INSERT INTO current(userid, fan) VALUES (?,?)");
        if ($opts->{virgin}) {
-	       $opts->{virgin} = 1;
-	       $opts->{current_names} = \@newfetch;
 
-               for (@newfetch) {
-                  $current_add->execute($self->{userid}, $_);
-               }
+	   $opts->{virgin} = 1;
+
+	   $sth = $self->{dbh}->prepare(
+	       "insert into current (userid, fan) ".
+	       "select ?, name from snapshot where snap=?");
+	   $sth->execute($self->{userid}, $snap);
 
        } else {
-	       my @latest = $self->current();
 
-	       my $adder = $self->{dbh}->prepare("INSERT INTO change(userid, datestamp, fan, added) VALUES (?,CURRENT_DATE,?,?)");
-	       my $current_del = $self->{dbh}->prepare("DELETE FROM current WHERE userid=? AND fan=?");
+	   # Deltas are not stored for virgin accounts
+	   # (otherwise it shows a mass friending first)
 
-               # Deltas are not stored for virgin accounts (otherwise it shows a mass friending first)
-	       for (_subtract( \@newfetch, \@latest )) {
-		       $adder->execute($self->{userid}, $_, 1);
-		       $current_add->execute($self->{userid}, $_);
-	       }
+	   $sth = $self->{dbh}->prepare(
+	       "insert into change(userid,datestamp,fan,added) ".
+	       "select ?, ?, name, true ".
+	       "from snapshot where snap=? and name not in ".
+	       "(select fan from current where userid=?)");
+	   $sth->execute($self->{userid}, $today, $snap, $self->{userid});
 
-	       for (_subtract( \@latest, \@newfetch )) {
-		       $adder->execute($self->{userid}, $_, 0);
-		       $current_del->execute($self->{userid}, $_);
-	       }
+	   $sth = $self->{dbh}->prepare(
+	       "insert into change(userid,datestamp,fan,added) ".
+	       "select ?, ?, fan, false ".
+	       "from current where userid=? and fan not in ".
+	       "(select name from snapshot where snap=?) and userid=?");
+	   $sth->execute($self->{userid}, $today, $self->{userid}, $snap, $self->{userid});
+
+	   $sth = $self->{dbh}->prepare(
+	       "insert into current select userid, fan from change ".
+	       "where userid=? and datestamp=? and added");
+	   $sth->execute($self->{userid}, $today);
+
+	   $sth = $self->{dbh}->prepare(
+	       "delete from current where userid=? ".
+	       "and fan in (select fan from change where ".
+	       "userid=? and datestamp=? and not added)");
+	   $sth->execute($self->{userid}, $self->{userid}, $today);
        }
+
+       $sth = $self->{dbh}->prepare('delete from snapshot where snap=?');
+       $sth->execute($snap);
 
        # Aaaaand... commit.
        $self->{dbh}->commit();
-
-       # There's no more useful information to return on virgin accounts.
-       return () if $opts->{virgin};
     }
+
+    # There's no more useful information to return on virgin accounts.
+    return () if $opts->{virgin};
 
     my $query;
     if ($opts->{'noblanks'}) { # noblanks version is much simpler
@@ -144,8 +172,7 @@ sub content {
 		    ' ORDER BY checking.datestamp DESC';
     }
 
-    my $sth = $self->{dbh}->prepare($query);
-
+    $sth = $self->{dbh}->prepare($query);
     $sth->execute($self->{userid});
 
     my %results;
@@ -178,17 +205,6 @@ sub content {
     }
 
     return @result;
-}
-
-sub _subtract {
-	my ($left, $right) = @_;
-
-	my @left = @$left;
-	my @right = @$right;
-
-	my %right_index = map { $_ => 1 } @right;
-
-	return grep { !$right_index{$_} } @$left;
 }
 
 sub DESTROY {
