@@ -20,6 +20,7 @@ use strict;
 use warnings;
 use LWP::UserAgent;
 use JSON;
+use Joule::Database;
 
 sub new {
     my ($class, $vars) = @_;
@@ -44,6 +45,40 @@ sub names {
     for (@{ from_json($res->content()) }) {
 	$callback->($_);
     }
+}
+
+sub _lookup {
+    my ($id) = @_;
+
+    my $ua = LWP::UserAgent->new;
+    $ua->agent('Joule/3.0 (http://joule.marnanel.org; thomas@thurman.org.uk)');
+    my $req = HTTP::Request->new(GET => 'http://twitter.com/users/show.json?user_id='.$id);
+    my $res = $ua->request($req);
+
+    return undef unless $res->is_success;
+
+    my $data = from_json($res->content);
+
+    return {
+	name => $data->{name},
+	userid => $data->{screen_name},
+	pic => $data->{profile_image_url},
+    };
+}
+
+sub username_filter {
+    my ($name) = @_;
+
+    my $details = _lookup($name);
+
+    if ($details) {
+	return "<span class=\"user\"><a href=\"http://twitter.com/$details->{userid}\">".
+	    "<img class=\"userinfo\" src=\"$details->{pic}\" ".
+	    "width=\"17\" height=\"17\" alt=\"~\" />$details->{userid}</a></span>";
+    } else {
+	return "(?? $name ??)";
+    }
+
 }
 
 1;
