@@ -21,8 +21,8 @@
 
   abstract       'Records differences over time in the readership of a journal';
   author         'Thomas Thurman <tthurman@gnome.org>';
-  version        '3.02';  
   license        'affero';
+  version_from   'lib/Joule/ModPerl.pm';
 
   requires 'Apache2::Connection';
   requires 'Apache2::Const';

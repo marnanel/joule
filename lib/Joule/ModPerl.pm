@@ -32,6 +32,8 @@ use Joule::Status::All;
 use Joule::Language;
 use Joule::GoogleMobile;
 
+our $VERSION = '3.4';
+
 sub handler {
 
 	my $r = shift;
@@ -42,14 +44,10 @@ sub handler {
 			noblanks => 0,
 		        hostname => $r->hostname,
 			sites => Joule::Status::All->sites,
+                        version => $VERSION,
+	                lang => Joule::Language::user_language($r),
+                        Joule::GoogleMobile::mobile_details($r),
 		  );
-
-	if ($r->hostname =~ /^m\./) {
-	    $vars{mobile} = 1;
-	    $vars{mobileads} = Joule::GoogleMobile::mobile_ads;
-	}
-
-	$vars{'lang'} = Joule::Language::user_language($r);
 
         for my $i qw(Redirect Static TakeDown Report Front) {
 	    last if "Joule::Section::$i"->handler($r, \%vars);
