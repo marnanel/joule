@@ -46,5 +46,16 @@ sub names {
     }
 }
 
+sub username_filter {
+    my ($name) = @_;
+    # FIXME: The image URL here should be with respect to $vars->{hostname},
+    # but we don't have access to that from here and it needs to be an absolute
+    # URL for when it appears in RSS.
+    return "<span class=\"user\"><a href=\"http://$name.livejournal.com/profile\">".
+	"<img class=\"userinfo\" src=\"http://joule.marnanel.org/userinfo\" ".
+	"width=\"17\" height=\"17\" alt=\"~\" /></a>".
+	"<a href=\"http://$name.livejournal.com\">$name</a></span>";
+}
+
 1;
 

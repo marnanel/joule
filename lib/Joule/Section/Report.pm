@@ -54,25 +54,29 @@ sub handler {
     eval { require $path; };
 
     if ($@) {
-	    warn "$path handler not found";
-	    Joule::Error::http_error($r, 404, $vars);
+	warn "$path handler not found";
+	Joule::Error::http_error($r, 404, $vars);
     } elsif (!$modname->can('site')) {
-	    warn "$modname refused to cooperate.";
-	    Joule::Error::http_error($r, 404, $vars); # FIXME: 500, really
+	warn "$modname refused to cooperate.";
+	Joule::Error::http_error($r, 404, $vars); # FIXME: 500, really
     } else {
 
-	    my $status = ("Joule::Status::From_".uc($vars->{site}))->new($vars);
-	    $vars->{'sitename'} = $status->site();
+	my $status = ("Joule::Status::From_".uc($vars->{site}))->new($vars);
+	$vars->{'sitename'} = $status->site();
 
-	    my $history = Joule::History->new($vars->{'site'}.'/'.$vars->{'user'}, $status);
-	    $vars->{'days'} = [ $history->content($vars) ];
+	Joule::Template::add_filter('username',
+				    $status->can('username_filter') ||
+				    sub { return shift; } );
 
-	    Joule::GraphFitter::fit($vars) if ($vars->{'graph'});
+	my $history = Joule::History->new($vars->{'site'}.'/'.$vars->{'user'}, $status);
+	$vars->{'days'} = [ $history->content($vars) ];
 
-            $r->content_type($vars->{'mimetype'});
-            my @mime = split(/\//, $vars->{'mimetype'});
+	Joule::GraphFitter::fit($vars) if ($vars->{'graph'});
+
+	$r->content_type($vars->{'mimetype'});
+	my @mime = split(/\//, $vars->{'mimetype'});
 	    
-	    Joule::Template::go($mime[1]."_main.tmpl", $vars);
+	Joule::Template::go($mime[1]."_main.tmpl", $vars);
     }
 
     return 1;

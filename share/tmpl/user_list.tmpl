@@ -3,5 +3,5 @@
 [% ELSIF list.size > 30 && NOT nohiccup %]
 Hiccup.
 [% ELSE %]
-[%= list.size =%]: [% FOREACH item IN list.sort %] [%= INCLUDE lj_user.tmpl name=item | trim =%][%= ", " IF not loop.last =%] [% END %]
+[%= list.size =%]: [% FOREACH item IN list.sort %] [%= item | username =%][%= ", " IF not loop.last =%] [% END %]
 [% END %]

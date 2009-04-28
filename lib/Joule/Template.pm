@@ -23,6 +23,8 @@ use Template;
 use POSIX;
 use File::ShareDir;
 
+# FIXME: This can't be singleton any more.
+
 my $_template;
 
 sub rfc822date {
@@ -59,6 +61,11 @@ sub go {
 
     $_template->process($filename, $vars) || die $_template->error();
 
+}
+
+sub add_filter {
+    my ($name, $callback) = @_;
+    $_template->context()->define_filter($name, $callback);
 }
 
 sub _startup {
