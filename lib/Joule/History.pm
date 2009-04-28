@@ -20,29 +20,26 @@ use strict;
 use warnings;
 use DBI;
 use POSIX qw(strftime);
+use Joule::Database;
 
 sub new {
     my ($class, $username, $status) = @_;
 
-    my $settings = do '/etc/joule.conf';
-    my $dbh = DBI->connect($settings->{'database'},
-			   $settings->{'user'},
-			   $settings->{'password'},
-			   { RaiseError => 1, AutoCommit => 1, });
-
     my $result = {
         status => $status,
-        dbh => $dbh,
         userid => $username,
     };
 
     bless $result, $class;
 }
 
+# FIXME this is really rather inefficient
 sub current {
     my ($self) = @_;
 
-    my $sth = $self->{dbh}->prepare('SELECT fan FROM current WHERE userid=?');
+    my $dbh = Joule::Database::handle();
+
+    my $sth = $dbh->prepare('SELECT fan FROM current WHERE userid=?');
 
     $sth->execute($self->{userid});
 
@@ -50,23 +47,23 @@ sub current {
 }
 
 sub _add_snapshot_row {
-    my ($self, $snap, $name) = @_;
-    my $sth = $self->{dbh}->prepare('INSERT INTO snapshot (snap, name) VALUES (?,?)');
+    my ($dbh, $snap, $name) = @_;
+    my $sth = $dbh->prepare('INSERT INTO snapshot (snap, name) VALUES (?,?)');
     $sth->execute($snap, $name);
-    open TEST, ">/tmp/j-$snap-$name";
-    close TEST;
 }
 
 sub content {
     my ($self, $opts) = @_;
 
+    my $dbh = Joule::Database::handle();
+
     # Firstly, check whether we need to poll the site.
 
-    my $experienced = $self->{dbh}->prepare('SELECT COUNT(datestamp) FROM checking WHERE userid=? AND datestamp!=CURRENT_DATE LIMIT 1');
+    my $experienced = $dbh->prepare('SELECT COUNT(datestamp) FROM checking WHERE userid=? AND datestamp!=CURRENT_DATE LIMIT 1');
     $experienced->execute($self->{userid});
     $opts->{virgin} = 1 if !$experienced->fetchrow() && !$self->current();
 
-    my $done_today = $self->{dbh}->prepare("SELECT COUNT(datestamp) FROM checking WHERE userid=? AND datestamp=CURRENT_DATE LIMIT 1");
+    my $done_today = $dbh->prepare("SELECT COUNT(datestamp) FROM checking WHERE userid=? AND datestamp=CURRENT_DATE LIMIT 1");
     $done_today->execute($self->{userid});
 
     my $sth;
@@ -75,36 +72,36 @@ sub content {
 
        # it hasn't been done today
 
-       $self->{dbh}->begin_work();
+       $dbh->begin_work();
 
-       $sth = $self->{dbh}->prepare("SELECT nextval('snapid'), current_date");
+       $sth = $dbh->prepare("SELECT nextval('snapid'), current_date");
        $sth->execute();
        my ($snap, $today) = $sth->fetchrow_array();
        my $name_count = 0;
 
        $self->{'status'}->names(sub {
 	   $name_count++;
-	   $self->_add_snapshot_row($snap, shift);
+	   _add_snapshot_row($dbh, $snap, shift);
 				});
 
        $opts->{lonely} = 1 unless $name_count;
        return () if $opts->{lonely} and $opts->{virgin}; # because we don't know for sure it exists at all
 
-       $sth = $self->{dbh}->prepare("SELECT COUNT(*) FROM account WHERE userid=? LIMIT 1");
+       $sth = $dbh->prepare("SELECT COUNT(*) FROM account WHERE userid=? LIMIT 1");
        $sth->execute($self->{userid});
        unless ($sth->fetchrow()) {
-	   $sth = $self->{dbh}->prepare("INSERT INTO account VALUES (?)");
+	   $sth = $dbh->prepare("INSERT INTO account VALUES (?)");
 	   $sth->execute($self->{userid});
        }
 
-       my $adder = $self->{dbh}->prepare("INSERT INTO checking(userid, datestamp) VALUES (?, CURRENT_DATE)");
+       my $adder = $dbh->prepare("INSERT INTO checking(userid, datestamp) VALUES (?, CURRENT_DATE)");
        $adder->execute($self->{userid});
 
        if ($opts->{virgin}) {
 
 	   $opts->{virgin} = 1;
 
-	   $sth = $self->{dbh}->prepare(
+	   $sth = $dbh->prepare(
 	       "insert into current (userid, fan) ".
 	       "select ?, name from snapshot where snap=?");
 	   $sth->execute($self->{userid}, $snap);
@@ -114,37 +111,37 @@ sub content {
 	   # Deltas are not stored for virgin accounts
 	   # (otherwise it shows a mass friending first)
 
-	   $sth = $self->{dbh}->prepare(
+	   $sth = $dbh->prepare(
 	       "insert into change(userid,datestamp,fan,added) ".
 	       "select ?, ?, name, true ".
 	       "from snapshot where snap=? and name not in ".
 	       "(select fan from current where userid=?)");
 	   $sth->execute($self->{userid}, $today, $snap, $self->{userid});
 
-	   $sth = $self->{dbh}->prepare(
+	   $sth = $dbh->prepare(
 	       "insert into change(userid,datestamp,fan,added) ".
 	       "select ?, ?, fan, false ".
 	       "from current where userid=? and fan not in ".
 	       "(select name from snapshot where snap=?) and userid=?");
 	   $sth->execute($self->{userid}, $today, $self->{userid}, $snap, $self->{userid});
 
-	   $sth = $self->{dbh}->prepare(
+	   $sth = $dbh->prepare(
 	       "insert into current select userid, fan from change ".
 	       "where userid=? and datestamp=? and added");
 	   $sth->execute($self->{userid}, $today);
 
-	   $sth = $self->{dbh}->prepare(
+	   $sth = $dbh->prepare(
 	       "delete from current where userid=? ".
 	       "and fan in (select fan from change where ".
 	       "userid=? and datestamp=? and not added)");
 	   $sth->execute($self->{userid}, $self->{userid}, $today);
        }
 
-       $sth = $self->{dbh}->prepare('delete from snapshot where snap=?');
+       $sth = $dbh->prepare('delete from snapshot where snap=?');
        $sth->execute($snap);
 
        # Aaaaand... commit.
-       $self->{dbh}->commit();
+       $dbh->commit();
     }
 
     # There's no more useful information to return on virgin accounts.
@@ -172,7 +169,7 @@ sub content {
 		    ' ORDER BY checking.datestamp DESC';
     }
 
-    $sth = $self->{dbh}->prepare($query);
+    $sth = $dbh->prepare($query);
     $sth->execute($self->{userid});
 
     my %results;
@@ -205,11 +202,6 @@ sub content {
     }
 
     return @result;
-}
-
-sub DESTROY {
-	my ($self) = @_;
-	$self->{dbh}->disconnect();
 }
 
 1;
