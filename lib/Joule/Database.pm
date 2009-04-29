@@ -27,12 +27,16 @@ sub _startup {
     $_dbh = DBI->connect($settings->{'database'},
 			 $settings->{'user'},
 			 $settings->{'password'},
-			 { RaiseError => 1 });
+			 { RaiseError => 1, AutoCommit => 0 });
 }
 
 sub handle {
     # maybe should check it's live?
     return $_dbh;
+}
+
+sub rollback {
+    eval { $_dbh->rollback(); };
 }
 
 sub DESTROY {

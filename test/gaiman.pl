@@ -5,15 +5,16 @@
 use strict;
 use warnings;
 use lib::Joule::Status::From_TW;
+use lib::Joule::History;
 
-my $count = 0;
+my $author = 'neilhimself';
 
-sub callback {
-    $count++;
-}
+my $twitter = Joule::Status::From_TW->new({user=>$author});
 
-my $twitter = Joule::Status::From_TW->new({user=>'neilhimself'});
+my $history = Joule::History->new($author, $twitter);
 
-$twitter->names(\&callback);
+print "Kicking off...\n";
 
-print "Final count is $count.\n";
+$history->content();
+
+print "DONE.\n";

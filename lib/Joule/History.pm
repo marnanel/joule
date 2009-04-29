@@ -47,17 +47,13 @@ sub current {
 }
 
 sub _add_snapshot_row {
-    my ($dbh, $snap, $name) = @_;
-    my $sth = $dbh->prepare('INSERT INTO snapshot (snap, name) VALUES (?,?)');
-    $sth->execute($snap, $name);
+    my ($sth, $snap, $name) = @_;
 }
 
 sub content {
     my ($self, $opts) = @_;
 
     my $dbh = Joule::Database::handle();
-
-    $dbh->rollback();
 
     # Firstly, check whether we need to poll the site.
 
@@ -74,16 +70,17 @@ sub content {
 
        # it hasn't been done today
 
-       $dbh->begin_work();
-
        $sth = $dbh->prepare("SELECT nextval('snapid'), current_date");
        $sth->execute();
        my ($snap, $today) = $sth->fetchrow_array();
        my $name_count = 0;
 
+       $sth = $dbh->prepare('INSERT INTO snapshot (snap, name) VALUES (?,?)');
+
+       # FIXME: Can this be more efficient?
        $self->{'status'}->names(sub {
 	   $name_count++;
-	   _add_snapshot_row($dbh, $snap, shift);
+	   $sth->execute($snap, shift);
 				});
 
        $opts->{lonely} = 1 unless $name_count;

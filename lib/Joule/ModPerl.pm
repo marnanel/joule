@@ -31,6 +31,7 @@ use Joule::Status::All;
 
 use Joule::Language;
 use Joule::GoogleMobile;
+use Joule::Database;
 
 our $VERSION = '3.4';
 
@@ -56,7 +57,8 @@ sub handler {
 	};
 
 	if ($@) {
-	    $vars{bug} = $@;
+	    Joule::Database::rollback();
+	    $vars{bug} = $@ || 'generic error';
 	    Joule::Section::Front->handler($r, \%vars);
 	}
 

@@ -46,11 +46,19 @@ sub names {
     my $res = $ua->request($req);
 
     die "Sorry, can't seem to find that user.\n" if $res->code == 401;
+    die "The upstream server refused to send us names.  ".
+	"This is a <a href=\"https://bugs.launchpad.net/joule/+bug/368347\">known ".
+	"bug</a> and may be an error in Twitter.  It seems ".
+	"to happen for users with very large numbers of followers.\n" if $res->code == 502;
     die $res->status_line()."\n" unless $res->is_success();
+    die "This user has several thousand followers and it would take many minutes ".
+	"to download them all.  If you are this user, email us and ask for this ".
+	"to be submitted as a background job every night.\n" if length($res->content)>102400;
 
     for (@{ from_json($res->content()) }) {
 	$callback->($_);
     }
+
 }
 
 sub _lookup {
