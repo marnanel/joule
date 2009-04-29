@@ -18,7 +18,7 @@ style="background-color:#[% cell.colour %]"
 [% IF cell.name %]
 title="[% cell.name %]"
 [% END %]
->[% IF cell.name %]<a href="http://users.livejournal.com/[% cell.name %]/profile">[% cell.name %]</a>[% ELSE %]&nbsp;[% END %]</td>
+>[% IF cell.name %][% cell.name | username %][% ELSE %]&nbsp;[% END %]</td>
 [% END %]
 </tr>
 [% END %]

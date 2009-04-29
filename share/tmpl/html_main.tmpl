@@ -54,7 +54,16 @@ function go(){document.getElementById('u').focus();}//--></script>
 [% motd %]
 </p>
 
-[% IF literalbody %]
+[% IF bug %]
+
+<p>Sorry, there seems to have been a problem:</p>
+
+<blockquote>[% bug %]</blockquote>
+
+<p>If you think this is a bug in Joule,
+you might like to <a href="https://bugs.launchpad.net/joule/+filebug">report this</a>.</p>
+
+[% ELSIF literalbody %]
 [% literalbody %]
 [% ELSIF NOT user %]
 [% INCLUDE html_front_page.tmpl %]
@@ -70,7 +79,7 @@ function go(){document.getElementById('u').focus();}//--></script>
 
 [% motd %]
 <p class="credits">
-[%t_bymarn%] &middot; [%t_byfin%]<br />
+[%t_bymarn%] &middot; v[% version %] &middot; [%t_byfin%]<br />
 <a href="http://iww.org">[%t_union%]</a> &middot; [%t_hosted%] &middot;
 [% IF user %][% t_validrss %][% ELSE %][% t_valid %][% END %]
 [% IF lang != "en" %] <br /> [% t_translator %] [% END %]

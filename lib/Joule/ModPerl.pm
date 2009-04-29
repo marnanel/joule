@@ -31,6 +31,9 @@ use Joule::Status::All;
 
 use Joule::Language;
 use Joule::GoogleMobile;
+use Joule::Database;
+
+our $VERSION = '3.4';
 
 sub handler {
 
@@ -43,18 +46,23 @@ sub handler {
 		        hostname => $r->hostname,
 			sites => Joule::Status::All->sites,
 	                motd => 'Want to follow the development of Joule?  Follow us <a href="http://twitter.com/marnanel_joule">on Twitter</a>, or <a href="http://identi.ca/joule">on identi.ca</a>, or <a href="http://joule.dreamwidth.org/profile">on Dreamwidth</a>!',
+                        version => $VERSION,
+	                lang => Joule::Language::user_language($r),
+                        Joule::GoogleMobile::mobile_details($r),
 		  );
 
-	if ($r->hostname =~ /^m\./) {
-	    $vars{mobile} = 1;
-	    $vars{mobileads} = Joule::GoogleMobile::mobile_ads;
+	eval {
+	    for my $i qw(Redirect Static TakeDown Report Front) {
+		last if "Joule::Section::$i"->handler($r, \%vars);
+	    }
+	};
+
+	if ($@) {
+	    $vars{bug} = $@ || 'generic error';
+	    warn $@;
+	    Joule::Database::rollback();
+	    Joule::Section::Front->handler($r, \%vars);
 	}
-
-	$vars{'lang'} = Joule::Language::user_language($r);
-
-        for my $i qw(Redirect Static TakeDown Report Front) {
-	    last if "Joule::Section::$i"->handler($r, \%vars);
-        }
 
 	return Apache2::Const::OK;
 }

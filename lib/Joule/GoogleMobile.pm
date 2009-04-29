@@ -58,4 +58,15 @@ sub mobile_ads {
     }
 }
 
+sub mobile_details {
+    my ($r) = @_;
+
+    return () unless $r->hostname =~ /^m\./;
+
+    return (
+	mobile => 1,
+	mobileads => mobile_ads,
+	);
+}
+
 1;
