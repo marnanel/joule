@@ -30,17 +30,23 @@ sub new {
 
 sub site { "Twitter"; }
 
+my $_login = (do '/etc/joule.conf')->{'twitter'};
+
 sub names {
     my ($self, $callback) = @_;
+
+    my $hh = HTTP::Headers->new();
+    $hh->authorization_basic ($_login->[0], $_login->[1]);
 
     my $ua = LWP::UserAgent->new();
     $ua->agent("Joule/3.0 (http://marnanel.org/joule; thomas\@thurman.org.uk)");
 
-    my $req = HTTP::Request->new(GET=>'http://twitter.com/followers/ids.json?screen_name='.$$self);
+    my $req = HTTP::Request->new(GET=>'http://twitter.com/followers/ids.json?screen_name='.$$self, $hh);
 
     my $res = $ua->request($req);
 
-    die __PACKAGE__ . ' error: ' . $res->status_line() unless $res->is_success();
+    die "Sorry, can't seem to find that user.\n" if $res->code == 401;
+    die $res->status_line()."\n" unless $res->is_success();
 
     for (@{ from_json($res->content()) }) {
 	$callback->($_);

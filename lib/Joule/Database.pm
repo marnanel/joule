@@ -27,7 +27,7 @@ sub _startup {
     $_dbh = DBI->connect($settings->{'database'},
 			 $settings->{'user'},
 			 $settings->{'password'},
-			 { RaiseError => 1, AutoCommit => 1, });
+			 { RaiseError => 1 });
 }
 
 sub handle {
