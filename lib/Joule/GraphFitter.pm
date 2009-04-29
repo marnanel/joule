@@ -21,6 +21,7 @@ use warnings;
 use POSIX qw(mktime strftime ceil);
 use Digest::MD5 qw(md5_hex);
 
+# FIXME: this is broken and not good for mod_perl
 my $throttle = 0;
 
 sub _pick_a_line {
@@ -110,6 +111,8 @@ sub fit {
 	my ($vars) = @_;
 
 	# Set up ranges:
+
+	return unless $vars->{days};
 
 	$throttle = 0;
 
