@@ -55,7 +55,10 @@ sub names {
 
     my $res = $ua->request($req);
 
-    die __PACKAGE__ . ' error: ' . $res->status_line() unless $res->is_success();
+    # laconica throws 404 here; twitter throws 401.
+    # no idea why.
+    die "Sorry, can't seem to find that user.\n" if $res->code == 404;
+    die $res->status_line() unless $res->is_success();
 
     for (@{ from_json($res->content()) }) {
 	$callback->($_);
