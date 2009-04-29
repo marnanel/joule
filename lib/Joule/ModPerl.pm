@@ -57,8 +57,9 @@ sub handler {
 	};
 
 	if ($@) {
-	    Joule::Database::rollback();
 	    $vars{bug} = $@ || 'generic error';
+	    warn $@;
+	    Joule::Database::rollback();
 	    Joule::Section::Front->handler($r, \%vars);
 	}
 
