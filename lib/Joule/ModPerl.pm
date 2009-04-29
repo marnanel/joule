@@ -49,9 +49,16 @@ sub handler {
                         Joule::GoogleMobile::mobile_details($r),
 		  );
 
-        for my $i qw(Redirect Static TakeDown Report Front) {
-	    last if "Joule::Section::$i"->handler($r, \%vars);
-        }
+	eval {
+	    for my $i qw(Redirect Static TakeDown Report Front) {
+		last if "Joule::Section::$i"->handler($r, \%vars);
+	    }
+	};
+
+	if ($@) {
+	    $vars{bug} = $@;
+	    Joule::Section::Front->handler($r, \%vars);
+	}
 
 	return Apache2::Const::OK;
 }

@@ -57,6 +57,8 @@ sub content {
 
     my $dbh = Joule::Database::handle();
 
+    $dbh->rollback();
+
     # Firstly, check whether we need to poll the site.
 
     my $experienced = $dbh->prepare('SELECT COUNT(datestamp) FROM checking WHERE userid=? AND datestamp!=CURRENT_DATE LIMIT 1');

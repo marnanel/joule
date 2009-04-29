@@ -54,7 +54,15 @@ function go(){document.getElementById('u').focus();}//--></script>
 [% IF mobile %] Welcome to mobile Joule.  Feedback is welcome! (<a href="http://joule.marnanel.org">normal site</a>)[% ELSE %]New: mobile version of Joule at <a href="http://m.joule.marnanel.org">m.joule.marnanel.org</a>![% END %]
 </p>
 
-[% IF literalbody %]
+[% IF bug %]
+
+<p>Sorry, there seems to have been a problem:</p>
+
+<blockquote>[% bug %]</blockquote>
+
+<p>You might like to <a href="https://bugs.launchpad.net/joule/+filebug">report a bug about this</a>.</p>
+
+[% ELSIF literalbody %]
 [% literalbody %]
 [% ELSIF NOT user %]
 [% INCLUDE html_front_page.tmpl %]
