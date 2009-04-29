@@ -42,7 +42,7 @@ sub handler {
 			noblanks => 0,
 		        hostname => $r->hostname,
 			sites => Joule::Status::All->sites,
-	                motd => 'Want to follow the development of Joule-for-Twitter?  <a href="http://twitter.com/marnanel_joule">Follow us on Twitter!</a>',
+	                motd => 'Want to follow the development of Joule?  Follow us <a href="http://twitter.com/marnanel_joule">on Twitter</a>, or <a href="http://identi.ca/joule">on identi.ca</a>, or <a href="http://joule.dreamwidth.org/profile">on Dreamwidth</a>!',
 		  );
 
 	if ($r->hostname =~ /^m\./) {

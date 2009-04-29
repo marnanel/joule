@@ -58,7 +58,7 @@ sub _add_snapshot_row {
 sub content {
     my ($self, $opts) = @_;
 
-    # Firstly, check whether we need to poll the site.
+    # Check whether we need to poll the site.
 
     my $experienced = $self->{dbh}->prepare('SELECT COUNT(datestamp) FROM checking WHERE userid=? AND datestamp!=CURRENT_DATE LIMIT 1');
     $experienced->execute($self->{userid});
