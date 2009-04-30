@@ -33,19 +33,6 @@ sub new {
     bless $result, $class;
 }
 
-# FIXME this is really rather inefficient
-sub current {
-    my ($self) = @_;
-
-    my $dbh = Joule::Database::handle();
-
-    my $sth = $dbh->prepare('SELECT fan FROM current WHERE userid=?');
-
-    $sth->execute($self->{userid});
-
-    return map { $_->[0] } @{ $sth->fetchall_arrayref() };
-}
-
 sub content {
     my ($self, $opts) = @_;
 
@@ -53,16 +40,16 @@ sub content {
 
     # Firstly, check whether we need to poll the site.
 
-    my $experienced = $dbh->prepare('SELECT COUNT(datestamp) FROM checking WHERE userid=? AND datestamp!=CURRENT_DATE LIMIT 1');
-    $experienced->execute($self->{userid});
-    $opts->{virgin} = 1 if !$experienced->fetchrow() && !$self->current();
-
-    my $done_today = $dbh->prepare("SELECT COUNT(datestamp) FROM checking WHERE userid=? AND datestamp=CURRENT_DATE LIMIT 1");
-    $done_today->execute($self->{userid});
-
     my $sth;
 
-    unless ($done_today->fetchrow()) {
+    $sth = $dbh->prepare('SELECT COUNT(datestamp) FROM checking WHERE userid=? AND datestamp!=CURRENT_DATE LIMIT 1');
+    $sth->execute($self->{userid});
+    $opts->{virgin} = 1 if !$sth->fetchrow();
+
+    $sth = $dbh->prepare("SELECT COUNT(datestamp) FROM checking WHERE userid=? AND datestamp=CURRENT_DATE LIMIT 1");
+    $sth->execute($self->{userid});
+
+    unless ($sth->fetchrow()) {
 
        # it hasn't been done today
 
@@ -89,8 +76,8 @@ sub content {
 	   $sth->execute($self->{userid});
        }
 
-       my $adder = $dbh->prepare("INSERT INTO checking(userid, datestamp) VALUES (?, CURRENT_DATE)");
-       $adder->execute($self->{userid});
+       my $adder = $dbh->prepare("INSERT INTO checking(userid, datestamp) VALUES (?, ?)");
+       $adder->execute($self->{userid}, $today);
 
        if ($opts->{virgin}) {
 
