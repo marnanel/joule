@@ -35,14 +35,14 @@ sub names {
     my $ua = LWP::UserAgent->new();
     $ua->agent("Joule/3.0 (http://marnanel.org/joule; thomas\@thurman.org.uk)");
 
-    my $req = HTTP::Request->new(GET=>'http://www.livejournal.com/misc/fdata.bml?user='.$$self);
+    my $req = HTTP::Request->new(GET=>'http://www.livejournal.com/misc/fdata.bml?user='.$$self.'&comm=1');
 
     my $res = $ua->request($req);
 
     die __PACKAGE__ . ' error: ' . $res->status_line() unless $res->is_success();
     
     for (split('\n', $res->content())) {
-      $callback->($1) if $_ =~ /^< (.*)$/;
+      $callback->($2) if $_ =~ /^(<|P>) (.*)$/;
     }
 }
 
