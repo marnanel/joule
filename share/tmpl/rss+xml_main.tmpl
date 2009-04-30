@@ -21,8 +21,8 @@ http://joule.marnanel.org/faq .
 <atom:link href="http://[% hostname %]/rss/[% site %]/[% user %]" rel="self" type="application/rss+xml" />
 <image><url>http://marnanel.org/static/joule/marnanel-rhes-jouleb-01</url>
 <title>Changes in [% user %]'s fans on [% sitename %] over time.</title>
-<link>http://marnanel.org/joule?user=[% username |uri%]</link></image>
-<link>http://marnanel.org/joule?user=[% username|uri%]</link>
+<link>http://[% hostname %]/chart/[% site %]/[% user %]</link></image>
+<link>http://[% hostname %]/chart/[% site %]/[% user %]</link>
 <ttl>1440</ttl>
 [% FOREACH day IN days %]
  <item>
@@ -37,6 +37,7 @@ http://joule.marnanel.org/faq .
    &lt;br/&gt;
    [% day.motd %]
   </description>
+  [%# This uses the old-style URIs but if we change it LJ will force a refresh of everything %]
   <guid>http://marnanel.org/joule?user=[% user |uri%]&amp;dummy=[% day.date %]</guid>
  </item>
 [% END %]
