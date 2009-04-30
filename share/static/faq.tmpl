@@ -1,34 +1,195 @@
-<h2>What is Joule?</h2>
+<div class="tealdeer">
+
+[% FOREACH turn = [0, 1] %]
+
+[% IF NOT turn %]<h2 id="contents">FAQ contents</h2><ul>[% END %]
+[% MACRO header(n,t) IF turn %]
+<h2 id="[% n %]">[% t %] <a href="#contents">&uarr;</a></h2>
+[% ELSE %]
+<li>[% t %] <a href="#[% n %]">(Answer)</a></li>
+[% END %]
+
+[% header("what", "What is Joule?") %]
+[% IF turn %]
 <p>There are many sites which let other users make you their friend. Few of them
-have any sort of record of the fact, however. That's what <a href="/joule">Joule</a> was made for.
+have any sort of record of the fact, however. That's what <a href="/">Joule</a> was made for.
 It began <a href="http://community.livejournal.com/lj_nifty/55392.html">way
 back in August 2002</a> because <a
 href="http://firinel.livejournal.com/profile">Firinel</a> asked for a way to keep track
 of LiveJournal users, and it grew and grew until, well, here we are.</p>
+[% END %]
 
-<h2>What sites does it work on?</h2>
-<h2>I would like it to work on <i>insert your favourite site here</i></h2>
+[% header("sites", "What sites does it work on? / I would like it to work on <i>insert your favourite site here</i>") %]
+[% IF turn %]
 <p>This is a big question and it gets <a href="/sites">its own
 page</a>. Hop over there and read all about it.</p>
+[% END %]
 
-<h2>I want to put a Joule box on my profile.</h2>
+[% header("profile", "I want to put a Joule box on my profile.") %]
+[% IF turn %]
 <p>Awesome. Here's <a href="/badges">the code to do that</a>.</p>
+[% END %]
 
-<h2>How many users does it have?</h2>
-<p>23,544 unique accounts were accessed during August 2007 (that's unique names
-over the month, not page hits). It used to be a bit more, and then it dropped a
-bit for various reasons (especially because of a month or so's downtime when the
-old server had a hard disk failure). The new site will mean I'll be able to
-post live stats, and I'll be doing that soon. (If you want to know how many
-unique LJ accounts have been checked on Joule <em>ever</em>, it's a little
-over 360,000. Obviously many of them played briefly with it and then went
-away, or abandoned their LJs.)</p>
+[% header("article", "I want to write an article about Joule.") %]
+[% IF turn %]
+<p>That's fine with me. See the end of this page for how to get in touch.</p>
+[% END %]
 
-<h2>Who's behind all this, anyway?</h2>
+[% header("tos", "Do you have a terms-of-service policy?") %]
+[% IF turn %]
+<p>Broadly, <a href="http://meta.wikimedia.org/wiki/Don't_be_a_dick">be
+nice</a>. I may interpret this in various ways; contact me if you need
+clarification.  In particular, please avoid writing data-mining bots;
+<a href="#json">ask if you want a feed</a> (or just use RSS).</p>
+[% END %]
+
+[% header("privacy", "Do you have a privacy policy?") %]
+[% IF turn %]
+<p>Joule doesn't track any information that isn't available to the
+general public.  That said, if you want to remove or change information,
+we're fine with that as long as you can prove it's really you.  This
+could involve posting a request in the actual journal or Twitter account,
+or OpenID or similar.  I will run more of a consultation on this later.</p>
+
+<p>Google would also like you to know that they use
+cookies on this site to track the ads you read in order to try to show
+you ads that won't bore you.</p>
+[% END %]
+
+[% header("advertise", "I want to advertise on Joule.") %]
+[% IF turn %]
+<p>Mostly, Joule uses <a href="http://adwords.google.com/">Google Adwords</a> for the ads.
+I believe you can tell them you want to target Joule.
+If you want to take over Joule for a whole week with
+just your ads, contact us and we'll talk about it.
+(See the foot of the page.)</p>
+
+<p>There are no ads on the feeds, largely because we
+don't fit well into Google's feed ads system.
+If you want to run an unobtrusive custom ad for a week
+or so there, we might consider it.  Again, contact us.
+</p>
+[% END %]
+
+[% header("thousands", "<a href=\"http://identi.ca/notice/3519901\">What</a> about Twitter users who have tens of thousands of users?") %]
+[% IF turn %]
+<p>The current code can compare about a thousand users a second.
+Obviously if you looked up someone like Neil Gaiman, who has
+<a href="http://twitter.com/neilhimself/followers">300,000 followers</a>,
+you'd have to wait five minutes.  This isn't really acceptable, so
+we've turned off support for users with more than about 10,000 followers for now.
+We have <a href="https://blueprints.launchpad.net/joule/+spec/snipsnap">a plan to fix this</a>,
+but it will have to wait for the next version.</p>
+
+<p>(If you have a pressing need for this and don't want to wait
+for the next version, we can always run comparisons as a background
+batch job every night so it'd work like any ordinary Twitter check.
+See the foot of this page for information on contacting us.)</p>
+[% END %]
+
+[% header("dw", "What about Dreamwidth?") %]
+[% IF turn %]
+<p>I'm waiting for them to <a href="http://bugs.dwscoalition.org/show_bug.cgi?id=857">support the feed we need</a>.
+When they add that, I'll add them straight away.</p>
+[% END %]
+
+[% header("change", "I want to adjust the history.  / I have changed my screen name. / I have deleted my journal and want the Joule data erased.") %]
+[% IF turn %]
+<p>If you can prove it's really you who owns the account, then sure, get in
+touch. See the foot of this page.</p>
+[% END %]
+
+[% header("json", "I want a <a href=\"http://json.org\">JSON</a> feed of Joule's data.") %]
+[% IF turn %]
+<p>Nobody has asked for it yet. Ask and you might get.</p>
+[% END %]
+
+[% header("inversion", "You should make a version that lists who you have friended.") %]
+[% IF turn %]
+<p>I've been asked about this so often I'm setting up
+<a href="http://community.livejournal.com/marnanel_joule/11757.html">a consultation about whether we should do it</a>.</p>
+[% END %]
+
+[% header("mobile", "You should make a cut-down version for mobiles.") %]
+[% IF turn %]
+<p>So I should.  <a href="http://m.joule.marnanel.org">Voil&agrave;!</a></p>
+[% END %]
+
+[% header("history", "<a href=\"http://community.livejournal.com/marnanel_joule/940.html\">Why</a> can't I see my account history back to when I got the account? I haven't used Joule before today.") %]
+[% IF turn %]
+<p>The sites that Joule reads from don't make history available; that's why Joule
+is needed in the first place. Joule can only get data when you ask for it and
+record it when you ask for it; it doesn't know about you before you first
+visit Joule.</p>
+[% END %]
+
+[% header("multiplex", "I have a million different accounts! How can I keep track of all of them?") %]
+[% IF turn %]
+<p>I had the idea of adding a kind of Joule account called a "multiplex"
+which would display information from, say, some Twitter accounts and some
+LiveJournal accounts on the same page or feed.  Would that be useful to anyone?</p>
+[% END %]
+
+[% header("ljrss", "How can I keep track of Joule without coming back here every day?  I use LiveJournal.") %]
+[% IF turn %]
+<p>Make sure you're logged in, then go <a href="http://www.livejournal.com/syn/">here</a> and enter the address of
+your RSS feed (see "What is the address of my feed?" below)
+into the box at the foot of the page.  (<a href="http://community.livejournal.com/marnanel_joule/1089.html">More
+detailed instructions are here.</a>)</p>
+[% END %]
+
+[% header("grrss", "How can I keep track of Joule without coming back here every day?  I use Google Reader.") %]
+[% IF turn %]
+<p>Click "Add a subscription" on the top left.  In the box it brings up, type
+the address of your RSS feed (see "What is the address of my feed?" below).
+That's all there is to it.</p>
+[% END %]
+
+[% header("blrss", "How can I keep track of Joule without coming back here every day? I use BlogLines.") %]
+[% IF turn %]
+<p>I will look into how to do this and get back to you.</p>
+[% END %]
+
+[% header("feed", "What is \"the address of my feed\"?") %]
+[% IF turn %]
+<p>It's
+<code>http://joule.marnanel.org/rss/lj/<i>yourname</i></code> for LiveJournal, and
+<code>http://joule.marnanel.org/rss/tw/<i>yourname</i></code> for Twitter.
+But if you only want to be told when someone adds or removes you, rather than every day, use
+<code>http://joule.marnanel.org/rssnoblanks/lj/<i>yourname</i></code> for LiveJournal and 
+<code>http://joule.marnanel.org/rssnoblanks/tw/<i>yourname</i></code> for Twitter.
+Your name is your login name, not your real name.</p>
+[% END %]
+
+[% header("translation", "I would like to read Joule in my own language.") %]
+[% IF turn %]
+<p>The languages we already support are listed at the top of
+the page; there's also <a href="https://translations.launchpad.net/joule">a
+separate site</a> where you can help translate Joule, as well as
+hundreds of other programs.</p>
+[% END %]
+
+[% header("want", "I run a website and I would like Joule to track who friends my
+users. / I use a website that Joule doesn't track and I would be happy if it
+did.") %]
+[% IF turn %]
+<p>There are things you can do about this! Go and <a
+href="/sites#new">read all about it</a>.</p>
+[% END %]
+
+[% header("wikipedia", "Why isn't Joule <a href=\"http://en.wikipedia.org/wiki/Joule_(disambiguation)\">mentioned</a> on Wikipedia?") %]
+[% IF turn %]
+<p>It would have to meet
+<a href="http://en.wikipedia.org/wiki/Wikipedia:Notability_(web)#Criteria">the
+notability criteria</a>, and I don't really think it does at present,
+even after six years.  Maybe one day.</p>
+[% END %]
+
+[% header("who", "Who's behind all this, anyway?") %]
+[% IF turn %]
 <p>I'm Marnanel, otherwise known as <a href="http://marnanel.org">Thomas Thurman</a>. I've been
 programming all my life. You can find out a bit more <a
-href="http://marnanel.org/writing/about-me">about me here</a>, and <a href="http://marnanel.org/resume">my
-resume is here</a> (although it's a touch out of date now).
+href="http://marnanel.org/writing/about-me">about me here</a> (although it's a touch out of date now).
 The layout of the site was designed by <a
 href="http://firinel.org">Firinel</a> (who also has <a
 href="http://myriadcolours.livejournal.com">an art journal</a> and <a
@@ -37,131 +198,10 @@ Joule is currently hosted by
 <a href="http://www.redstair.org">Red Stair</a>. Previously, Joule
 was hosted for many years by
 <a href="http://pinkstuff.publication.org.uk">the Pinkstuff People</a>.</p>
+[% END %]
 
-<h2>I want to write an article about Joule.</h2>
-<p>That's fine with me. See the end of this page for how to get in touch.</p>
-
-<h2>Will the change to Joule version 3 affect my feeds from the site?</h2>
-<p>Other than a few cosmetic changes, no, assuming you're using RSS. If you're
-screen scraping instead, then you should switch to RSS or ask me for a feed in
-some more useful format.</p>
-
-<h2>Do you have a terms-of-service policy?</h2>
-<p>Broadly, <a href="http://meta.wikimedia.org/wiki/Don't_be_a_dick">be
-nice</a>. I may interpret this in various ways; contact me if you need
-clarification.</p>
-
-<h2>I want to adjust the history.</h2>
-<h2>I have changed my screen name.</h2>
-<h2>I have deleted my journal and want the Joule data erased.</h2>
-<p>If you can prove it's really you who owns the account, then sure, get in
-touch. See the foot of this page.</p>
-
-<h2>What's the format of Joule URLs?</h2>
-<p>First, either
-<ul>
-<li><code>http://marnanel.org/joule</code> for HTML (a "page"), or</li>
-<li><code>http://marnanel.org/joule-as-rss</code> for RSS (a
-"feed").</li>
-</ul>
-
-That can be all, but you usually want to add parameters. Put a <code>?</code>
-before the first one and an <code>&amp;</code> before all the others. Order
-doesn't matter.
-
-<ul>
-<li><code>user=<i>name</i></code> for the username (otherwise you get the front
-page)</li>
-<li><code>site=<i>site</i></code> for the site code (go <a
-href="/writing/joule-sites">here for the full list</a>; defaults to
-<code>lj</code>)</li>
-<li><code>full=1</code> for the full listing; otherwise it will only be the
-last 30 days. This is ignored for RSS, which is always the last 30 days.
-Be warned that this may crash your browser in graph mode if your computer
-is not terribly speedy.</li>
-<li><code>noblanks=1</code> to filter out blank lines (when nobody friended or
-unfriended you at all). This is especially useful for RSS, because you might
-not want to be told on a day when this happens.</li>
-<li><code>mode=chart</code> (the default) or <code>mode=graph</code> : this should
-be obvious. If not, play with Joule for five minutes.</li>
-<li><code>format=html</code> (the default) or <code>format=rss</code> will
-override the <code>-as-rss</code> part of the name above.</li>
-<li><code>nohiccup=1</code> to remove the "hiccup" filter: see below.</li>
-<li><code>dummy=<i>date</i></code> doesn't actually do anything. <a
-href="/writing/weird-problems-in-programming">Certain RSS clients require
-each post to have a unique URL</a> (even though <a href="http://feedvalidator.org/docs/rss2.html">the
-specification</a> doesn't). Since all the entries refer to the
-"most recent" page, it makes sense to have them all point to it, but
-we set "dummy" to the date of each post.</li>
-</ul>
-
-<h2>Your URLs suck.</h2>
-<p>Indeed they do. A fix is coming in the next fortnight or so.</p>
-
-<h2>What does "hiccup" mean?</h2>
-<p>Sometimes a site goes down and Joule, instead of realising it should skip a
-day, registers that a user has no friends instead. This has the effect of all
-users appearing to unfriend and then immediately refriend a user. So, if more than
-thirty people add or delete you on the same day, Joule will display "hiccup"
-on that day. If it was wrong to do so, you can include the <code>nohiccup=1</code>
-parameter to turn this off. Eventually I will go through and purge these from
-the database, but there's a lot of more urgent things to do right now.</p>
-
-<h2>I want <a href="http://www.atomenabled.org">Atom</a> instead of RSS.</h2>
-<h2>I want a <a href="http://www.json.org">JSON</a> feed of today's changes.</h2>
-<p>Nobody has asked for it yet. Ask and you might get.</p>
-
-<h2>You should make a version that lists who you have friended.</h2>
-<p>Who you have friended is under your own control; you can keep accounts of it
-in a notebook or something. Besides, it would be rather a privacy violation if
-you could keep track of who a user was reading.</p>
-
-<h2><a href="http://community.livejournal.com/marnanel_joule/282.html">You should</a> make a version that lists who joins and leaves LJ
-communities.</h2>
-<p>Maybe I should. I'm in two minds about this. I am open to discussion either
-way; if you have an opinion, please join the discussion group and let us
-know.</p>
-
-<h2><a href="http://community.livejournal.com/marnanel_joule/940.html">Why</a>
-can't I see my account history back to when I got the account? I
-haven't used Joule before today.</h2>
-<p>The sites that Joule reads from don't make history available; that's why Joule
-is needed in the first place. Joule can only get data when you ask for it and
-record it when you ask for it; it doesn't know about you before you first
-visit Joule.</p>
-
-<h2>I have a million different accounts! How can I keep track of all of
-them?</h2>
-<p>Joule will soon be able to combine a bunch of accounts into one account,
-called a multiplex. This isn't done yet, but it will be soon. If you want it
-sooner, contact me and encourage me a bit-- see the end of this page.</p>
-<h2>How can I keep track of Joule without coming back here every day? I use ...LiveJournal.</h2>
-<p>Make sure you're logged in, then go <a href="http://www.livejournal.com/syn/">here</a> and enter the address of
-your RSS feed
-(<code>http://marnanel.org/joule-as-rss?user=<i>yourname</i></code> or
-<code>http://marnanel.org/joule-as-rss?user=<i>yourname</i>&amp;noblanks=1</code> ) into the box at the foot of the page.
-(<a href="http://community.livejournal.com/marnanel_joule/1089.html">More
-detailed instructions are here.</a>)</p>
-<h2>...Google Reader.</h2>
-<h2>...BlogLines.</h2>
-<p>I will look into how to do this and get back to you.</p>
-
-<h2>Clicking on del.icio.us usernames takes me to LiveJournal instead.</h2>
-<p>It's a known glitch. It should be fixed in a few days.</p>
-
-<h2>I would like to read Joule in my own language.</h2>
-<p>Russian, Dutch, and Welsh should be coming soon. (Did you know that &#X2153;
-of Joule's users are in Russia?) If you'd like to volunteer your skills with
-another language, <a
-href="http://groups.google.com/group/joule-users/web/translations">please do get in touch</a>.</p>
-
-<h2>I run a website and I would like Joule to track who friends my
-users.</h2>
-<h2>I use a website that Joule doesn't track and I would be happy if it
-did.</h2>
-<p>There are things you can do about this! Go and <a
-href="/writing/joule-sites">read all about it</a>.</p>
-<h2>Your favourite Joule moment?</h2>
+[% header("moment", "What was your favourite Joule moment?") %]
+[% IF turn %]
 <p>Actually, the best thing has been the people. Almost everyone has been helpful
 and supportive and the best users anyone could hope for. On top of all the
 friendly comments and suggestions, and the random offers of dinner, there are some
@@ -172,9 +212,11 @@ it was launched which ended by saying that "you seem like a cool and interesting
 um, you are VERY hot too", and especially the person who
 was responsible for $200 turning up when Joule had a hosting bill
 crisis and I was out of work.</p>
+[% END %]
 
-<h2>Why is it called Joule?</h2>
-(Actually, nobody's ever asked me that.) The script was a sequel to another
+[% header("name", "Why is it called Joule?") %]
+[% IF turn %]
+<p>(Actually, nobody's ever asked me that.) The script was a sequel to another
 script called Kelvin which told you who had friended you but you hadn't
 friended back, who you had friended but hadn't friended you back, and your
 mutual friends. (There's no need for Kelvin any more because LJ does that for
@@ -182,18 +224,25 @@ you now.) And the reason <em>that</em> was given its name is that
 <a href="http://en.wikipedia.org/wiki/James_Prescott_Joule">Joule</a>
 and
 <a href="http://en.wikipedia.org/wiki/William_Thomson%2C_1st_Baron_Kelvin">Kelvin</a>
-were both thermodynamicists (someone else made a clone of Joule called
-"<a href="http://en.wikipedia.org/wiki/Johannes_Rydberg">Rydberg</a>" in 2005, which lasted a few months), and the idea of friends and social networking is
+were both physicists who studied heat (someone else made a clone of Joule called
+"<a href="http://en.wikipedia.org/wiki/Johannes_Rydberg">Rydberg</a>" in 2005,
+which lasted a few months), temperature is measured in degrees,
+and the idea of friends and social networking is
 intimately bound up with the concept of <a
 href="http://en.wikipedia.org/wiki/Six_degrees_of_separation">six
 <em>degrees</em> of separation</a>. Yes, it's a crappy pun; it was supposed
 to be a codename which would have some new name made up before release, but we
 never did. Such is the wild world of software.</p>
+[% END %]
 
-<h2>I have another idea.</h2>
-<h2>I have another question.</h2>
-<p>Excellent! Either join <a
-href="http://groups.google.com/group/joule-users/">Joule's Google group</a> and
-tell us about it, or send an email to me (thomas -at- thurman -dot- org -dot- uk) and let me know.
-There is also <a
-href="http://community.livejournal.com/marnanel_joule/profile">a Joule LiveJournal community</a> for those who prefer using LJ to using Google Groups.
+[% header("another", "I have another idea. / I have another question.") %]
+[% IF turn %]
+<p>Excellent! Either <a href="http://twitter.com/home?status=@marnanel+I+have+a+question:">tweet it to me</a>,
+or post on the <a href="http://community.livejournal.com/marnanel_joule">LJ community</a>, or
+just send an email to me (thomas -at- thurman -dot- org -dot- uk) and let me know.</p>
+[% END %]
+
+[% IF NOT turn %]</ul>[% END %]
+
+[% END %]
+</div>
