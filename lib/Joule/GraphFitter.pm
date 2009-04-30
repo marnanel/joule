@@ -112,7 +112,7 @@ sub fit {
 
 	# Set up ranges:
 
-	return unless $vars->{days};
+	return unless @{$vars->{days}};
 
 	$throttle = 0;
 
