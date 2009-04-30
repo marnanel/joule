@@ -28,11 +28,11 @@ http://joule.marnanel.org/faq .
  <item>
   <pubDate>[% FILTER rfc822date %][% day.date %][% END %]</pubDate>
   <title>[% day.date %] (+[% IF day.friended %][% day.friended.size %][% ELSE %]0[% END %], -[% IF day.unfriended %][% day.unfriended.size %][% ELSE %]0[% END %]): changes to [% user %]'s readers on [% sitename %]</title>
-  <description>
+  <description>[% t_none = "None." %][%# rss isn't translated %]
    Friended by:
    [% INCLUDE user_list.tmpl list=day.friended |html%]
    &lt;br/&gt;
-   Unfriended by
+   Unfriended by:
    [% INCLUDE user_list.tmpl list=day.unfriended |html%]
    &lt;br/&gt;
    [% day.motd %]
