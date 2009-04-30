@@ -3,7 +3,7 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">[% PROCESS translate.tmpl | collapse %]
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="[% lang %]" lang="[% lang %]"[% IF lang=="he" %] dir="rtl"[% END %]>
 <head>
-<title>[% IF user %][% t_reporttitle %][% ELSE %][% t_title %][% END %]</title>
+<title>[% IF literaltitle %][% literaltitle %][% ELSIF user %][% t_reporttitle %][% ELSE %][% t_title %][% END %]</title>
 [% IF not mobile %]<link rel="stylesheet" type="text/css" href="/rhes" />[% END %]
 [% IF NOT graph AND noblanks %][% SET isnoblanks="noblanks" %][% ELSE %][% SET isnoblanks="" %][% END %]
 [% IF user %]<link rel="alternate" type="application/rss+xml" title="RSS" href="/rss[% isnoblanks %]/[% site %]/[% user %]" />[% END %]

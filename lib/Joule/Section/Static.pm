@@ -45,10 +45,12 @@ sub handler {
 
     if ($extension eq 'tmpl') {
 	    $r->content_type('text/html');
+	    $vars->{'literaltitle'} = substr($r->uri, 1);
+
 	    $vars->{'literalbody'} = '';
 	    my $template = Joule::Template::template;
-
 	    $template->process($static, $vars, \($vars->{'literalbody'})) || die $template->error();
+
             Joule::Template::go("html_main.tmpl", $vars);
     } else {
 
