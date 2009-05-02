@@ -15,7 +15,7 @@ function go(){document.getElementById('u').focus();}//--></script>
 [% IF mobile %]<h1><a href="/"><img src="/marnanel-rhes-jouleb-01" alt="*joule*" width="74" height="100" style="float: right" /> </a></h1>
 [% ELSE %]<h1><a href="/"><img id="sitename" src="/marnanel-rhes-joulea-01" alt="*joule*" width="465" height="100" /> </a></h1>[% END %]
 <div id="poppy"></div>
-<div id="languages">
+<div id="languages" dir="ltr">
 [% FOREACH l = langlinks %]<a href="?lang=[% l.code %]"[% IF l.code == lang %] class="current"[% END %]>[% l.name %]</a> &middot;
 [% END %] <a href="https://translations.launchpad.net/joule">more?</a>
 </div>
