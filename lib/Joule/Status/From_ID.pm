@@ -40,6 +40,8 @@ sub new {
 
 sub site { "identi.ca"; }
 
+sub referrers { ('identi.ca'); }
+
 my $_login = (do '/etc/joule.conf')->{'identica'};
 
 sub names {

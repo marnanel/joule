@@ -37,11 +37,11 @@ sub handler {
 	my $r = shift;
 
 	my %vars = (
-			site => 'lj', # so chosen by default on first load
+			site => Joule::Status::All::site_from_referrer($r),
 			nohiccup => 0,
 			noblanks => 0,
 		        hostname => $r->hostname,
-			sites => Joule::Status::All->sites,
+			sites => Joule::Status::All::sites,
 	                # FIXME take this from /etc/joule.conf
 	                motd => 'Want to follow the development of Joule?  Follow us <a href="http://twitter.com/marnanel_joule">on Twitter</a>, or <a href="http://identi.ca/joule">on identi.ca</a>, or <a href="http://joule.dreamwidth.org/profile">on Dreamwidth</a>!',
                         version => $VERSION,

@@ -28,4 +28,30 @@ sub sites {
     return { map { $_ => "Joule::Status::From_\U$_"->site() } @sites };
 }
 
+# Given a request object, guesses which site to highlight
+# based on the referrer.  The section handlers can override
+# this-- for example, if you come from LJ and go to a Twitter
+# chart, Twitter will still be highlighted.
+# (Note that we match anywhere in the string, not just the
+# hostname.)
+# (Note also that unlike the HTTP spec, we can spell "referrer".)
+sub site_from_referrer {
+    my ($r) = @_;
+    my $src = $r->headers_in->get('Referer');
+
+    return $sites[0] if !$src || index($src, $r->hostname)!=-1;
+
+    for (@sites) {
+	my $handler = "Joule::Status::From_\U$_"->can('referrers');
+	next unless $handler;
+
+	for my $domain ($handler->()) {
+	    return $_ if index($src, $domain)!=-1;
+	}
+    }
+
+    return $sites[0]; # safe choice
+}
+
+
 1;

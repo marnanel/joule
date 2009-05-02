@@ -29,6 +29,8 @@ sub new {
 
 sub site { "LiveJournal"; }
 
+sub referrers { ('livejournal.com'); }
+
 sub names {
     my ($self, $callback) = @_;
 

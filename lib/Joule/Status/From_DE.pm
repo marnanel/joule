@@ -29,6 +29,9 @@ sub new {
 
 sub site { "del.icio.us"; }
 
+# actually not doing referrers here,
+# because they may want to link us for another site
+
 sub names {
     my ($self, $callback) = @_;
 

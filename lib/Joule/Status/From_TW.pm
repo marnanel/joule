@@ -30,6 +30,8 @@ sub new {
 
 sub site { "Twitter"; }
 
+sub referrers { ('twitter.com'); }
+
 my $_login = (do '/etc/joule.conf')->{'twitter'};
 
 sub names {
