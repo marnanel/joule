@@ -21,12 +21,6 @@ use warnings;
 
 use Apache2::Const -compile => qw(OK);
 
-use Joule::Section::Redirect;
-use Joule::Section::Static;
-use Joule::Section::TakeDown;
-use Joule::Section::Report;
-use Joule::Section::Front;
-
 use Joule::Status::All;
 
 use Joule::Language;
@@ -34,6 +28,9 @@ use Joule::GoogleMobile;
 use Joule::Database;
 
 our $VERSION = '3.4';
+
+our @sections = qw(Redirect Static TakeDown Report Front);
+for (@sections) { require "Joule/Section/$_.pm"; }
 
 sub handler {
 
@@ -45,17 +42,14 @@ sub handler {
 			noblanks => 0,
 		        hostname => $r->hostname,
 			sites => Joule::Status::All->sites,
+	                # FIXME take this from /etc/joule.conf
 	                motd => 'Want to follow the development of Joule?  Follow us <a href="http://twitter.com/marnanel_joule">on Twitter</a>, or <a href="http://identi.ca/joule">on identi.ca</a>, or <a href="http://joule.dreamwidth.org/profile">on Dreamwidth</a>!',
                         version => $VERSION,
 	                lang => Joule::Language::user_language($r),
                         Joule::GoogleMobile::mobile_details($r),
 		  );
 
-	eval {
-	    for my $i qw(Redirect Static TakeDown Report Front) {
-		last if "Joule::Section::$i"->handler($r, \%vars);
-	    }
-	};
+	eval { for (@sections) { last if "Joule::Section::$_"->handler($r, \%vars); } };
 
 	if ($@) {
 	    $vars{bug} = $@ || 'generic error';
