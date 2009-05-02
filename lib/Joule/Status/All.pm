@@ -19,18 +19,13 @@ package Joule::Status::All;
 use strict;
 use warnings;
 
-use Joule::Status::From_DE;
-use Joule::Status::From_LJ;
+my @sites = @{ (do '/etc/joule.conf')->{'sites'} };
 
-# The old CGI Joule used to iterate over the directory so you could just
-# drop in handlers, but I'm not sure how to do this given proper packaging
-# and besides it's probably not for the best to have to scan the directory
-# on every page load.
+for (@sites) { require "Joule/Status/From_\U$_\L.pm"; }
+
+# Returns a hashref mapping site codes to site names.
 sub sites {
-	return {
-		'de' => Joule::Status::From_DE->site(),
-		'lj' => Joule::Status::From_LJ->site(),
-	};
+    return { map { $_ => "Joule::Status::From_\U$_"->site() } @sites };
 }
 
 1;
