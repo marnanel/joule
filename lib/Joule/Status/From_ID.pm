@@ -67,20 +67,43 @@ sub names {
     }
 }
 
+sub _code { 'id'; }
+sub _endpoint { 'http://identi.ca/api/'; }
+
+# warning: code is duplicated in From_TW
+# this needs a superclass.
 sub _lookup {
     my ($id) = @_;
 
+    my $userid = _code() . '/' . $id;
+    my $dbh = Joule::Database::handle;
+
+    my $sth = $dbh->prepare('SELECT username, picture FROM microname WHERE userid=?');
+    $sth->execute($userid);
+    my @result = $sth->fetchrow_array();
+
+    return {
+	userid => $result[0],
+	pic => $result[1],
+    } if @result;
+
+    # otherwise, look it up
     my $ua = LWP::UserAgent->new;
     $ua->agent('Joule/3.0 (http://joule.marnanel.org; thomas@thurman.org.uk)');
-    my $req = HTTP::Request->new(GET => 'http://identi.ca/api/users/show.json?user_id='.$id);
+    my $req = HTTP::Request->new(GET => _endpoint . 'users/show.json?user_id='.$id);
     my $res = $ua->request($req);
 
     return undef unless $res->is_success;
 
     my $data = from_json($res->content);
 
+    # and cache it
+    $sth = $dbh->prepare('INSERT INTO microname (userid, username, picture) VALUES (?, ?, ?)');
+    $sth->execute($userid, $data->{screen_name}, $data->{profile_image_url});
+
+    $dbh->commit();
+
     return {
-	name => $data->{name},
 	userid => $data->{screen_name},
 	pic => $data->{profile_image_url},
     };
