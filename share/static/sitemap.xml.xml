@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+   <url>
+    <loc>http://joule.marnanel.org/faq</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+   </url>  
+   <url>
+    <loc>http://joule.marnanel.org/tw</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+   </url>
+   <url>
+    <loc>http://joule.marnanel.org/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+   </url>
+   <!-- and some example entries -->
+   <url>
+    <loc>http://joule.marnanel.org/chart/lj/marnanel</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.3</priority>
+   </url>  
+   <url>
+    <loc>http://joule.marnanel.org/graph/lj/marnanel</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.3</priority>
+   </url>  
+   <url>
+    <loc>http://joule.marnanel.org/chart/tw/marnanel</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.3</priority>
+   </url>  
+   <url>
+    <loc>http://joule.marnanel.org/graph/tw/marnanel</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.3</priority>
+   </url>  
+</urlset>
