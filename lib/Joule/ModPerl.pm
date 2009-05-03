@@ -43,7 +43,7 @@ sub handler {
 		        hostname => $r->hostname,
 			sites => Joule::Status::All::sites,
 	                # FIXME take this from /etc/joule.conf
-	                motd => 'Want to follow the development of Joule?  Follow us <a href="http://twitter.com/marnanel_joule">on Twitter</a>, or <a href="http://identi.ca/joule">on identi.ca</a>, or <a href="http://joule.dreamwidth.org/profile">on Dreamwidth</a>!',
+	                motd => 'Welcome, Twitter users!  <a href="/tw">Read a brief guide to Joule</a>.  You can also <a href="http://twitter.com/marnanel_joule">follow us on Twitter</a>.',
                         version => $VERSION,
 	                lang => Joule::Language::user_language($r),
                         Joule::GoogleMobile::mobile_details($r),

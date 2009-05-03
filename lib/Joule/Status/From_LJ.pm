@@ -44,7 +44,7 @@ sub names {
     die __PACKAGE__ . ' error: ' . $res->status_line() unless $res->is_success();
     
     for (split('\n', $res->content())) {
-      $callback->($2) if $_ =~ /^(C>) (.*)$/;
+      $callback->($2) if $_ =~ /^(P>) (.*)$/;
     }
 }
 
