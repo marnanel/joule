@@ -39,8 +39,8 @@ http://joule.marnanel.org/faq .
    or &lt;a href="http://[% hostname %]/graph/[% site %]/[% user %]"&gt;graph&lt;/a&gt;.
    [% END %][% day.motd %]
   </description>
-  [%# This uses the old-style URIs but if we change it LJ will force a refresh of everything %]
-  <guid>http://marnanel.org/joule?user=[% user |uri%]&amp;dummy=[% day.date %]</guid>
+[% IF day.temp_rss_fix %]  <guid>http://[% hostname %]/chart/[% site %]/[% user %]/[% day.date %]</guid>
+[% ELSE %]  <guid>http://marnanel.org/joule?user=[% user |uri%]&amp;dummy=[% day.date %]</guid>[% END %]
  </item>
 [% END %]
 </channel></rss>
