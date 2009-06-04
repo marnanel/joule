@@ -172,14 +172,11 @@ sub content {
 
     for (reverse sort keys %results) {
 	    $results{$_}->{date} = $_;
-            if ($opts->{format} && $opts->{format} eq 'rss') {
-              # FIXME: would like to do this in the template with a filter
-              my ($y, $m, $d) = $_ =~ /^(....)-(..)-(..)$/;
-              $results{$_}->{rfc822date} = POSIX::strftime(
-                '%a, %d %b %Y 00:00:00 GMT',
-                0, 0, 0, $d, $m-1, $y-1900,
-                );
-            }
+
+	    # TODO: remove this in a month.  it's a temporary workaround for
+	    # an infelicity of Template::Toolkit.
+	    $results{$_}->{temp_rss_fix} = $_ gt '2009-06-04';
+
 	    push @result, $results{$_};
     }
 

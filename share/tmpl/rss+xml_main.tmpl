@@ -34,8 +34,10 @@ http://joule.marnanel.org/faq .
    &lt;br/&gt;
    Unfriended by:
    [% INCLUDE user_list.tmpl list=day.unfriended |html%]
-   &lt;br/&gt;
-   [% day.motd %]
+   &lt;br/&gt;[% day.temp_rss_fix |null%][% IF day.temp_rss_fix %]
+   See the last month as a &lt;a href="http://[% hostname %]/chart/[% site %]/[% user %]"&gt;chart&lt;/a&gt;
+   or &lt;a href="http://[% hostname %]/graph/[% site %]/[% user %]"&gt;graph&lt;/a&gt;.
+   [% END %][% day.motd %]
   </description>
   [%# This uses the old-style URIs but if we change it LJ will force a refresh of everything %]
   <guid>http://marnanel.org/joule?user=[% user |uri%]&amp;dummy=[% day.date %]</guid>
