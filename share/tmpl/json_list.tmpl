@@ -1,0 +1,4 @@
+[[% SET c=0 %]
+[% FOREACH item IN list.sort %][% IF c %],[% ELSE %][% SET c=1 %][% END %]
+"[% item %]"[% END %]
+]

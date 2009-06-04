@@ -38,6 +38,8 @@ sub handler {
 		    graphfull => {mimetype => 'text/html', graph => 1},
 		    rss => {mimetype => 'application/rss+xml', limit=>50},
 		    rssnoblanks => {mimetype => 'application/rss+xml', limit=>50, noblanks=>1},
+		    json => {mimetype => 'application/json', limit=>50},
+		    jsonnoblanks => {mimetype => 'application/json', limit=>50, noblanks=>1},
 		);
 
     unless ($modes{$1}) {
