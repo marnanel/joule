@@ -37,9 +37,9 @@ sub sites {
 # (Note also that unlike the HTTP spec, we can spell "referrer".)
 sub site_from_referrer {
     my ($r) = @_;
-    my $src = $r->headers_in->get('Referer');
+    my $src = $r->headers_in->get('Referer') || '';
 
-    return $sites[0] if !$src || index($src, $r->hostname)!=-1;
+    return $sites[0] if index($src, $r->hostname)!=-1;
 
     for (@sites) {
 	my $handler = "Joule::Status::From_\U$_"->can('referrers');
@@ -47,6 +47,7 @@ sub site_from_referrer {
 
 	for my $domain ($handler->()) {
 	    return $_ if index($src, $domain)!=-1;
+	    return $_ if $r->uri eq "/$_"; # allow custom landing pages
 	}
     }
 
