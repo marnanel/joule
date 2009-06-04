@@ -27,7 +27,7 @@ use Joule::Language;
 use Joule::GoogleMobile;
 use Joule::Database;
 
-our $VERSION = '3.5';
+our $VERSION = '3.6';
 
 our @sections = qw(Redirect Static TakeDown Report Front);
 for (@sections) { require "Joule/Section/$_.pm"; }
