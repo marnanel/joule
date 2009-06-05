@@ -40,6 +40,7 @@ sub handler {
 		    rssnoblanks => {mimetype => 'application/rss+xml', limit=>50, noblanks=>1},
 		    json => {mimetype => 'application/json', limit=>50},
 		    jsonnoblanks => {mimetype => 'application/json', limit=>50, noblanks=>1},
+                    text => {mimetype => 'text/plain', limit=>1},
 		);
 
     unless ($modes{$1}) {
