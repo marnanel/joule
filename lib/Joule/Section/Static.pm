@@ -60,6 +60,7 @@ sub handler {
 			    png => 'image/png',
 			    jpg => 'image/jpg',
 			    gif => 'image/gif',
+		            xpi => 'application/x-xpinstall',
 			    );
 
 	    if ($mimemapping{$extension}) {
