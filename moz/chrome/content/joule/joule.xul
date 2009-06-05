@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://joule/skin/joule.css" type="text/css"?>
+<overlay xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+<script type="application/x-javascript" src="chrome://joule/content/joule.js" />
+<statusbar id="status-bar">
+<statusbarpanel class="statusbarpanel-iconic" id="joule-icon" oncommand="go_to_joule()" insertafter="livemark-button" mystate="calm">
+</statusbarpanel>
+<statusbarpanel label="+0,-0" id="joule-text" oncommand="go_to_joule()" insertafter="joule-icon" mystate="calm">
+</statusbarpanel>
+</statusbar>
+</overlay>

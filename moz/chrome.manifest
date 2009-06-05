@@ -1,0 +1,8 @@
+overlay	chrome://browser/content/browser.xul	chrome://joule/content/joule.xul
+
+content	joule	chrome/content/joule/
+skin	joule	classic/1.0	chrome/skin/classic/joule/
+locale	joule	en-US	chrome/locale/joule/en-US/
+
+style	chrome://global/content/customizeToolbar.xul	chrome://joule/skin/joule.css
+

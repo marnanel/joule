@@ -1,0 +1,15 @@
+#joule-icon[mystate="calm"] {
+	list-style-image: url("chrome://joule/skin/joule-calm.png");
+}
+
+#joule-icon[mystate="news"] {
+	list-style-image: url("chrome://joule/skin/joule-news.png");
+}
+
+#joule-text[mystate="calm"] {
+	font-weight: normal;
+}
+
+#joule-text[mystate="news"] {
+	font-weight: bold;
+}

@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+
+<RDF xmlns="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+xmlns:em="http://www.mozilla.org/2004/em-rdf#">
+
+<Description about="urn:mozilla:install-manifest">
+
+<em:id>{4deb5cca-01b5-41bb-2151-c5ff6853f2d7}</em:id>
+<em:name>Joule</em:name>
+<em:version>0.1</em:version>
+<em:description>Shows an icon to track changes in your followers list.</em:description>
+<em:creator>Thomas Thurman</em:creator>
+<em:homepageURL>http://joule.marnanel.org</em:homepageURL>
+<em:iconURL>chrome://joule/skin/logo.png</em:iconURL>
+<!-- <em:aboutURL>chrome://joule/content/about.xul</em:aboutURL>
+<em:optionsURL>chrome://joule/content/options.xul</em:optionsURL> -->
+<em:file>
+<Description about="urn:mozilla:extension:file:joule.jar">
+<em:package>content/joule/</em:package>
+<em:skin>skin/classic/joule/</em:skin>
+<em:locale>locale/joule/en-US/</em:locale>
+</Description>
+</em:file>
+
+<!-- Firefox -->
+<em:targetApplication>
+<Description>
+<em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
+<em:minVersion>1.5</em:minVersion>
+<em:maxVersion>3.0.*</em:maxVersion>
+</Description>
+</em:targetApplication>
+
+</Description>
+
+</RDF>
