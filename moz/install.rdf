@@ -12,8 +12,8 @@ xmlns:em="http://www.mozilla.org/2004/em-rdf#">
 <em:creator>Thomas Thurman</em:creator>
 <em:homepageURL>http://joule.marnanel.org</em:homepageURL>
 <em:iconURL>chrome://joule/skin/logo.png</em:iconURL>
-<!-- <em:aboutURL>chrome://joule/content/about.xul</em:aboutURL>
-<em:optionsURL>chrome://joule/content/options.xul</em:optionsURL> -->
+<em:aboutURL>chrome://joule/content/about.xul</em:aboutURL>
+<em:optionsURL>chrome://joule/content/options.xul</em:optionsURL>
 <em:file>
 <Description about="urn:mozilla:extension:file:joule.jar">
 <em:package>content/joule/</em:package>

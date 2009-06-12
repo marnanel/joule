@@ -1,2 +1,2 @@
-pref("extensions.joule.username", "qd.ask");
+pref("extensions.joule.username", "tw/marnanel_joule");
 
