@@ -81,7 +81,10 @@ sub content {
 
        if ($opts->{virgin}) {
 
-	   $opts->{virgin} = 1;
+	   # just in case we have any debris in there
+	   $sth = $dbh->prepare(
+	       "delete from current where userid=?");
+	   $sth->execute($self->{userid});
 
 	   $sth = $dbh->prepare(
 	       "insert into current (userid, fan) ".
