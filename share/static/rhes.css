@@ -36,7 +36,7 @@ td { font-size: 12pt; font-style: italic; }
 th.date { background-color: #FFFF51; }
 .odd { background-color: #FFFFD9; }
 .credits { text-align: center; font-size: 10pt; }
-form.name { text-align: center; font-size: 10pt; }
+div#choose { text-align: center; font-size: 10pt; }
 .gr { margin: 0 auto; }
 .gr th { background-color: #FFFFD9; color: #888888; font-size: 9px; vertical-align: top; font-weight: normal; }
 .gr th.r { color: #000000; } /* FIXME! */
