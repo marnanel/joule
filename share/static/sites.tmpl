@@ -13,9 +13,9 @@ could track.)</td></tr>
 without having to know each user's password. A public API is a good way to do
 this, but we'll accept <a href="http://en.wikipedia.org/wiki/Screen_scraping">screen scraping</a> (heck, that's the entire way Joule worked for a long while).</td></tr>
 <tr><th>3: Permission</th>
-<td>We need permission from the site owners. If there's a public API then
-you might think we have implicit permission, but I like to get permission
-explicitly. Even if everything else is good, this is a dealbreaker.</td></tr>
+<td>If there's a public API, we assume there's implicit permission; but
+if we are asked not to serve data from a site, there's no way we'll
+continue.  (See DeviantArt for an example of this.)</td></tr>
 </table>
 
 <p>Joule allocates a two-letter code to every site. Here's the information on
