@@ -1,0 +1,26 @@
+<div id="navigation">
+<a href="/faq">[% t_faq %]</a> &middot;
+<a href="https://launchpad.net/joule">[% t_code %]</a> &middot;
+[% IF user %]
+[% IF graph %][% SET ischart="graph" %][% ELSE %][% SET ischart="chart" %][% END %]
+[% IF limit %][% SET isfull="" %][% ELSE %][% SET isfull="full" %][% END %]
+<a href="/[% IF graph %]chart[% ELSE %]graph[% END %][% isfull %][% IF graph %][% isnoblanks %][% END %]/[%site%]/[%user%]">[% IF graph %][% t_chart %][% ELSE %][% t_graph %][% END %]</a> &middot;
+[% IF limit %]
+<a href="/[% ischart %]full[% isnoblanks %]/[%site%]/[%user%]">[% t_full %]</a> &middot;
+[% ELSE %]
+<a href="/[% ischart %][% isnoblanks %]/[%site%]/[%user%]">[% t_lastn %]</a> &middot;
+[% END %]
+[% IF NOT graph %]
+[% IF noblanks %]
+<a href="/[% ischart %][% isfull %]/[%site%]/[%user%]">[% t_withblanks %]</a> &middot;
+[% ELSE %]
+<a href="/[% ischart %][% isfull %]noblanks/[%site%]/[%user%]">[% t_noblanks %]</a> &middot;
+[% END %]
+[% END %]
+<a href="/rss[% isnoblanks %]/[%site%]/[% user %]">[% t_feed %]</a> &middot;
+[% ELSE %]
+<a href="http://marnanel.org">marnanel</a> &middot;
+[% END %]
+<a href="http://community.livejournal.com/marnanel_joule/">[% t_comm %]</a> &middot;
+<a href="http://twitter.com/marnanel_joule">twitter</a>
+</div>

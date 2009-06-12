@@ -1,0 +1,41 @@
+<form class="name" action="/" method="get">
+<div id="text">
+<div id="choose">[% t_showme %]</div>
+[% IF errormessage %]<b>[% errormessage %]</b>[% END %]
+<p class="credits">
+[% motd %]
+</p>
+
+[% IF bug %]
+
+<p>Sorry, there seems to have been a problem:</p>
+
+<blockquote>[% bug %]</blockquote>
+
+<p>If you think this is a bug in Joule,
+you might like to <a href="https://bugs.launchpad.net/joule/+filebug">report this</a>.</p>
+
+[% ELSIF literalbody %]
+[% literalbody %]
+[% ELSIF NOT user %]
+[% INCLUDE html_front_page.tmpl %]
+[% ELSIF lonely %]
+[% INCLUDE lonely.tmpl %]
+[% ELSIF virgin %]
+[% INCLUDE html_virgin_page.tmpl %]
+[% ELSIF graph %]
+[% INCLUDE html_graph.tmpl %]
+[% ELSE %]
+[% INCLUDE html_chart.tmpl %]
+[% END %]
+
+<p class="credits">
+[%t_bymarn%] &middot; v[% version %] &middot; [%t_byfin%]<br />
+<a href="http://iww.org">[%t_union%]</a> &middot; [%t_hosted%] &middot;
+[% IF user %][% t_validrss %][% ELSE %][% t_valid %][% END %]
+[% IF lang != "en" %] <br /> [% t_translator %] [% END %]
+<a href="http://www.rackspacecloud.com" style="text-decoration:none; font-family:Arial, Helvetica, sans-serif; font-size:12px; text-align: center; display: block;"><img alt="Powered by Rackspace Cloud Hosting - Formerly Mosso" src="http://cdn.cloudfiles.mosso.com/c110782/the-rackspace-cloud-250-wide.png" style="border:0"/><br />Powered by Rackspace Cloud Hosting</a><br />
+[%# INCLUDE daystats.tmpl %]
+</p>
+
+</div></form></div>

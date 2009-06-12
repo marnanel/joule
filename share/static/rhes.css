@@ -22,11 +22,11 @@ a:link, a:visited { color: #A18FD5; }
 #navigation a { text-decoration: none; color: #000000; }
 #languages a { text-decoration: none; color: #000000; }
 .current { font-weight: 900; }
-#ads { text-align:center; }
+#ads { float:right; }
 #sitename { border: 0; }
 .userinfo { border: 0; }
 .admin { text-align:right; font-size: 10pt; }
-.ch { width: 100%; }
+.ch { max-width: 100%; }
 .user { font-weight: bold; font-style: normal; white-space: nowrap; }
 h1 { float:left; width: 465px; height: 100px; font-size: 10pt; margin:0; }
 h2 { font-size: 16pt; color: #6357FF; font-weight: bolder; margin-top: 1em; }
