@@ -4,20 +4,33 @@ var joule_timer = Components.classes["@mozilla.org/timer;1"]
     .createInstance(Components.interfaces.nsITimer);
 var joule_notify = function() { };
 var joule_previous_day = '';
+var joule_previous_username = '';
+
+function joule_doc() {
+    if (document.getElementById('joule-text'))
+	return document;
+    if (window.opener &&
+	window.opener.document.getElementById('joule-text'))
+	return window.opener.document;
+    if (window.opener.opener &&
+	window.opener.opener.document.getElementById('joule-text'))
+	return window.opener.opener.document;
+    alert('cannot find document.');
+}
 
 function joule_set_busyness(how) {
     var busy = how? 'news':'calm';
 
-    document.getElementById('joule-icon').setAttribute('mystate', busy);
-    document.getElementById('joule-text').setAttribute('mystate', busy);
+    joule_doc().getElementById('joule-icon').setAttribute('mystate', busy);
+    joule_doc().getElementById('joule-text').setAttribute('mystate', busy);
 }
 
 function joule_display(text) {
-    document.getElementById('joule-text').setAttribute('label', text);
+    joule_doc().getElementById('joule-text').setAttribute('label', text);
 }
 
 function joule_username() {
-    return joule_prefs.getCharPref('username');
+    return joule_prefs.getCharPref('site')+'/'+joule_prefs.getCharPref('name');
 }
 
 function joule_update_statusbar_cb() {
@@ -42,15 +55,28 @@ function joule_update_statusbar_cb() {
 
 function joule_update_statusbar() {
     var c = new XMLHttpRequest();
+    var username = joule_username();
     c.onreadystatechange = joule_update_statusbar_cb;
-    c.open('GET', "http://joule.marnanel.org/text/"+joule_username());
+    c.open('GET', "http://joule.marnanel.org/text/"+username);
     c.send('');
+    joule_previous_username = username;
 }
 
 function go_to_joule() {
-    var url = 'http://joule.marnanel.org/chart/'+joule_username()+'/t';
-    getBrowser().selectedTab = getBrowser().addTab(url);
-    joule_set_busyness(0);
+    var username = joule_username();
+
+    if (joule_previous_username!=username) {
+
+	joule_update_statusbar();
+	alert('Your statusbar is updating to reflect the changed settings.  If you click the lightbulb again, you will be taken to Joule.');
+
+    } else {
+	var url = 'http://joule.marnanel.org/chart/'+username+'/t';
+	getBrowser().selectedTab = getBrowser().addTab(url);
+	joule_set_busyness(0);
+    }
+
+    joule_previous_username = username;
 }
 
 joule_notify.prototype = {

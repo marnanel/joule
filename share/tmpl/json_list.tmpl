@@ -1,4 +1,1 @@
-[[% SET c=0 %]
-[% FOREACH item IN list.sort %][% IF c %],[% ELSE %][% SET c=1 %][% END %]
-"[% item %]"[% END %]
-]
+[% USE HTML.Strip %][[% SET c=0 %][% IF list %][% FOREACH item IN list.sort %][% IF c %],[% ELSE %][% SET c=1 %][% END %]"[% item |username | html_strip %]"[% END %][% END %]]

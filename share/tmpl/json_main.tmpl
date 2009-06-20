@@ -5,8 +5,8 @@
  "changes": [[% SET c=0 %][% FOREACH day IN days %][% IF c %],[% ELSE %][% SET c=1 %][% END %]
  {
    "date": "[% day.date %]",
-   "gainsize": [% IF day.friended %][% day.friended.size %][% ELSE %]0[% END %],
-   "losesize": [% IF day.unfriended %][% day.unfriended.size %][% ELSE %]0[% END %]
+   "gain": [%= INCLUDE json_list.tmpl list=day.friended =%],
+   "lose": [%= INCLUDE json_list.tmpl list=day.unfriended =%],
  }[% END %]
   ]
 }

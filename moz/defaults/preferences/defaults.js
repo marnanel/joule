@@ -1,2 +1,3 @@
-pref("extensions.joule.username", "tw/marnanel_joule");
+pref("extensions.joule.site", "tw");
+pref("extensions.joule.name", "marnanel_joule");
 
