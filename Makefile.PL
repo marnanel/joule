@@ -14,6 +14,8 @@
 #    You should have received a copy of the GNU Affero General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+use strict;
+use warnings;
   use inc::Module::Install;
   
   # Define metadata
@@ -53,8 +55,12 @@
   requires 'Time::HiRes';
   requires 'URI::Escape';
 
+  cc_optimize_flags '-O3';
+  can_cc or die "This module requires a C compiler";
+
 do "translate.pl";
   
   install_share unless $ENV{NOSHARE};
 
+ # auto_install;
   WriteAll;
