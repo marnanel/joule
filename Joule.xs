@@ -48,14 +48,17 @@ char*
 raisin_report_delta (int direction, char *line, SV *c)
 {
   int charcount = 0;
-  char *cursor = line+1;
+  char *cursor = line;
   char *buffer, *bufptr;
 
   while (*cursor && *cursor!='\n')
     cursor++;
 
   bufptr = buffer = malloc(cursor-line);
-  cursor = line+1;
+  cursor = line;
+  while (*cursor=='\n') {
+    cursor++;
+  }
   while (*cursor && *cursor!='\n') {
     *(bufptr++) = *(cursor++);
   }
@@ -88,6 +91,9 @@ raisin_main_compare (char *left, char *right, SV *c)
   char *right_break = right;
 
   while (*left && *right) {
+
+    while (*left=='\n') left++;
+    while (*right=='\n') right++;
 
     if (*left==*right) {
       ++left;
