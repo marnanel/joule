@@ -28,6 +28,7 @@ sub new {
 }
 
 sub site { "Digg"; }
+sub referrers { ('digg.com'); }
 
 my $_appkey = (do '/etc/joule.conf')->{'digg'};
 
