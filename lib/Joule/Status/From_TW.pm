@@ -53,11 +53,6 @@ sub names {
 	"bug</a> and may be an error in Twitter.  It seems ".
 	"to happen for users with very large numbers of followers.\n" if $res->code == 502;
     die $res->status_line()."\n" unless $res->is_success();
-    die "This user has several thousand followers and it would take many minutes ".
-	"to download them all.  If you are this user, email us and ask for this ".
-	"to be submitted as a background job every night.  We are working on ".
-	"<a href=\"https://blueprints.launchpad.net/joule/+spec/snipsnap\">a ".
-	"fix for this</a> which should be in the next release.\n" if length($res->content)>102400;
 
     for (@{ from_json($res->content()) }) {
 	$callback->($_);
