@@ -5,7 +5,6 @@
 <p class="credits">
 [% motd %]
 </p>
-
 [% IF bug %]
 
 <p>Sorry, there seems to have been a problem:</p>
@@ -34,7 +33,7 @@ you might like to <a href="https://bugs.launchpad.net/joule/+filebug">report thi
 <a href="http://iww.org">[%t_union%]</a> &middot; [%t_hosted%] &middot;
 [% IF user %][% t_validrss %][% ELSE %][% t_valid %][% END %]
 [% IF lang != "en" %] <br /> [% t_translator %] [% END %]
-<br />Powered by<br /><a href="http://www.rackspacecloud.com" style="text-decoration:none; font-family:Arial, Helvetica, sans-serif; font-size:12px; text-align: center; display: block;"><img alt="Rackspace Cloud Hosting - Formerly Mosso" src="http://cdn.cloudfiles.mosso.com/c110782/the-rackspace-cloud-250-wide.png" style="border:0"/><br /></a>
+<br />Powered by<br /><a href="http://www.rackspacecloud.com"><img alt="Rackspace Cloud Hosting - Formerly Mosso" src="http://cdn.cloudfiles.mosso.com/c110782/the-rackspace-cloud-250-wide.png" style="border:0"/><br /></a>
 [%# INCLUDE daystats.tmpl %]
 </p>
 
