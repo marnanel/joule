@@ -21,6 +21,7 @@ use warnings;
 use DBI;
 use POSIX qw(strftime);
 use Joule::Database;
+use Joule;
 
 sub new {
     my ($class, $username, $status) = @_;
@@ -31,6 +32,22 @@ sub new {
     };
 
     bless $result, $class;
+}
+
+sub _build_raisin_from_current {
+    my ($dbh, $name) = @_;
+    my $result = '';
+
+    my $sth = $dbh->prepare('SELECT fan FROM current WHERE userid=? ORDER BY fan');
+    $sth->execute($name);
+    while (my $f = $sth->fetchrow_array()) {
+	if ($result) {
+	    $result .= "\n$f";
+	} else {
+	    $result = $f;
+	}
+    }
+    return $result;
 }
 
 sub content {
@@ -53,77 +70,72 @@ sub content {
 
        # it hasn't been done today
 
-       $sth = $dbh->prepare("SELECT nextval('snapid'), current_date");
+       $sth = $dbh->prepare("SELECT current_date");
        $sth->execute();
-       my ($snap, $today) = $sth->fetchrow_array();
-       my $name_count = 0;
+       my ($today) = $sth->fetchrow_array();
 
-       $sth = $dbh->prepare('INSERT INTO snapshot (snap, name) VALUES (?,?)');
+       my @raisin_tmp;
 
-       # FIXME: Can this be more efficient?
+       # FIXME: This is inefficient but rewriting it will
+       # mean a change to every one of the status handlers;
+       # do this later
        $self->{'status'}->names(sub {
-	   $name_count++;
-	   $sth->execute($snap, shift);
+	   push @raisin_tmp, shift;
 				});
 
-       $opts->{lonely} = 1 unless $name_count;
+       my $raisin_is = join("\n", sort @raisin_tmp);
+       undef @raisin_tmp;
+
+       $opts->{lonely} = 1 unless $raisin_is;
+
+       # FIXME: This is wrong: the status handler should
+       # tell us whether something doesn't exist at all.
+       # (This currently assumes that everything works like LJ.)
        return () if $opts->{lonely} and $opts->{virgin}; # because we don't know for sure it exists at all
 
-       $sth = $dbh->prepare("SELECT COUNT(*) FROM account WHERE userid=? LIMIT 1");
+       $sth = $dbh->prepare("SELECT 1, state FROM account WHERE userid=?");
        $sth->execute($self->{userid});
-       unless ($sth->fetchrow()) {
-	   $sth = $dbh->prepare("INSERT INTO account VALUES (?)");
+       my ($exists, $raisin_was) = $sth->fetchrow_array();
+       if ($exists) {
+
+	   if (!defined $raisin_was) {
+	       # No raisin information; possibly we have to build it from current.
+	       $raisin_was = _build_raisin_from_current($dbh, $self->{userid});
+	   }
+
+       } else {
+	   # Doesn't exist yet; this is a new account, so create it
+	   $sth = $dbh->prepare("INSERT INTO account VALUES (?, '')");
 	   $sth->execute($self->{userid});
        }
 
        my $adder = $dbh->prepare("INSERT INTO checking(userid, datestamp) VALUES (?, ?)");
        $adder->execute($self->{userid}, $today);
 
-       if ($opts->{virgin}) {
-
-	   # just in case we have any debris in there
-	   $sth = $dbh->prepare(
-	       "delete from current where userid=?");
-	   $sth->execute($self->{userid});
-
-	   $sth = $dbh->prepare(
-	       "insert into current (userid, fan) ".
-	       "select ?, name from snapshot where snap=?");
-	   $sth->execute($self->{userid}, $snap);
-
-       } else {
+       unless ($opts->{virgin}) {
 
 	   # Deltas are not stored for virgin accounts
 	   # (otherwise it shows a mass friending first)
 
 	   $sth = $dbh->prepare(
 	       "insert into change(userid,datestamp,fan,added) ".
-	       "select ?, ?, name, true ".
-	       "from snapshot where snap=? and name not in ".
-	       "(select fan from current where userid=?)");
-	   $sth->execute($self->{userid}, $today, $snap, $self->{userid});
+	       "values (?, ?, ?, ?)"
+	       );
+	   Joule::raisin_compare(
+	       $raisin_was,
+	       $raisin_is,
+	       sub {
+		   my ($added, $name) = @_;
+		   $sth->execute($self->{userid}, $today, $name, $added);
+	       });
 
-	   $sth = $dbh->prepare(
-	       "insert into change(userid,datestamp,fan,added) ".
-	       "select ?, ?, fan, false ".
-	       "from current where userid=? and fan not in ".
-	       "(select name from snapshot where snap=?) and userid=?");
-	   $sth->execute($self->{userid}, $today, $self->{userid}, $snap, $self->{userid});
-
-	   $sth = $dbh->prepare(
-	       "insert into current select userid, fan from change ".
-	       "where userid=? and datestamp=? and added");
-	   $sth->execute($self->{userid}, $today);
-
-	   $sth = $dbh->prepare(
-	       "delete from current where userid=? ".
-	       "and fan in (select fan from change where ".
-	       "userid=? and datestamp=? and not added)");
-	   $sth->execute($self->{userid}, $self->{userid}, $today);
        }
 
-       $sth = $dbh->prepare('delete from snapshot where snap=?');
-       $sth->execute($snap);
+       # Save it for next time.
+       $sth = $dbh->prepare(
+	   "update account set state=? where userid=?"
+	   );
+       $sth->execute($raisin_is, $self->{userid});
 
        # Aaaaand... commit.
        $dbh->commit();

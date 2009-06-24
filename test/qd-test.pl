@@ -17,11 +17,11 @@ die "no point continuing" unless $dbh;
 
 my $sth;
 
-$sth = $dbh->prepare("DELETE FROM current WHERE userid=?");
-$sth->execute('qd/dummy');
 $sth = $dbh->prepare("DELETE FROM change WHERE userid=?");
 $sth->execute('qd/dummy');
 $sth = $dbh->prepare("DELETE FROM checking WHERE userid=?");
+$sth->execute('qd/dummy');
+$sth = $dbh->prepare("DELETE FROM account WHERE userid=?");
 $sth->execute('qd/dummy');
 
 ok(1, "cleaned database");
@@ -29,9 +29,10 @@ ok(1, "cleaned database");
 sub db_state {
     my @result;
 
-    my $sth = $dbh->prepare("select fan from current where userid='qd/dummy'");
+    my $sth = $dbh->prepare("select state from account where userid='qd/dummy'");
     $sth->execute();
-    @result = (@result, map { $_->[0] } @{ $sth->fetchall_arrayref() } );
+    my $state = $sth->fetchrow_arrayref();
+    @result = split /\n/, $state->[0] if $state;
 
     $sth = $dbh->prepare("select fan from change where userid='qd/dummy' and added");
     $sth->execute();
