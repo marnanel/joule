@@ -1,4 +1,6 @@
 <div id="languages" dir="ltr">
 [% FOREACH l = langlinks %]<a href="?lang=[% l.code %]"[% IF l.code == lang %] class="current"[% END %]>[% l.name %]</a> &middot;
 [% END %] <a href="https://translations.launchpad.net/joule">more?</a>
+<br/><br/>
+[% INCLUDE addthis.tmpl %]
 </div>

@@ -14,8 +14,7 @@ function go(){document.getElementById('u').focus();}//--></script>
 <body[% IF NOT user %] onload="go()"[% END %]><div id="content">
 [% IF mobile %]<h1><a href="/"><img src="/marnanel-rhes-jouleb-01" alt="*joule*" width="74" height="100" style="float: right" /> </a></h1>
 [% ELSE %]<h1><a href="/"><img id="sitename" src="/marnanel-rhes-joulea-01" alt="*joule*" width="465" height="100" /> </a></h1>[% END %]
-<div id="poppy"></div>
-[% INCLUDE html_main_lang.tmpl %]
+<div id="poppy"></div>[% INCLUDE html_main_lang.tmpl %]
 [% INCLUDE html_main_nav.tmpl %]
 [% INCLUDE html_main_ads.tmpl %]
 [% INCLUDE html_main_central.tmpl %]
