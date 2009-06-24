@@ -33,7 +33,7 @@ sub site { "del.icio.us"; }
 # because they may want to link us for another site
 
 sub names {
-    my ($self, $callback) = @_;
+    my ($self) = @_;
 
     my $ua = LWP::UserAgent->new();
     $ua->agent("Joule/3.0 (http://marnanel.org/joule; thomas\@thurman.org.uk)");
@@ -44,9 +44,7 @@ sub names {
 
     die __PACKAGE__ . ' error: ' . $res->status_line() unless $res->is_success();
 
-    for (@{ jsonToObj($res->content()) }) {
-	$callback->($_);
-    }
+    return join("\n", sort @{ from_json($res->content()) });
 }
 
 1;

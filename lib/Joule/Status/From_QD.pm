@@ -37,9 +37,7 @@ sub names {
     my @result = @{from_json(<JSON>)};
     close JSON or return;
 
-    for (@result) {
-	$callback->($_);
-    }
+    return join("\n", sort @result);
 }
 
 1;

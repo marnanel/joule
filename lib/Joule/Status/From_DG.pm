@@ -33,12 +33,14 @@ sub referrers { ('digg.com'); }
 my $_appkey = (do '/etc/joule.conf')->{'digg'};
 
 sub names {
-    my ($self, $callback) = @_;
+    my ($self) = @_;
 
     my $offset = 0;
 
     my $ua = LWP::UserAgent->new;
     $ua->agent("Joule/3.0 (http://marnanel.org/joule; thomas\@thurman.org.uk)");
+
+    my @result;
 
     while (1) {
 	my $req = HTTP::Request->new(GET => "http://services.digg.com/user/$$self/fans?type=json&count=100&offset=$offset&appkey=$_appkey");
@@ -48,14 +50,13 @@ sub names {
 	my $result = from_json($res->content);
 	my @subtotal = map { $_->{'name'} } @{$result->{'users'}};
 
-	for (@subtotal) {
-	    $callback->($_) if $_ and $_ ne 'inactive';
-	}
+	@result = (@result, grep { $_ and $_ ne 'inactive' } @subtotal);
 
 	last unless scalar(@subtotal)==100;
 	$offset += 100;
     }
 
+    return join("\n", sort @result);
 }
 
 sub username_filter {

@@ -32,7 +32,7 @@ sub site { "LiveJournal"; }
 sub referrers { ('livejournal.com'); }
 
 sub names {
-    my ($self, $callback) = @_;
+    my ($self) = @_;
 
     my $ua = LWP::UserAgent->new();
     $ua->agent("Joule/3.0 (http://marnanel.org/joule; thomas\@thurman.org.uk)");
@@ -42,10 +42,14 @@ sub names {
     my $res = $ua->request($req);
 
     die __PACKAGE__ . ' error: ' . $res->status_line() unless $res->is_success();
-    
+
+    my @result;
+
     for (split('\n', $res->content())) {
-      $callback->($2) if $_ =~ /^(P<) (.*)$/;
+	push @result, $2 if $_ =~ /^(P<) (.*)$/;
     }
+ 
+    return join("\n", sort @result);
 }
 
 sub username_filter {

@@ -74,17 +74,7 @@ sub content {
        $sth->execute();
        my ($today) = $sth->fetchrow_array();
 
-       my @raisin_tmp;
-
-       # FIXME: This is inefficient but rewriting it will
-       # mean a change to every one of the status handlers;
-       # do this later
-       $self->{'status'}->names(sub {
-	   push @raisin_tmp, shift;
-				});
-
-       my $raisin_is = join("\n", sort @raisin_tmp);
-       undef @raisin_tmp;
+       my $raisin_is = $self->{'status'}->names();
 
        $opts->{lonely} = 1 unless $raisin_is;
 

@@ -45,7 +45,7 @@ sub referrers { ('identi.ca'); }
 my $_login = (do '/etc/joule.conf')->{'identica'};
 
 sub names {
-    my ($self, $callback) = @_;
+    my ($self) = @_;
 
     my $hh = HTTP::Headers->new();
     $hh->authorization_basic ($_login->[0], $_login->[1]);
@@ -62,9 +62,7 @@ sub names {
     die "Sorry, can't seem to find that user.\n" if $res->code == 404;
     die $res->status_line() unless $res->is_success();
 
-    for (@{ from_json($res->content()) }) {
-	$callback->($_);
-    }
+    return join("\n", sort @{ from_json($res->content()) });
 }
 
 sub _code { 'id'; }
