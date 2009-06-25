@@ -43,18 +43,39 @@ sub names {
     my $ua = LWP::UserAgent->new();
     $ua->agent("Joule/3.0 (http://marnanel.org/joule; thomas\@thurman.org.uk)");
 
-    my $req = HTTP::Request->new(GET=>'http://twitter.com/followers/ids.json?screen_name='.$$self, $hh);
+    my $page = 1;
+    my $content = '';
 
-    my $res = $ua->request($req);
+    # note: this loop hasn't been ported to the identi.ca
+    # code because I don't think we've run into the
+    # paging problem there; it should go into the
+    # superclass when it's written anyway.
+    while (1) {
 
-    die "Sorry, can't seem to find that user.\n" if $res->code == 401;
-    die "The upstream server refused to send us names.  ".
-	"This is a <a href=\"https://bugs.launchpad.net/joule/+bug/368347\">known ".
-	"bug</a> and may be an error in Twitter.  It seems ".
-	"to happen for users with very large numbers of followers.\n" if $res->code == 502;
-    die $res->status_line()."\n" unless $res->is_success();
+	my $req = HTTP::Request->new(GET=>'http://twitter.com/followers/ids.json?screen_name='.$$self."&page=$page",
+				     $hh);
+	$page++;
+	my $res = $ua->request($req);
+	die "Sorry, can't seem to find that user.\n" if $res->code == 401;
 
-    return join("\n", sort @{ from_json($res->content()) });
+	# Hoping this isn't still a problem, but leaving
+	# it in for now in case it is.
+	die "The upstream server refused to send us names.  ".
+	    "This is a <a href=\"https://bugs.launchpad.net/joule/+bug/368347\">known ".
+	    "bug</a> and may be an error in Twitter.  It seems ".
+	    "to happen for users with very large numbers of followers.\n" if $res->code == 502;
+	die $res->status_line()."\n" unless $res->is_success();
+
+	last if $res->content =~ /\[\]/;
+	$content .= $res->content();
+    }
+
+    $content =~ s/\]\[/,/g;
+    $content =~ s/^\[//;
+    $content =~ s/\]\s*$//g;
+
+    my %result = map {$_=>undef} split(',', $content);
+    return join("\n", sort keys %result);
 }
 
 sub _code { 'tw' }
