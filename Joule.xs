@@ -92,24 +92,28 @@ raisin_main_compare (char *left, char *right, SV *c)
 
   while (*left && *right) {
 
-    while (*left=='\n') left++;
-    while (*right=='\n') right++;
-
     if (*left==*right) {
+      if (*left=='\n') left_break = left;
+      if (*right=='\n') right_break = right;
+
       ++left;
       ++right;
     } else {
-      if (*left<*right) {
+      if (*left<*right || *left=='\n') {
 	left = raisin_report_delta (0, left_break, c);
 	right = right_break;
       } else {
 	right = raisin_report_delta (1, right_break, c);
 	left = left_break;
       }
+
+      if (*left=='\n') left_break = left;
+      if (*right=='\n') right_break = right;
+
+      while (*left=='\n') left++;
+      while (*right=='\n') right++;
     }
 
-    if (*left=='\n') left_break = left;
-    if (*right=='\n') right_break = right;
   }
 
   while (*left) {
