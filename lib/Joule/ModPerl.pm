@@ -29,7 +29,7 @@ use Joule::Database;
 
 our $VERSION = '3.6';
 
-our @sections = qw(Redirect Static TakeDown Report Front);
+our @sections = qw(Redirect Static TakeDown Pick Report Front);
 for (@sections) { require "Joule/Section/$_.pm"; }
 
 sub handler {

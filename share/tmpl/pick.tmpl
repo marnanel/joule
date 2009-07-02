@@ -1,0 +1,11 @@
+<p>Hello, [% username |html %], welcome to Joule!</p>
+
+<p>There's just one more thing you need to tell me.
+Which of these sites are you using?</p>
+
+<ul>
+[% FOREACH site IN sites %]
+<li><img src="/icon-[% site.code %]" width="16" height="16" alt=""><a
+href="http://[% hostname %]/chart/[% site.code %]/[% username |html %]">[% username |html %] on [% site.name |html %]?</a></li>
+[% END %]
+</ul>
