@@ -1,3 +1,38 @@
 <div [% IF not mobile %] style="text-align:center"[% END %]>
+[% IF lang=="en" %]
+[%# experimental new text %]
+<div class="tealdeer">
+<p>Joule lets you chart who's followed and unfollowed you on
+Twitter, LiveJournal, identi.ca, Digg, or delicious.com.
+It looks like <a href="http://joule.marnanel.org/chart/tw/marnanel">this</a>.</p>
+
+<p>To get your own stats,
+just type your name in the box above, choose "Twitter",
+"LiveJournal" or whatever from the list, and press "chart"
+to see a chart.</p>
+<p>To get daily statistics by direct message (DM), follow
+<a href="http://twitter.com/joulestats">@joulestats</a>
+on Twitter, or
+<a href="http://identi.ca/joulestats">@joulestats</a> on identi.ca.</p>
+<p>To get a daily feed of your stats in an RSS reader
+(like <a href="http://reader.google.com">Google Reader</a>),
+go to your chart page, copy the address to the clipboard,
+click "Add a new subscription" in your reader, and paste the
+address into the box.</p>
+<p>To get your statistics in your Firefox status bar,
+<a href="https://addons.mozilla.org/en-US/firefox/addon/12440">install
+our experimental addon</a>.</p>
+<p>To get all the Joule news, follow us on
+<a href="http://twitter.com/marnanel_joule">Twitter</a>,
+<a href="http://community.livejournal.com/marnanel_joule">LiveJournal</a>,
+<a href="http://identi.ca/joule">identi.ca</a>,
+or
+<a href="http://joule.dreamwidth.org">Dreamwidth</a>.</p>
+<p>Want more information?
+<a href="http://joule.marnanel.org/faq">Try the FAQ</a>.</p>
+</div>
+[% ELSE %]
+[%# stick with the old text for other languages until it can be translated %]
 [% t_blurb %]
+[% END %]
 </div>
