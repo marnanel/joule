@@ -1,7 +1,7 @@
 [% IF NOT list %]
 [% t_none %]
-[% ELSIF list.size > 30 && NOT nohiccup %]
-Hiccup.
+[% ELSIF list.size > 100 && NOT nohiccup %]
+<a href="http://joule.dreamwidth.org/1745.html">Many: see link.</a> ([% list.size %] names.)
 [% ELSE %]
 [%= list.size =%]: [% FOREACH item IN list.sort %] [%= item | username =%][%= ", " IF not loop.last =%] [% END %]
 [% END %]
