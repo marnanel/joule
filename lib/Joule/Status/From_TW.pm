@@ -110,7 +110,7 @@ sub _lookup {
 
     # and cache it
     $sth = $dbh->prepare('INSERT INTO microname (userid, username, picture) VALUES (?, ?, ?)');
-    $sth->execute($userid, $data->{screen_name}, $data->{profile_image_url});
+    eval { $sth->execute($userid, $data->{screen_name}, $data->{profile_image_url}); };
 
     $dbh->commit();
 
